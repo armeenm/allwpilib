@@ -640,11 +640,35 @@ JNIEXPORT jint JNICALL Java_edu_wpi_first_wpilibj_communication_FRCNetworkCommun
 {
   const char * errorStr = env->GetStringUTFChars(error, NULL);
   jsize length = env->GetStringUTFLength(error);
-  
+
   NETCOMM_LOG(logDEBUG) << "Set Error: " << errorStr;
   NETCOMM_LOG(logDEBUG) << "Length: " << length;
   jint returnValue = HALSetErrorData(errorStr, (jint) length, 0);
   env->ReleaseStringUTFChars(error,errorStr);
   return returnValue;
 }
-  
+
+/*
+ * Class:     edu_wpi_first_wpilibj_communication_FRCNetworkCommunicationsLibrary
+ * Method:    HALSendError
+ * Signature: (ZILjava/lang/StringLjava/lang/StringLjava/lang/String;)I
+ */
+JNIEXPORT jint JNICALL
+    Java_edu_wpi_first_wpilibj_communication_FRCNetworkCommunicationsLibrary_HALSendError(
+        JNIEnv *env, jclass, jboolean isError, jint errorCode, jstring details,
+        jstring location, jstring callstack) {
+  const char * detailsStr = env->GetStringUTFChars(details, NULL);
+  const char * locationStr = env->GetStringUTFChars(location, NULL);
+  const char * callstackStr = env->GetStringUTFChars(callstack, NULL);
+
+  NETCOMM_LOG(logDEBUG) << "Error Details: " << detailsStr;
+  NETCOMM_LOG(logDEBUG) << "Error Location: " << locationStr;
+  NETCOMM_LOG(logDEBUG) << "Error Stacktrace: " << callstackStr;
+  jint returnValue =
+      HALSendError(isError, errorCode, detailsStr, locationStr, callstackStr);
+  env->ReleaseStringUTFChars(details,detailsStr);
+  env->ReleaseStringUTFChars(location,locationStr);
+  env->ReleaseStringUTFChars(callstack,callstackStr);
+  return returnValue;
+}
+

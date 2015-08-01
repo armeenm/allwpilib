@@ -90,6 +90,8 @@ class ErrorBase {
                                 uint32_t lineNumber);
   static Error& GetGlobalError();
 
+  virtual std::string GetName() const;
+
  protected:
   mutable Error m_error;
   // TODO: Replace globalError with a global list of all errors.

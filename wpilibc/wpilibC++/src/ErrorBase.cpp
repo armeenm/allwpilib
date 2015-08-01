@@ -193,3 +193,13 @@ Error& ErrorBase::GetGlobalError() {
   std::unique_lock<priority_mutex> mutex(_globalErrorMutex);
   return _globalError;
 }
+
+/**
+ * Default name for objects.
+ */
+std::string ErrorBase::GetName() const {
+    char ptrmsgbuf[32];
+    snprintf(ptrmsgbuf, 32, "%p", (void*)this);
+    return std::string("Unnamed Object: ") + ptrmsgbuf;
+}
+

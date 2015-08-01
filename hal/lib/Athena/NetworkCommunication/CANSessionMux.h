@@ -8,7 +8,11 @@
 #ifndef __CANSessionMux_h__
 #define __CANSessionMux_h__
 
+#if defined(__vxworks)
+#include <vxWorks.h>
+#else
 #include <stdint.h>
+#endif
 
 #define CAN_SEND_PERIOD_NO_REPEAT 0
 #define CAN_SEND_PERIOD_STOP_REPEATING -1
@@ -31,6 +35,7 @@ struct tCANStreamMessage{
 	uint8_t dataSize;
 };
 
+#ifdef __cplusplus
 namespace nCANSessionMux
 {
 	void sendMessage_wrapper(uint32_t messageID, const uint8_t *data, uint8_t dataSize, int32_t periodMs, int32_t *status);
@@ -40,6 +45,7 @@ namespace nCANSessionMux
 	void readStreamSession(uint32_t sessionHandle, struct tCANStreamMessage *messages, uint32_t messagesToRead, uint32_t *messagesRead, int32_t *status);
 	void getCANStatus(float *percentBusUtilization, uint32_t *busOffCount, uint32_t *txFullCount, uint32_t *receiveErrorCount, uint32_t *transmitErrorCount, int32_t *status);
 }
+#endif
 
 #ifdef __cplusplus
 extern "C"

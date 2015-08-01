@@ -2,9 +2,12 @@
 #ifndef __UsageReporting_h__
 #define __UsageReporting_h__
 
-#ifdef SIMULATION
+#ifdef WIN32
 #include <vxWorks_compat.h>
 #define EXPORT_FUNC __declspec(dllexport) __cdecl
+#elif defined (__vxworks)
+#include <vxWorks.h>
+#define EXPORT_FUNC
 #else
 #include <stdint.h>
 #include <stdlib.h>

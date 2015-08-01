@@ -220,6 +220,8 @@ extern "C"
 	bool getFPGAButton(int32_t *status);
 
 	int HALSetErrorData(const char *errors, int errorsLength, int wait_ms);
+	int HALSendError(bool isError, int32_t errorCode, const char *details,
+		const char *location, const char *callStack);
 
 	int HALGetControlWord(HALControlWord *data);
 	int HALGetAllianceStation(enum HALAllianceStationID *allianceStation);
@@ -235,7 +237,7 @@ extern "C"
 	int HALGetMatchTime(float *matchTime);
 
 	void HALSetNewDataSem(MULTIWAIT_ID sem);
-	
+
 	bool HALGetSystemActive(int32_t *status);
 	bool HALGetBrownedOut(int32_t *status);
 

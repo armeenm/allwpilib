@@ -62,16 +62,16 @@ const char* getHALErrorMessage(int32_t code)
 			return NiFpga_Status_FifoTimeout_MESSAGE;
 		case NiFpga_Status_TransferAborted:
 			return NiFpga_Status_TransferAborted_MESSAGE;
-		case NiFpga_Status_MemoryFull: 
+		case NiFpga_Status_MemoryFull:
 			return NiFpga_Status_MemoryFull_MESSAGE;
 		case NiFpga_Status_SoftwareFault:
 			return NiFpga_Status_SoftwareFault_MESSAGE;
 		case NiFpga_Status_InvalidParameter:
 			return NiFpga_Status_InvalidParameter_MESSAGE;
 		case NiFpga_Status_ResourceNotFound:
-			return NiFpga_Status_ResourceNotFound_MESSAGE; 
+			return NiFpga_Status_ResourceNotFound_MESSAGE;
 		case NiFpga_Status_ResourceNotInitialized:
-			return NiFpga_Status_ResourceNotInitialized_MESSAGE; 
+			return NiFpga_Status_ResourceNotInitialized_MESSAGE;
 		case NiFpga_Status_HardwareFault:
 			return NiFpga_Status_HardwareFault_MESSAGE;
 		case NiFpga_Status_IrqTimeout:
@@ -186,6 +186,13 @@ int HALSetErrorData(const char *errors, int errorsLength, int wait_ms)
 	return setErrorData(errors, errorsLength, wait_ms);
 }
 
+int HALSendError(bool isError, int32_t errorCode, const char *details,
+	const char *location, const char *callStack)
+{
+	return FRC_NetworkCommunication_sendError(isError, errorCode, false, details,
+																						location, callStack);
+}
+
 int HALGetControlWord(HALControlWord *data)
 {
 	return FRC_NetworkCommunication_getControlWord((ControlWord_t*) data);
@@ -213,7 +220,7 @@ int HALGetJoystickButtons(uint8_t joystickNum, HALJoystickButtons *buttons)
 
 int HALGetJoystickDescriptor(uint8_t joystickNum, HALJoystickDescriptor *desc)
 {
-	return FRC_NetworkCommunication_getJoystickDesc(joystickNum, &desc->isXbox, &desc->type, (char *)(&desc->name), 
+	return FRC_NetworkCommunication_getJoystickDesc(joystickNum, &desc->isXbox, &desc->type, (char *)(&desc->name),
 		&desc->axisCount, (uint8_t *)&desc->axisTypes, &desc->buttonCount, &desc->povCount);
 }
 
@@ -286,7 +293,7 @@ bool HALGetSystemActive(int32_t *status)
 {
 	return watchdog->readStatus_SystemActive(status);
 }
-	
+
 bool HALGetBrownedOut(int32_t *status)
 {
 	return !(watchdog->readStatus_PowerAlive(status));
