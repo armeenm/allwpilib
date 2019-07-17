@@ -11,7 +11,10 @@ plugins {
     id 'com.gradle.build-scan' version '2.3'
     id 'net.ltgt.errorprone' version '0.6' apply false
     id 'com.github.johnrengelman.shadow' version '4.0.3' apply false
+    id 'com.diffplug.gradle.spotless' version '3.23.1'
 }
+
+apply plugin: 'java'
 
 repositories {
     mavenCentral()
@@ -103,6 +106,20 @@ subprojects {
 
 ext.getCurrentArch = {
     return NativePlatforms.desktop
+}
+
+spotless {
+    java {
+        target fileTree('.') {
+            include '**/*.java'
+            exclude '**/manualTests/**', '**/multiCameraServer/**', '**/myRobot/**', '**/dev/**', '**/build*/**'
+        }
+        googleJavaFormat()
+        removeUnusedImports()
+        trimTrailingWhitespace()
+        indentWithSpaces(2)
+        endWithNewline()
+    }
 }
 
 wrapper {
