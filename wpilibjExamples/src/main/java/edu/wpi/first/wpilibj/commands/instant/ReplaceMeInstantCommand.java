@@ -9,13 +9,9 @@ package edu.wpi.first.wpilibj.commands.instant;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
 
-/**
- * Add your docs here.
- */
+/** Add your docs here. */
 public class ReplaceMeInstantCommand extends InstantCommand {
-  /**
-   * Add your docs here.
-   */
+  /** Add your docs here. */
   public ReplaceMeInstantCommand() {
     super();
     // Use requires() here to declare subsystem dependencies
@@ -24,7 +20,5 @@ public class ReplaceMeInstantCommand extends InstantCommand {
 
   // Called once when the command executes
   @Override
-  protected void initialize() {
-  }
-
+  protected void initialize() {}
 }

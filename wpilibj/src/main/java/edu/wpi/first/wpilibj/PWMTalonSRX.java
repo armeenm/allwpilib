@@ -10,9 +10,7 @@ package edu.wpi.first.wpilibj;
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
 import edu.wpi.first.hal.HAL;
 
-/**
- * Cross the Road Electronics (CTRE) Talon SRX Speed Controller with PWM control.
- */
+/** Cross the Road Electronics (CTRE) Talon SRX Speed Controller with PWM control. */
 public class PWMTalonSRX extends PWMSpeedController {
   /**
    * Constructor for a PWMTalonSRX connected via PWM.
@@ -24,12 +22,11 @@ public class PWMTalonSRX extends PWMSpeedController {
    * available from CTRE.
    *
    * <p>- 2.0004ms = full "forward" - 1.52ms = the "high end" of the deadband range - 1.50ms =
-   * center
-   * of the deadband range (off) - 1.48ms = the "low end" of the deadband range - .997ms = full
-   * "reverse"
+   * center of the deadband range (off) - 1.48ms = the "low end" of the deadband range - .997ms =
+   * full "reverse"
    *
    * @param channel The PWM channel that the PWMTalonSRX is attached to. 0-9 are on-board, 10-19 are
-   *                on the MXP port
+   *     on the MXP port
    */
   public PWMTalonSRX(final int channel) {
     super(channel);

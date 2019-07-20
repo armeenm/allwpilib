@@ -10,15 +10,13 @@ package edu.wpi.first.wpilibj;
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
 import edu.wpi.first.hal.HAL;
 
-/**
- * Texas Instruments / Vex Robotics Jaguar Speed Controller as a PWM device.
- */
+/** Texas Instruments / Vex Robotics Jaguar Speed Controller as a PWM device. */
 public class Jaguar extends PWMSpeedController {
   /**
    * Constructor.
    *
    * @param channel The PWM channel that the Jaguar is attached to. 0-9 are on-board, 10-19 are on
-   *                the MXP port
+   *     the MXP port
    */
   public Jaguar(final int channel) {
     super(channel);

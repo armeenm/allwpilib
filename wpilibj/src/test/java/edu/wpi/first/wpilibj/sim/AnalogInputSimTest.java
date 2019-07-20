@@ -7,13 +7,12 @@
 
 package edu.wpi.first.wpilibj.sim;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.hal.HAL;
 import edu.wpi.first.hal.sim.AnalogInSim;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import edu.wpi.first.wpilibj.AnalogInput;
+import org.junit.jupiter.api.Test;
 
 class AnalogInputSimTest {
   static class DoubleStore {
@@ -37,10 +36,6 @@ class AnalogInputSimTest {
       inputSim.setVoltage(i);
 
       assertEquals(input.getVoltage(), i, 0.001);
-
     }
-
-
-
   }
 }

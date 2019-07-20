@@ -13,7 +13,6 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
-
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.Request;
@@ -39,8 +38,8 @@ public abstract class AbstractTestSuite {
     SuiteClasses annotation = getClass().getAnnotation(SuiteClasses.class);
     List<Class<?>> classes = new Vector<Class<?>>();
     if (annotation == null) {
-      throw new RuntimeException(String.format("class '%s' must have a SuiteClasses annotation",
-          getClass().getName()));
+      throw new RuntimeException(
+          String.format("class '%s' must have a SuiteClasses annotation", getClass().getName()));
     }
     for (Class<?> c : annotation.value()) {
       classes.add(c);
@@ -83,7 +82,8 @@ public abstract class AbstractTestSuite {
       for (Method m : c.getMethods()) {
         // If this is a test method that is not trying to be ignored and it
         // matches the regex
-        if (m.getAnnotation(Test.class) != null && m.getAnnotation(Ignore.class) == null
+        if (m.getAnnotation(Test.class) != null
+            && m.getAnnotation(Ignore.class) == null
             && Pattern.matches(regex, m.getName())) {
           ClassMethodPair pair = new ClassMethodPair(c, m);
           classMethodPairs.add(pair);
@@ -92,7 +92,6 @@ public abstract class AbstractTestSuite {
     }
     return classMethodPairs;
   }
-
 
   /**
    * Gets all of the test classes listed in this suite. Does not include any of the test suites. All
@@ -114,12 +113,14 @@ public abstract class AbstractTestSuite {
         } catch (InstantiationException | IllegalAccessException ex) {
           // This shouldn't happen unless the constructor is changed in some
           // way.
-          logger.log(Level.SEVERE, "Test suites can not take paramaters in their constructors.",
-              ex);
+          logger.log(
+              Level.SEVERE, "Test suites can not take paramaters in their constructors.", ex);
         }
       } else if (c.getAnnotation(SuiteClasses.class) != null) {
-        logger.log(Level.SEVERE,
-            String.format("class '%s' must extend %s to be searchable using regex.",
+        logger.log(
+            Level.SEVERE,
+            String.format(
+                "class '%s' must extend %s to be searchable using regex.",
                 c.getName(), AbstractTestSuite.class.getName()));
       } else { // This is a class containing tests
         // so add it to the list
@@ -140,12 +141,11 @@ public abstract class AbstractTestSuite {
     return getAllContainedBaseTests(runningBaseTests);
   }
 
-
   /**
    * Retrieves all of the classes listed in the <code>@SuiteClasses</code> annotation that match the
    * given regex text.
    *
-   * @param regex       the text pattern to retrieve.
+   * @param regex the text pattern to retrieve.
    * @param runningList the running list of classes to prevent recursion
    * @return The list of classes matching the regex pattern
    */
@@ -179,11 +179,10 @@ public abstract class AbstractTestSuite {
    * @param regex the regex text to search for
    * @return the list of suite and/or test classes matching the regex.
    */
-  private List<Class<?>> getSuiteOrTestMatchingRegex(final String regex, List<Class<?>>
-      runningList) {
+  private List<Class<?>> getSuiteOrTestMatchingRegex(
+      final String regex, List<Class<?>> runningList) {
     // Get any test suites matching the regex using the superclass methods
     runningList = getAllClassMatching(regex, runningList);
-
 
     // Then search any test suites not retrieved already for test classes
     // matching the regex.
@@ -209,8 +208,8 @@ public abstract class AbstractTestSuite {
         } catch (InstantiationException | IllegalAccessException ex) {
           // This shouldn't happen unless the constructor is changed in some
           // way.
-          logger.log(Level.SEVERE, "Test suites can not take paramaters in their constructors.",
-              ex);
+          logger.log(
+              Level.SEVERE, "Test suites can not take paramaters in their constructors.", ex);
         }
       }
     }
@@ -229,7 +228,6 @@ public abstract class AbstractTestSuite {
     final List<Class<?>> matchingClasses = new Vector<Class<?>>();
     return getSuiteOrTestMatchingRegex(regex, matchingClasses);
   }
-
 
   /**
    * Retrieves all of the classes listed in the <code>@SuiteClasses</code> annotation.

@@ -10,14 +10,12 @@ package edu.wpi.first.wpilibj.examples.gearsbot.subsystems;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.examples.gearsbot.Robot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import edu.wpi.first.wpilibj.examples.gearsbot.Robot;
-
 /**
- * The elevator subsystem uses PID to go to a given height. Unfortunately, in
- * it's current state PID values for simulation are different than in the real
- * world do to minor differences.
+ * The elevator subsystem uses PID to go to a given height. Unfortunately, in it's current state PID
+ * values for simulation are different than in the real world do to minor differences.
  */
 public class Elevator extends PIDSubsystem {
   private final Victor m_motor;
@@ -28,9 +26,7 @@ public class Elevator extends PIDSubsystem {
   private static final double kP_simulation = 18;
   private static final double kI_simulation = 0.2;
 
-  /**
-   * Create a new elevator subsystem.
-   */
+  /** Create a new elevator subsystem. */
   public Elevator() {
     super(kP_real, kI_real, 0);
     if (Robot.isSimulation()) { // Check for simulation and update PID values
@@ -54,29 +50,22 @@ public class Elevator extends PIDSubsystem {
   }
 
   @Override
-  public void initDefaultCommand() {
-  }
+  public void initDefaultCommand() {}
 
-  /**
-   * The log method puts interesting information to the SmartDashboard.
-   */
+  /** The log method puts interesting information to the SmartDashboard. */
   public void log() {
     SmartDashboard.putData("Elevator Pot", (AnalogPotentiometer) m_pot);
   }
 
   /**
-   * Use the potentiometer as the PID sensor. This method is automatically
-   * called by the subsystem.
+   * Use the potentiometer as the PID sensor. This method is automatically called by the subsystem.
    */
   @Override
   protected double returnPIDInput() {
     return m_pot.get();
   }
 
-  /**
-   * Use the motor as the PID output. This method is automatically called by
-   * the subsystem.
-   */
+  /** Use the motor as the PID output. This method is automatically called by the subsystem. */
   @Override
   protected void usePIDOutput(double power) {
     m_motor.set(power);

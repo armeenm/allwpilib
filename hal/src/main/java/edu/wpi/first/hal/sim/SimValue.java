@@ -24,9 +24,7 @@ public final class SimValue {
     m_long = v;
   }
 
-  private SimValue() {
-
-  }
+  private SimValue() {}
 
   public boolean getBoolean() {
     return m_boolean;

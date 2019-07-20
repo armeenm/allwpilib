@@ -16,24 +16,30 @@ public class RelaySim {
     m_index = index;
   }
 
-  public CallbackStore registerInitializedForwardCallback(NotifyCallback callback, boolean initialNotify) {
+  public CallbackStore registerInitializedForwardCallback(
+      NotifyCallback callback, boolean initialNotify) {
     int uid = RelayDataJNI.registerInitializedForwardCallback(m_index, callback, initialNotify);
     return new CallbackStore(m_index, uid, RelayDataJNI::cancelInitializedForwardCallback);
   }
+
   public boolean getInitializedForward() {
     return RelayDataJNI.getInitializedForward(m_index);
   }
+
   public void setInitializedForward(boolean initializedForward) {
     RelayDataJNI.setInitializedForward(m_index, initializedForward);
   }
 
-  public CallbackStore registerInitializedReverseCallback(NotifyCallback callback, boolean initialNotify) {
+  public CallbackStore registerInitializedReverseCallback(
+      NotifyCallback callback, boolean initialNotify) {
     int uid = RelayDataJNI.registerInitializedReverseCallback(m_index, callback, initialNotify);
     return new CallbackStore(m_index, uid, RelayDataJNI::cancelInitializedReverseCallback);
   }
+
   public boolean getInitializedReverse() {
     return RelayDataJNI.getInitializedReverse(m_index);
   }
+
   public void setInitializedReverse(boolean initializedReverse) {
     RelayDataJNI.setInitializedReverse(m_index, initializedReverse);
   }
@@ -42,9 +48,11 @@ public class RelaySim {
     int uid = RelayDataJNI.registerForwardCallback(m_index, callback, initialNotify);
     return new CallbackStore(m_index, uid, RelayDataJNI::cancelForwardCallback);
   }
+
   public boolean getForward() {
     return RelayDataJNI.getForward(m_index);
   }
+
   public void setForward(boolean forward) {
     RelayDataJNI.setForward(m_index, forward);
   }
@@ -53,9 +61,11 @@ public class RelaySim {
     int uid = RelayDataJNI.registerReverseCallback(m_index, callback, initialNotify);
     return new CallbackStore(m_index, uid, RelayDataJNI::cancelReverseCallback);
   }
+
   public boolean getReverse() {
     return RelayDataJNI.getReverse(m_index);
   }
+
   public void setReverse(boolean reverse) {
     RelayDataJNI.setReverse(m_index, reverse);
   }

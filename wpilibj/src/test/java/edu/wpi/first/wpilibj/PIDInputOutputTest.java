@@ -7,14 +7,13 @@
 
 package edu.wpi.first.wpilibj;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import edu.wpi.first.wpilibj.controller.PIDController;
-
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import edu.wpi.first.wpilibj.controller.PIDController;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 class PIDInputOutputTest {
   private PIDController m_controller;
@@ -31,8 +30,7 @@ class PIDInputOutputTest {
 
     assertAll(
         () -> assertEquals(-50, m_controller.calculate(100, 0), 1e-5),
-        () -> assertEquals(50, m_controller.calculate(0, 100), 1e-5)
-    );
+        () -> assertEquals(50, m_controller.calculate(0, 100), 1e-5));
   }
 
   @Test
@@ -43,8 +41,7 @@ class PIDInputOutputTest {
 
     assertAll(
         () -> assertEquals(-100, m_controller.calculate(100, 0), 1e-5),
-        () -> assertEquals(50, m_controller.calculate(0, 100), 1e-5)
-    );
+        () -> assertEquals(50, m_controller.calculate(0, 100), 1e-5));
   }
 
   @Test

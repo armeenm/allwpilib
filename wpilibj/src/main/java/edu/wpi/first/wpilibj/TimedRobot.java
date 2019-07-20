@@ -29,9 +29,7 @@ public class TimedRobot extends IterativeRobotBase {
   // The absolute expiration time
   private double m_expirationTime;
 
-  /**
-   * Constructor for TimedRobot.
-   */
+  /** Constructor for TimedRobot. */
   protected TimedRobot() {
     this(kDefaultPeriod);
   }
@@ -54,9 +52,7 @@ public class TimedRobot extends IterativeRobotBase {
     NotifierJNI.cleanNotifier(m_notifier);
   }
 
-  /**
-   * Provide an alternate "main loop" via startCompetition().
-   */
+  /** Provide an alternate "main loop" via startCompetition(). */
   @Override
   @SuppressWarnings("UnsafeFinalization")
   public void startCompetition() {
@@ -82,16 +78,12 @@ public class TimedRobot extends IterativeRobotBase {
     }
   }
 
-  /**
-   * Get time period between calls to Periodic() functions.
-   */
+  /** Get time period between calls to Periodic() functions. */
   public double getPeriod() {
     return m_period;
   }
 
-  /**
-   * Update the alarm hardware to reflect the next alarm.
-   */
+  /** Update the alarm hardware to reflect the next alarm. */
   @SuppressWarnings("UnsafeFinalization")
   private void updateAlarm() {
     NotifierJNI.updateNotifierAlarm(m_notifier, (long) (m_expirationTime * 1e6));

@@ -9,9 +9,7 @@ package edu.wpi.first.wpilibj.buttons;
 
 import edu.wpi.first.wpilibj.GenericHID;
 
-/**
- * A {@link Button} that gets its state from a POV on a {@link GenericHID}.
- */
+/** A {@link Button} that gets its state from a POV on a {@link GenericHID}. */
 public class POVButton extends Button {
   private final GenericHID m_joystick;
   private final int m_angle;
@@ -31,8 +29,7 @@ public class POVButton extends Button {
   }
 
   /**
-   * Creates a POV button for triggering commands.
-   * By default, acts on POV 0
+   * Creates a POV button for triggering commands. By default, acts on POV 0
    *
    * @param joystick The GenericHID object that has the POV
    * @param angle The desired angle (e.g. 90, 270)

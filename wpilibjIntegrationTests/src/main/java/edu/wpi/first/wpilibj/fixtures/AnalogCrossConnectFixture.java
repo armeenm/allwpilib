@@ -10,9 +10,7 @@ package edu.wpi.first.wpilibj.fixtures;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.AnalogOutput;
 
-/**
- * A fixture that connects an {@link AnalogInput} and an {@link AnalogOutput}.
- */
+/** A fixture that connects an {@link AnalogInput} and an {@link AnalogOutput}. */
 public abstract class AnalogCrossConnectFixture implements ITestFixture {
   private boolean m_initialized = false;
 
@@ -22,7 +20,6 @@ public abstract class AnalogCrossConnectFixture implements ITestFixture {
   protected abstract AnalogInput giveAnalogInput();
 
   protected abstract AnalogOutput giveAnalogOutput();
-
 
   private void initialize() {
     synchronized (this) {
@@ -69,9 +66,7 @@ public abstract class AnalogCrossConnectFixture implements ITestFixture {
     return true;
   }
 
-  /**
-   * Analog Output.
-   */
+  /** Analog Output. */
   public final AnalogOutput getOutput() {
     initialize();
     return m_output;
@@ -81,6 +76,4 @@ public abstract class AnalogCrossConnectFixture implements ITestFixture {
     initialize();
     return m_input;
   }
-
-
 }

@@ -7,15 +7,14 @@
 
 package edu.wpi.first.wpilibj.sim;
 
-import edu.wpi.first.wpilibj.AnalogOutput;
-import edu.wpi.first.hal.HAL;
-import edu.wpi.first.hal.sim.AnalogOutSim;
-import edu.wpi.first.hal.sim.CallbackStore;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import edu.wpi.first.hal.HAL;
+import edu.wpi.first.hal.sim.AnalogOutSim;
+import edu.wpi.first.hal.sim.CallbackStore;
+import edu.wpi.first.wpilibj.AnalogOutput;
 import org.junit.jupiter.api.Test;
 
 class AnalogOutputSimTest {
@@ -35,7 +34,6 @@ class AnalogOutputSimTest {
   void setCallbackTest() {
     HAL.initialize(500, 0);
 
-
     AnalogOutput output = new AnalogOutput(0);
     output.setVoltage(0.5);
 
@@ -43,11 +41,14 @@ class AnalogOutputSimTest {
 
     DoubleStore store = new DoubleStore();
 
-    try (CallbackStore cb = outputSim.registerVoltageCallback((name, value) -> {
-      store.m_wasTriggered = true;
-      store.m_wasCorrectType = true;
-      store.m_setValue = value.getDouble();
-    }, false)) {
+    try (CallbackStore cb =
+        outputSim.registerVoltageCallback(
+            (name, value) -> {
+              store.m_wasTriggered = true;
+              store.m_wasCorrectType = true;
+              store.m_setValue = value.getDouble();
+            },
+            false)) {
       assertFalse(store.m_wasTriggered);
 
       for (double i = 0.1; i < 5.0; i += 0.1) {
@@ -64,7 +65,6 @@ class AnalogOutputSimTest {
 
         assertTrue(store.m_wasTriggered);
         assertEquals(store.m_setValue, i, 0.001);
-
       }
     }
   }

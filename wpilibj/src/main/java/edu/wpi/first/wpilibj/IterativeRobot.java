@@ -26,18 +26,14 @@ import edu.wpi.first.hal.HAL;
 public class IterativeRobot extends IterativeRobotBase {
   private static final double kPacketPeriod = 0.02;
 
-  /**
-   * Create a new IterativeRobot.
-   */
+  /** Create a new IterativeRobot. */
   public IterativeRobot() {
     super(kPacketPeriod);
 
     HAL.report(tResourceType.kResourceType_Framework, tInstances.kFramework_Iterative);
   }
 
-  /**
-   * Provide an alternate "main loop" via startCompetition().
-   */
+  /** Provide an alternate "main loop" via startCompetition(). */
   @Override
   public void startCompetition() {
     robotInit();

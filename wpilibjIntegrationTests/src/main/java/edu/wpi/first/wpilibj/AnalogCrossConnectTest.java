@@ -7,24 +7,20 @@
 
 package edu.wpi.first.wpilibj;
 
-import java.util.logging.Logger;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
+import edu.wpi.first.wpilibj.AnalogTriggerOutput.AnalogTriggerType;
+import edu.wpi.first.wpilibj.fixtures.AnalogCrossConnectFixture;
+import edu.wpi.first.wpilibj.test.TestBench;
+import java.util.logging.Logger;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import edu.wpi.first.wpilibj.AnalogTriggerOutput.AnalogTriggerType;
-import edu.wpi.first.wpilibj.fixtures.AnalogCrossConnectFixture;
-import edu.wpi.first.wpilibj.test.TestBench;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-/**
- * Test that covers the {@link AnalogCrossConnectFixture}.
- */
+/** Test that covers the {@link AnalogCrossConnectFixture}. */
 public class AnalogCrossConnectTest extends AbstractInterruptTest {
   private static final Logger logger = Logger.getLogger(AnalogCrossConnectTest.class.getName());
 
@@ -36,7 +32,6 @@ public class AnalogCrossConnectTest extends AbstractInterruptTest {
   protected Logger getClassLogger() {
     return logger;
   }
-
 
   @BeforeClass
   public static void setUpBeforeClass() throws Exception {
@@ -53,7 +48,6 @@ public class AnalogCrossConnectTest extends AbstractInterruptTest {
   public void setUp() throws Exception {
     analogIO.setup();
   }
-
 
   @Test
   public void testAnalogOuput() {
@@ -152,11 +146,10 @@ public class AnalogCrossConnectTest extends AbstractInterruptTest {
   InterruptableSensorBase giveInterruptableSensorBase() {
     m_interruptTrigger = new AnalogTrigger(analogIO.getInput());
     m_interruptTrigger.setLimitsVoltage(2.0, 3.0);
-    m_interruptTriggerOutput = new AnalogTriggerOutput(m_interruptTrigger,
-        AnalogTriggerType.kState);
+    m_interruptTriggerOutput =
+        new AnalogTriggerOutput(m_interruptTrigger, AnalogTriggerType.kState);
     return m_interruptTriggerOutput;
   }
-
 
   /*
    * (non-Javadoc)
@@ -172,7 +165,6 @@ public class AnalogCrossConnectTest extends AbstractInterruptTest {
     m_interruptTrigger.close();
     m_interruptTrigger = null;
   }
-
 
   /*
    * (non-Javadoc)

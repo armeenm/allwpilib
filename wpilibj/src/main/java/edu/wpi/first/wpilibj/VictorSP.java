@@ -10,9 +10,7 @@ package edu.wpi.first.wpilibj;
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
 import edu.wpi.first.hal.HAL;
 
-/**
- * VEX Robotics Victor SP Speed Controller.
- */
+/** VEX Robotics Victor SP Speed Controller. */
 public class VictorSP extends PWMSpeedController {
   /**
    * Constructor.
@@ -23,12 +21,12 @@ public class VictorSP extends PWMSpeedController {
    * calibration is recommended. The calibration procedure can be found in the VictorSP User Manual
    * available from CTRE.
    *
-   * <p>- 2.004ms = full "forward" - 1.52ms = the "high end" of the deadband range - 1.50ms =
-   * center of the deadband range (off) - 1.48ms = the "low end" of the deadband range - .997ms =
-   * full "reverse"
+   * <p>- 2.004ms = full "forward" - 1.52ms = the "high end" of the deadband range - 1.50ms = center
+   * of the deadband range (off) - 1.48ms = the "low end" of the deadband range - .997ms = full
+   * "reverse"
    *
-   * @param channel The PWM channel that the VictorSP is attached to. 0-9 are
-   *        on-board, 10-19 are on the MXP port
+   * @param channel The PWM channel that the VictorSP is attached to. 0-9 are on-board, 10-19 are on
+   *     the MXP port
    */
   public VictorSP(final int channel) {
     super(channel);

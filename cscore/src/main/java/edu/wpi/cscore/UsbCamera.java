@@ -7,9 +7,7 @@
 
 package edu.wpi.cscore;
 
-/**
- * A source that represents a USB camera.
- */
+/** A source that represents a USB camera. */
 public class UsbCamera extends VideoCamera {
   /**
    * Create a source for a USB camera based on device number.
@@ -40,16 +38,12 @@ public class UsbCamera extends VideoCamera {
     return CameraServerJNI.enumerateUsbCameras();
   }
 
-  /**
-   * Get the path to the device.
-   */
+  /** Get the path to the device. */
   public String getPath() {
     return CameraServerJNI.getUsbCameraPath(m_handle);
   }
 
-  /**
-   * Get the full camera information for the device.
-   */
+  /** Get the full camera information for the device. */
   public UsbCameraInfo getInfo() {
     return CameraServerJNI.getUsbCameraInfo(m_handle);
   }
@@ -60,7 +54,7 @@ public class UsbCamera extends VideoCamera {
    * @param level 0=don't display Connecting message, 1=do display message
    */
   public void setConnectVerbose(int level) {
-    CameraServerJNI.setProperty(CameraServerJNI.getSourceProperty(m_handle, "connect_verbose"),
-                                level);
+    CameraServerJNI.setProperty(
+        CameraServerJNI.getSourceProperty(m_handle, "connect_verbose"), level);
   }
 }

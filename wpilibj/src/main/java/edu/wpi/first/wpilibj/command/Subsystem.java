@@ -7,41 +7,35 @@
 
 package edu.wpi.first.wpilibj.command;
 
-import java.util.Collections;
-
 import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.SendableBase;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
+import java.util.Collections;
 
 /**
  * This class defines a major component of the robot.
  *
- * <p> A good example of a subsystem is the driveline, or a claw if the robot has one. </p>
+ * <p>A good example of a subsystem is the driveline, or a claw if the robot has one.
  *
- * <p> All motors should be a part of a subsystem. For instance, all the wheel motors should be a
- * part of some kind of "Driveline" subsystem. </p>
+ * <p>All motors should be a part of a subsystem. For instance, all the wheel motors should be a
+ * part of some kind of "Driveline" subsystem.
  *
- * <p> Subsystems are used within the command system as requirements for {@link Command}. Only one
+ * <p>Subsystems are used within the command system as requirements for {@link Command}. Only one
  * command which requires a subsystem can run at a time. Also, subsystems can have default commands
- * which are started if there is no command running which requires this subsystem. </p>
+ * which are started if there is no command running which requires this subsystem.
  *
  * @see Command
  */
 public abstract class Subsystem extends SendableBase {
-  /**
-   * Whether or not getDefaultCommand() was called.
-   */
+  /** Whether or not getDefaultCommand() was called. */
   private boolean m_initializedDefaultCommand;
-  /**
-   * The current command.
-   */
+  /** The current command. */
   private Command m_currentCommand;
+
   private boolean m_currentCommandChanged;
 
-  /**
-   * The default command.
-   */
+  /** The default command. */
   private Command m_defaultCommand;
 
   /**
@@ -54,9 +48,7 @@ public abstract class Subsystem extends SendableBase {
     Scheduler.getInstance().registerSubsystem(this);
   }
 
-  /**
-   * Creates a subsystem. This will set the name to the name of the class.
-   */
+  /** Creates a subsystem. This will set the name to the name of the class. */
   public Subsystem() {
     String name = getClass().getName();
     name = name.substring(name.lastIndexOf('.') + 1);
@@ -72,9 +64,7 @@ public abstract class Subsystem extends SendableBase {
    */
   protected abstract void initDefaultCommand();
 
-  /**
-   * When the run method of the scheduler is called this method will be called.
-   */
+  /** When the run method of the scheduler is called this method will be called. */
   public void periodic() {
     // Override me!
   }
@@ -83,8 +73,8 @@ public abstract class Subsystem extends SendableBase {
    * Sets the default command. If this is not called or is called with null, then there will be no
    * default command for the subsystem.
    *
-   * <p> <b>WARNING:</b> This should <b>NOT</b> be called in a constructor if the subsystem is a
-   * singleton. </p>
+   * <p><b>WARNING:</b> This should <b>NOT</b> be called in a constructor if the subsystem is a
+   * singleton.
    *
    * @param command the default command (or null if there should be none)
    * @throws IllegalUseOfCommandException if the command does not require the subsystem
@@ -172,8 +162,7 @@ public abstract class Subsystem extends SendableBase {
   }
 
   /**
-   * Associate a {@link Sendable} with this Subsystem.
-   * Also update the child's name.
+   * Associate a {@link Sendable} with this Subsystem. Also update the child's name.
    *
    * @param name name to give child
    * @param child sendable

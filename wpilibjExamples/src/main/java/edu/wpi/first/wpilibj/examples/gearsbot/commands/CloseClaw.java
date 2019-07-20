@@ -8,13 +8,9 @@
 package edu.wpi.first.wpilibj.examples.gearsbot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-
 import edu.wpi.first.wpilibj.examples.gearsbot.Robot;
 
-/**
- * Closes the claw for one second. Real robots should use sensors, stalling
- * motors is BAD!
- */
+/** Closes the claw for one second. Real robots should use sensors, stalling motors is BAD! */
 public class CloseClaw extends Command {
   public CloseClaw() {
     requires(Robot.m_claw);

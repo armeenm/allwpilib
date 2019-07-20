@@ -7,15 +7,14 @@
 
 package edu.wpi.first.wpilibj;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.PIDControllerRunner;
-
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 class PIDToleranceTest {
   private PIDController m_pidController;
@@ -42,7 +41,7 @@ class PIDToleranceTest {
   void setUp() {
     m_inp = new FakeInput();
     m_pidController = new PIDController(0.05, 0.0, 0.0);
-    m_pidRunner = new PIDControllerRunner(m_pidController, m_inp::getMeasurement, x -> { });
+    m_pidRunner = new PIDControllerRunner(m_pidController, m_inp::getMeasurement, x -> {});
     m_pidController.setInputRange(-m_range / 2, m_range / 2);
   }
 
@@ -63,19 +62,22 @@ class PIDToleranceTest {
     m_pidController.setSetpoint(m_setpoint);
     m_pidRunner.enable();
     Timer.delay(1);
-    assertFalse(m_pidController.atSetpoint(),
+    assertFalse(
+        m_pidController.atSetpoint(),
         "Error was in tolerance when it should not have been. Error was "
-        + m_pidController.getError());
+            + m_pidController.getError());
     m_inp.m_val = m_setpoint + m_tolerance / 2;
     Timer.delay(1.0);
-    assertTrue(m_pidController.atSetpoint(),
+    assertTrue(
+        m_pidController.atSetpoint(),
         "Error was not in tolerance when it should have been. Error was "
-        + m_pidController.getError());
+            + m_pidController.getError());
     m_inp.m_val = m_setpoint + 10 * m_tolerance;
     Timer.delay(1.0);
-    assertFalse(m_pidController.atSetpoint(),
+    assertFalse(
+        m_pidController.atSetpoint(),
         "Error was in tolerance when it should not have been. Error was "
-        + m_pidController.getError());
+            + m_pidController.getError());
   }
 
   @Test
@@ -83,20 +85,23 @@ class PIDToleranceTest {
     m_pidController.setPercentTolerance(m_tolerance);
     m_pidController.setSetpoint(m_setpoint);
     m_pidRunner.enable();
-    assertFalse(m_pidController.atSetpoint(),
+    assertFalse(
+        m_pidController.atSetpoint(),
         "Error was in tolerance when it should not have been. Error was "
-        + m_pidController.getError());
-    //half of percent tolerance away from setPoint
+            + m_pidController.getError());
+    // half of percent tolerance away from setPoint
     m_inp.m_val = m_setpoint + m_tolerance / 200 * m_range;
     Timer.delay(1.0);
-    assertTrue(m_pidController.atSetpoint(),
+    assertTrue(
+        m_pidController.atSetpoint(),
         "Error was not in tolerance when it should have been. Error was "
-        + m_pidController.getError());
-    //double percent tolerance away from setPoint
+            + m_pidController.getError());
+    // double percent tolerance away from setPoint
     m_inp.m_val = m_setpoint + m_tolerance / 50 * m_range;
     Timer.delay(1.0);
-    assertFalse(m_pidController.atSetpoint(),
+    assertFalse(
+        m_pidController.atSetpoint(),
         "Error was in tolerance when it should not have been. Error was "
-        + m_pidController.getError());
+            + m_pidController.getError());
   }
 }

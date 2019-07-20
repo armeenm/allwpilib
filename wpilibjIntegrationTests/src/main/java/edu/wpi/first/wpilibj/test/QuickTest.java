@@ -8,7 +8,6 @@
 package edu.wpi.first.wpilibj.test;
 
 import java.util.logging.Logger;
-
 import org.junit.Test;
 
 /**
@@ -30,8 +29,6 @@ public class QuickTest extends AbstractComsSetup {
     return logger;
   }
 
-
   @Test
-  public void test() {
-  }
+  public void test() {}
 }

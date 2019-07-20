@@ -14,9 +14,11 @@ public class DriverStationSim {
     int uid = DriverStationDataJNI.registerEnabledCallback(callback, initialNotify);
     return new CallbackStore(uid, DriverStationDataJNI::cancelEnabledCallback);
   }
+
   public boolean getEnabled() {
     return DriverStationDataJNI.getEnabled();
   }
+
   public void setEnabled(boolean enabled) {
     DriverStationDataJNI.setEnabled(enabled);
   }
@@ -25,9 +27,11 @@ public class DriverStationSim {
     int uid = DriverStationDataJNI.registerAutonomousCallback(callback, initialNotify);
     return new CallbackStore(uid, DriverStationDataJNI::cancelAutonomousCallback);
   }
+
   public boolean getAutonomous() {
     return DriverStationDataJNI.getAutonomous();
   }
+
   public void setAutonomous(boolean autonomous) {
     DriverStationDataJNI.setAutonomous(autonomous);
   }
@@ -36,9 +40,11 @@ public class DriverStationSim {
     int uid = DriverStationDataJNI.registerTestCallback(callback, initialNotify);
     return new CallbackStore(uid, DriverStationDataJNI::cancelTestCallback);
   }
+
   public boolean getTest() {
     return DriverStationDataJNI.getTest();
   }
+
   public void setTest(boolean test) {
     DriverStationDataJNI.setTest(test);
   }
@@ -47,9 +53,11 @@ public class DriverStationSim {
     int uid = DriverStationDataJNI.registerEStopCallback(callback, initialNotify);
     return new CallbackStore(uid, DriverStationDataJNI::cancelEStopCallback);
   }
+
   public boolean getEStop() {
     return DriverStationDataJNI.getEStop();
   }
+
   public void setEStop(boolean eStop) {
     DriverStationDataJNI.setEStop(eStop);
   }
@@ -58,9 +66,11 @@ public class DriverStationSim {
     int uid = DriverStationDataJNI.registerFmsAttachedCallback(callback, initialNotify);
     return new CallbackStore(uid, DriverStationDataJNI::cancelFmsAttachedCallback);
   }
+
   public boolean getFmsAttached() {
     return DriverStationDataJNI.getFmsAttached();
   }
+
   public void setFmsAttached(boolean fmsAttached) {
     DriverStationDataJNI.setFmsAttached(fmsAttached);
   }
@@ -69,12 +79,15 @@ public class DriverStationSim {
     int uid = DriverStationDataJNI.registerDsAttachedCallback(callback, initialNotify);
     return new CallbackStore(uid, DriverStationDataJNI::cancelDsAttachedCallback);
   }
+
   public boolean getDsAttached() {
     return DriverStationDataJNI.getDsAttached();
   }
+
   public void setDsAttached(boolean dsAttached) {
     DriverStationDataJNI.setDsAttached(dsAttached);
   }
+
   public void notifyNewData() {
     DriverStationDataJNI.notifyNewData();
   }

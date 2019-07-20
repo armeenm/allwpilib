@@ -7,12 +7,10 @@
 
 package edu.wpi.first.networktables;
 
-/**
- * NetworkTables Remote Procedure Call.
- */
+/** NetworkTables Remote Procedure Call. */
 public final class RpcCall implements AutoCloseable {
-  /** Constructor.
-   * This should generally only be used internally to NetworkTables.
+  /**
+   * Constructor. This should generally only be used internally to NetworkTables.
    *
    * @param entry Entry
    * @param call Call handle
@@ -27,9 +25,7 @@ public final class RpcCall implements AutoCloseable {
     close();
   }
 
-  /**
-   * Cancels the result if no other action taken.
-   */
+  /** Cancels the result if no other action taken. */
   @Override
   public synchronized void close() {
     if (m_call != 0) {
@@ -65,8 +61,7 @@ public final class RpcCall implements AutoCloseable {
   }
 
   /**
-   * Get the result (return value).  This function blocks until
-   * the result is received.
+   * Get the result (return value). This function blocks until the result is received.
    *
    * @return Received result (output)
    */
@@ -79,10 +74,10 @@ public final class RpcCall implements AutoCloseable {
   }
 
   /**
-   * Get the result (return value).  This function blocks until
-   * the result is received or it times out.
+   * Get the result (return value). This function blocks until the result is received or it times
+   * out.
    *
-   * @param timeout     timeout, in seconds
+   * @param timeout timeout, in seconds
    * @return Received result (output)
    */
   public byte[] getResult(double timeout) {
@@ -93,9 +88,7 @@ public final class RpcCall implements AutoCloseable {
     return result;
   }
 
-  /**
-   * Ignore the result.  This function is non-blocking.
-   */
+  /** Ignore the result. This function is non-blocking. */
   public void cancelResult() {
     NetworkTablesJNI.cancelRpcResult(m_entry.getHandle(), m_call);
   }

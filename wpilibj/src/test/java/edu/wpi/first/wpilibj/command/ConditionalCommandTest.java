@@ -7,12 +7,12 @@
 
 package edu.wpi.first.wpilibj.command;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 class ConditionalCommandTest extends AbstractCommandTest {
   MockConditionalCommand m_command;
@@ -31,9 +31,13 @@ class ConditionalCommandTest extends AbstractCommandTest {
     m_commandNull = new MockConditionalCommand(m_onTrue, null);
   }
 
-  protected void assertConditionalCommandState(MockConditionalCommand command, int initialize,
-                                               int execute, int isFinished, int end,
-                                               int interrupted) {
+  protected void assertConditionalCommandState(
+      MockConditionalCommand command,
+      int initialize,
+      int execute,
+      int isFinished,
+      int end,
+      int interrupted) {
     assertEquals(initialize, command.getInitializeCount());
     assertEquals(execute, command.getExecuteCount());
     assertEquals(isFinished, command.getIsFinishedCount());
@@ -49,11 +53,11 @@ class ConditionalCommandTest extends AbstractCommandTest {
     assertCommandState(m_onTrue, 0, 0, 0, 0, 0);
     assertCommandState(m_onFalse, 0, 0, 0, 0, 0);
     assertConditionalCommandState(m_command, 0, 0, 0, 0, 0);
-    Scheduler.getInstance().run();  // init command and select m_onTrue
+    Scheduler.getInstance().run(); // init command and select m_onTrue
     assertCommandState(m_onTrue, 0, 0, 0, 0, 0);
     assertCommandState(m_onFalse, 0, 0, 0, 0, 0);
     assertConditionalCommandState(m_command, 0, 0, 0, 0, 0);
-    Scheduler.getInstance().run();  // init m_onTrue
+    Scheduler.getInstance().run(); // init m_onTrue
     assertCommandState(m_onTrue, 0, 0, 0, 0, 0);
     assertCommandState(m_onFalse, 0, 0, 0, 0, 0);
     assertConditionalCommandState(m_command, 1, 1, 1, 0, 0);
@@ -87,11 +91,11 @@ class ConditionalCommandTest extends AbstractCommandTest {
     assertCommandState(m_onFalse, 0, 0, 0, 0, 0);
     assertCommandState(m_onTrue, 0, 0, 0, 0, 0);
     assertConditionalCommandState(m_command, 0, 0, 0, 0, 0);
-    Scheduler.getInstance().run();  // init command and select m_onFalse
+    Scheduler.getInstance().run(); // init command and select m_onFalse
     assertCommandState(m_onFalse, 0, 0, 0, 0, 0);
     assertCommandState(m_onTrue, 0, 0, 0, 0, 0);
     assertConditionalCommandState(m_command, 0, 0, 0, 0, 0);
-    Scheduler.getInstance().run();  // init m_onFalse
+    Scheduler.getInstance().run(); // init m_onFalse
     assertCommandState(m_onFalse, 0, 0, 0, 0, 0);
     assertCommandState(m_onTrue, 0, 0, 0, 0, 0);
     assertConditionalCommandState(m_command, 1, 1, 1, 0, 0);
@@ -125,11 +129,11 @@ class ConditionalCommandTest extends AbstractCommandTest {
     assertCommandState(m_onTrue, 0, 0, 0, 0, 0);
     assertCommandState(m_onFalse, 0, 0, 0, 0, 0);
     assertConditionalCommandState(m_command, 0, 0, 0, 0, 0);
-    Scheduler.getInstance().run();  // init command and select m_onTrue
+    Scheduler.getInstance().run(); // init command and select m_onTrue
     assertCommandState(m_onTrue, 0, 0, 0, 0, 0);
     assertCommandState(m_onFalse, 0, 0, 0, 0, 0);
     assertConditionalCommandState(m_command, 0, 0, 0, 0, 0);
-    Scheduler.getInstance().run();  // init m_onTrue
+    Scheduler.getInstance().run(); // init m_onTrue
     assertCommandState(m_onTrue, 0, 0, 0, 0, 0);
     assertCommandState(m_onFalse, 0, 0, 0, 0, 0);
     assertConditionalCommandState(m_command, 1, 1, 1, 0, 0);
@@ -164,11 +168,11 @@ class ConditionalCommandTest extends AbstractCommandTest {
     assertCommandState(m_onTrue, 0, 0, 0, 0, 0);
     assertCommandState(m_onFalse, 0, 0, 0, 0, 0);
     assertConditionalCommandState(m_command, 0, 0, 0, 0, 0);
-    Scheduler.getInstance().run();  // init command and select m_onTrue
+    Scheduler.getInstance().run(); // init command and select m_onTrue
     assertCommandState(m_onTrue, 0, 0, 0, 0, 0);
     assertCommandState(m_onFalse, 0, 0, 0, 0, 0);
     assertConditionalCommandState(m_command, 0, 0, 0, 0, 0);
-    Scheduler.getInstance().run();  // init m_onTrue
+    Scheduler.getInstance().run(); // init m_onTrue
     assertCommandState(m_onTrue, 0, 0, 0, 0, 0);
     assertCommandState(m_onFalse, 0, 0, 0, 0, 0);
     assertConditionalCommandState(m_command, 1, 1, 1, 0, 0);
@@ -199,11 +203,11 @@ class ConditionalCommandTest extends AbstractCommandTest {
     assertCommandState(m_onTrue, 0, 0, 0, 0, 0);
     assertCommandState(m_onFalse, 0, 0, 0, 0, 0);
     assertConditionalCommandState(m_command, 0, 0, 0, 0, 0);
-    Scheduler.getInstance().run();  // init command and select m_onTrue
+    Scheduler.getInstance().run(); // init command and select m_onTrue
     assertCommandState(m_onTrue, 0, 0, 0, 0, 0);
     assertCommandState(m_onFalse, 0, 0, 0, 0, 0);
     assertConditionalCommandState(m_command, 0, 0, 0, 0, 0);
-    Scheduler.getInstance().run();  // init m_onTrue
+    Scheduler.getInstance().run(); // init m_onTrue
     assertCommandState(m_onTrue, 0, 0, 0, 0, 0);
     assertCommandState(m_onFalse, 0, 0, 0, 0, 0);
     assertConditionalCommandState(m_command, 1, 1, 1, 0, 0);
@@ -234,11 +238,11 @@ class ConditionalCommandTest extends AbstractCommandTest {
     assertCommandState(m_onTrue, 0, 0, 0, 0, 0);
     assertCommandState(m_onFalse, 0, 0, 0, 0, 0);
     assertConditionalCommandState(m_command, 0, 0, 0, 0, 0);
-    Scheduler.getInstance().run();  // init command and select m_onTrue
+    Scheduler.getInstance().run(); // init command and select m_onTrue
     assertCommandState(m_onTrue, 0, 0, 0, 0, 0);
     assertCommandState(m_onFalse, 0, 0, 0, 0, 0);
     assertConditionalCommandState(m_command, 0, 0, 0, 0, 0);
-    Scheduler.getInstance().run();  // init m_onTrue
+    Scheduler.getInstance().run(); // init m_onTrue
     assertCommandState(m_onTrue, 0, 0, 0, 0, 0);
     assertCommandState(m_onFalse, 0, 0, 0, 0, 0);
     assertConditionalCommandState(m_command, 1, 1, 1, 0, 0);
@@ -267,11 +271,11 @@ class ConditionalCommandTest extends AbstractCommandTest {
     assertCommandState(m_onTrue, 0, 0, 0, 0, 0);
     assertCommandState(m_onFalse, 0, 0, 0, 0, 0);
     assertConditionalCommandState(m_command, 0, 0, 0, 0, 0);
-    Scheduler.getInstance().run();  // init command and select m_onTrue
+    Scheduler.getInstance().run(); // init command and select m_onTrue
     assertCommandState(m_onTrue, 0, 0, 0, 0, 0);
     assertCommandState(m_onFalse, 0, 0, 0, 0, 0);
     assertConditionalCommandState(m_command, 0, 0, 0, 0, 0);
-    Scheduler.getInstance().run();  // init m_onTrue
+    Scheduler.getInstance().run(); // init m_onTrue
     assertCommandState(m_onTrue, 0, 0, 0, 0, 0);
     assertCommandState(m_onFalse, 0, 0, 0, 0, 0);
     assertConditionalCommandState(m_command, 1, 1, 1, 0, 0);
@@ -303,11 +307,11 @@ class ConditionalCommandTest extends AbstractCommandTest {
     assertCommandState(m_onTrue, 0, 0, 0, 0, 0);
     assertCommandState(m_onFalse, 0, 0, 0, 0, 0);
     assertConditionalCommandState(m_command, 0, 0, 0, 0, 0);
-    Scheduler.getInstance().run();  // init command and select m_onTrue
+    Scheduler.getInstance().run(); // init command and select m_onTrue
     assertCommandState(m_onTrue, 0, 0, 0, 0, 0);
     assertCommandState(m_onFalse, 0, 0, 0, 0, 0);
     assertConditionalCommandState(m_command, 0, 0, 0, 0, 0);
-    Scheduler.getInstance().run();  // init m_onTrue
+    Scheduler.getInstance().run(); // init m_onTrue
     assertCommandState(m_onTrue, 0, 0, 0, 0, 0);
     assertCommandState(m_onFalse, 0, 0, 0, 0, 0);
     assertConditionalCommandState(m_command, 1, 1, 1, 0, 0);
@@ -332,10 +336,10 @@ class ConditionalCommandTest extends AbstractCommandTest {
     Scheduler.getInstance().add(m_commandNull);
     assertCommandState(m_onTrue, 0, 0, 0, 0, 0);
     assertConditionalCommandState(m_commandNull, 0, 0, 0, 0, 0);
-    Scheduler.getInstance().run();  // init command and select m_onFalse
+    Scheduler.getInstance().run(); // init command and select m_onFalse
     assertCommandState(m_onTrue, 0, 0, 0, 0, 0);
     assertConditionalCommandState(m_commandNull, 0, 0, 0, 0, 0);
-    Scheduler.getInstance().run();  // init m_onFalse
+    Scheduler.getInstance().run(); // init m_onFalse
     assertCommandState(m_onTrue, 0, 0, 0, 0, 0);
     assertConditionalCommandState(m_commandNull, 1, 1, 1, 1, 0);
     Scheduler.getInstance().run();

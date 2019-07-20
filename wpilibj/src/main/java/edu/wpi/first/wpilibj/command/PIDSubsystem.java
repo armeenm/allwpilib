@@ -17,46 +17,39 @@ import edu.wpi.first.wpilibj.PIDSourceType;
  * {@link PIDController} almost constantly (for instance, an elevator which attempts to stay at a
  * constant height).
  *
- * <p>It provides some convenience methods to run an internal {@link PIDController} . It also
- * allows access to the internal {@link PIDController} in order to give total control to the
- * programmer.
+ * <p>It provides some convenience methods to run an internal {@link PIDController} . It also allows
+ * access to the internal {@link PIDController} in order to give total control to the programmer.
  */
 public abstract class PIDSubsystem extends Subsystem {
-  /**
-   * The internal {@link PIDController}.
-   */
+  /** The internal {@link PIDController}. */
   private final PIDController m_controller;
-  /**
-   * An output which calls {@link PIDCommand#usePIDOutput(double)}.
-   */
+  /** An output which calls {@link PIDCommand#usePIDOutput(double)}. */
   private final PIDOutput m_output = this::usePIDOutput;
 
-  /**
-   * A source which calls {@link PIDCommand#returnPIDInput()}.
-   */
-  private final PIDSource m_source = new PIDSource() {
-    @Override
-    public void setPIDSourceType(PIDSourceType pidSource) {
-    }
+  /** A source which calls {@link PIDCommand#returnPIDInput()}. */
+  private final PIDSource m_source =
+      new PIDSource() {
+        @Override
+        public void setPIDSourceType(PIDSourceType pidSource) {}
 
-    @Override
-    public PIDSourceType getPIDSourceType() {
-      return PIDSourceType.kDisplacement;
-    }
+        @Override
+        public PIDSourceType getPIDSourceType() {
+          return PIDSourceType.kDisplacement;
+        }
 
-    @Override
-    public double pidGet() {
-      return returnPIDInput();
-    }
-  };
+        @Override
+        public double pidGet() {
+          return returnPIDInput();
+        }
+      };
 
   /**
    * Instantiates a {@link PIDSubsystem} that will use the given p, i and d values.
    *
    * @param name the name
-   * @param p    the proportional value
-   * @param i    the integral value
-   * @param d    the derivative value
+   * @param p the proportional value
+   * @param i the integral value
+   * @param d the derivative value
    */
   @SuppressWarnings("ParameterName")
   public PIDSubsystem(String name, double p, double i, double d) {
@@ -69,10 +62,10 @@ public abstract class PIDSubsystem extends Subsystem {
    * Instantiates a {@link PIDSubsystem} that will use the given p, i and d values.
    *
    * @param name the name
-   * @param p    the proportional value
-   * @param i    the integral value
-   * @param d    the derivative value
-   * @param f    the feed forward value
+   * @param p the proportional value
+   * @param i the integral value
+   * @param d the derivative value
+   * @param f the feed forward value
    */
   @SuppressWarnings("ParameterName")
   public PIDSubsystem(String name, double p, double i, double d, double f) {
@@ -85,11 +78,11 @@ public abstract class PIDSubsystem extends Subsystem {
    * Instantiates a {@link PIDSubsystem} that will use the given p, i and d values. It will also
    * space the time between PID loop calculations to be equal to the given period.
    *
-   * @param name   the name
-   * @param p      the proportional value
-   * @param i      the integral value
-   * @param d      the derivative value
-   * @param f      the feed forward value
+   * @param name the name
+   * @param p the proportional value
+   * @param i the integral value
+   * @param d the derivative value
+   * @param f the feed forward value
    * @param period the time (in seconds) between calculations
    */
   @SuppressWarnings("ParameterName")
@@ -118,10 +111,10 @@ public abstract class PIDSubsystem extends Subsystem {
    * class name as its name. It will also space the time between PID loop calculations to be equal
    * to the given period.
    *
-   * @param p      the proportional value
-   * @param i      the integral value
-   * @param d      the derivative value
-   * @param f      the feed forward coefficient
+   * @param p the proportional value
+   * @param i the integral value
+   * @param d the derivative value
+   * @param f the feed forward coefficient
    * @param period the time (in seconds) between calculations
    */
   @SuppressWarnings("ParameterName")
@@ -135,9 +128,9 @@ public abstract class PIDSubsystem extends Subsystem {
    * class name as its name. It will also space the time between PID loop calculations to be equal
    * to the given period.
    *
-   * @param p      the proportional value
-   * @param i      the integral value
-   * @param d      the derivative value
+   * @param p the proportional value
+   * @param i the integral value
+   * @param d the derivative value
    * @param period the time (in seconds) between calculations
    */
   @SuppressWarnings("ParameterName")
@@ -155,7 +148,6 @@ public abstract class PIDSubsystem extends Subsystem {
   public PIDController getPIDController() {
     return m_controller;
   }
-
 
   /**
    * Adds the given value to the setpoint. If {@link PIDSubsystem#setInputRange(double, double)
@@ -251,8 +243,8 @@ public abstract class PIDSubsystem extends Subsystem {
   /**
    * Returns the input for the pid loop.
    *
-   * <p>It returns the input for the pid loop, so if this Subsystem was based off of a gyro, then
-   * it should return the angle of the gyro.
+   * <p>It returns the input for the pid loop, so if this Subsystem was based off of a gyro, then it
+   * should return the angle of the gyro.
    *
    * <p>All subclasses of {@link PIDSubsystem} must override this method.
    *
@@ -262,8 +254,8 @@ public abstract class PIDSubsystem extends Subsystem {
 
   /**
    * Uses the value that the pid loop calculated. The calculated value is the "output" parameter.
-   * This method is a good time to set motor values, maybe something along the lines of
-   * <code>driveline.tankDrive(output, -output)</code>.
+   * This method is a good time to set motor values, maybe something along the lines of <code>
+   * driveline.tankDrive(output, -output)</code>.
    *
    * <p>All subclasses of {@link PIDSubsystem} must override this method.
    *
@@ -271,16 +263,12 @@ public abstract class PIDSubsystem extends Subsystem {
    */
   protected abstract void usePIDOutput(double output);
 
-  /**
-   * Enables the internal {@link PIDController}.
-   */
+  /** Enables the internal {@link PIDController}. */
   public void enable() {
     m_controller.enable();
   }
 
-  /**
-   * Disables the internal {@link PIDController}.
-   */
+  /** Disables the internal {@link PIDController}. */
   public void disable() {
     m_controller.disable();
   }

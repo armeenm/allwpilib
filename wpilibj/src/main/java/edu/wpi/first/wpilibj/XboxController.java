@@ -18,9 +18,7 @@ import edu.wpi.first.hal.HAL;
  * and the mapping of ports to hardware buttons depends on the code in the Driver Station.
  */
 public class XboxController extends GenericHID {
-  /**
-   * Represents a digital button on an XboxController.
-   */
+  /** Represents a digital button on an XboxController. */
   private enum Button {
     kBumperLeft(5),
     kBumperRight(6),
@@ -42,8 +40,7 @@ public class XboxController extends GenericHID {
   }
 
   /**
-   * Construct an instance of a joystick. The joystick index is the USB port on the drivers
-   * station.
+   * Construct an instance of a joystick. The joystick index is the USB port on the drivers station.
    *
    * @param port The port on the Driver Station that the joystick is plugged into.
    */

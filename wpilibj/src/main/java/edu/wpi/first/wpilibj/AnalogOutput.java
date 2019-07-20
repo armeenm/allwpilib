@@ -13,9 +13,7 @@ import edu.wpi.first.hal.HAL;
 import edu.wpi.first.hal.sim.AnalogOutSim;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 
-/**
- * Analog output class.
- */
+/** Analog output class. */
 public class AnalogOutput extends SendableBase {
   private int m_port;
   private int m_channel;
@@ -44,9 +42,7 @@ public class AnalogOutput extends SendableBase {
     m_channel = 0;
   }
 
-  /**
-   * Get the channel of this AnalogOutput.
-   */
+  /** Get the channel of this AnalogOutput. */
   public int getChannel() {
     return m_channel;
   }

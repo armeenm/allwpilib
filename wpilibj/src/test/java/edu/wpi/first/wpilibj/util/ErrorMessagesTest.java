@@ -7,13 +7,12 @@
 
 package edu.wpi.first.wpilibj.util;
 
-import org.junit.jupiter.api.Test;
-
-import edu.wpi.first.wpilibj.UtilityClassTest;
-
 import static edu.wpi.first.wpilibj.util.ErrorMessages.requireNonNullParam;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import edu.wpi.first.wpilibj.UtilityClassTest;
+import org.junit.jupiter.api.Test;
 
 class ErrorMessagesTest extends UtilityClassTest {
   ErrorMessagesTest() {
@@ -22,8 +21,8 @@ class ErrorMessagesTest extends UtilityClassTest {
 
   @Test
   void requireNonNullParamNullTest() {
-    assertThrows(NullPointerException.class, () -> requireNonNullParam(null, "testParam",
-        "testMethod"));
+    assertThrows(
+        NullPointerException.class, () -> requireNonNullParam(null, "testParam", "testMethod"));
   }
 
   @Test

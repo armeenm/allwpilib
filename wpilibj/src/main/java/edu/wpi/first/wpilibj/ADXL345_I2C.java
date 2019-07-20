@@ -7,19 +7,16 @@
 
 package edu.wpi.first.wpilibj;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-
 import edu.wpi.first.hal.FRCNetComm.tInstances;
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
 import edu.wpi.first.hal.HAL;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 
-/**
- * ADXL345 I2C Accelerometer.
- */
+/** ADXL345 I2C Accelerometer. */
 @SuppressWarnings({"TypeName", "PMD.UnusedPrivateField"})
 public class ADXL345_I2C extends SendableBase implements Accelerometer {
   private static final byte kAddress = 0x1D;
@@ -43,9 +40,7 @@ public class ADXL345_I2C extends SendableBase implements Accelerometer {
     kY((byte) 0x02),
     kZ((byte) 0x04);
 
-    /**
-     * The integer value representing this enumeration.
-     */
+    /** The integer value representing this enumeration. */
     @SuppressWarnings("MemberName")
     public final byte value;
 
@@ -66,7 +61,7 @@ public class ADXL345_I2C extends SendableBase implements Accelerometer {
   /**
    * Constructs the ADXL345 Accelerometer with I2C address 0x1D.
    *
-   * @param port  The I2C port the accelerometer is attached to
+   * @param port The I2C port the accelerometer is attached to
    * @param range The range (+ or -) that the accelerometer will measure.
    */
   public ADXL345_I2C(I2C.Port port, Range range) {
@@ -76,8 +71,8 @@ public class ADXL345_I2C extends SendableBase implements Accelerometer {
   /**
    * Constructs the ADXL345 Accelerometer over I2C.
    *
-   * @param port          The I2C port the accelerometer is attached to
-   * @param range         The range (+ or -) that the accelerometer will measure.
+   * @param port The I2C port the accelerometer is attached to
+   * @param range The range (+ or -) that the accelerometer will measure.
    * @param deviceAddress I2C address of the accelerometer (0x1D or 0x53)
    */
   public ADXL345_I2C(I2C.Port port, Range range, int deviceAddress) {
@@ -177,11 +172,12 @@ public class ADXL345_I2C extends SendableBase implements Accelerometer {
     NetworkTableEntry entryX = builder.getEntry("X");
     NetworkTableEntry entryY = builder.getEntry("Y");
     NetworkTableEntry entryZ = builder.getEntry("Z");
-    builder.setUpdateTable(() -> {
-      AllAxes data = getAccelerations();
-      entryX.setDouble(data.XAxis);
-      entryY.setDouble(data.YAxis);
-      entryZ.setDouble(data.ZAxis);
-    });
+    builder.setUpdateTable(
+        () -> {
+          AllAxes data = getAccelerations();
+          entryX.setDouble(data.XAxis);
+          entryY.setDouble(data.YAxis);
+          entryZ.setDouble(data.ZAxis);
+        });
   }
 }

@@ -7,24 +7,18 @@
 
 package edu.wpi.first.wpilibj;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-
 import edu.wpi.first.hal.AnalogJNI;
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
 import edu.wpi.first.hal.HAL;
 import edu.wpi.first.hal.util.BoundaryException;
 import edu.wpi.first.wpilibj.AnalogTriggerOutput.AnalogTriggerType;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 
-
-/**
- * Class for creating and configuring Analog Triggers.
- */
+/** Class for creating and configuring Analog Triggers. */
 public class AnalogTrigger extends SendableBase {
-  /**
-   * Exceptions dealing with improper operation of the Analog trigger.
-   */
+  /** Exceptions dealing with improper operation of the Analog trigger. */
   public static class AnalogTriggerException extends RuntimeException {
     /**
      * Create a new exception with the given message.
@@ -34,13 +28,11 @@ public class AnalogTrigger extends SendableBase {
     public AnalogTriggerException(String message) {
       super(message);
     }
-
   }
 
-  /**
-   * Where the analog trigger is attached.
-   */
+  /** Where the analog trigger is attached. */
   protected int m_port;
+
   protected int m_index;
   protected AnalogInput m_analogInput;
   protected boolean m_ownsAnalog;
@@ -67,8 +59,7 @@ public class AnalogTrigger extends SendableBase {
     ByteBuffer index = ByteBuffer.allocateDirect(4);
     index.order(ByteOrder.LITTLE_ENDIAN);
 
-    m_port =
-        AnalogJNI.initializeAnalogTrigger(channel.m_port, index.asIntBuffer());
+    m_port = AnalogJNI.initializeAnalogTrigger(channel.m_port, index.asIntBuffer());
     m_index = index.asIntBuffer().get(0);
 
     HAL.report(tResourceType.kResourceType_AnalogTrigger, channel.getChannel());
@@ -135,8 +126,7 @@ public class AnalogTrigger extends SendableBase {
   }
 
   /**
-   * Return the index of the analog trigger. This is the FPGA index of this analog trigger
-   * instance.
+   * Return the index of the analog trigger. This is the FPGA index of this analog trigger instance.
    *
    * @return The index of the analog trigger.
    */

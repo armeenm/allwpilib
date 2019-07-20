@@ -10,9 +10,7 @@ package edu.wpi.first.wpilibj.shuffleboard;
 import edu.wpi.first.wpilibj.SendableBase;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 
-/**
- * A mock sendable that marks itself as an actuator.
- */
+/** A mock sendable that marks itself as an actuator. */
 public class MockActuatorSendable extends SendableBase {
   public MockActuatorSendable(String name) {
     super(false);

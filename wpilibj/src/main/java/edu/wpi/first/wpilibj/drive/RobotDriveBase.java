@@ -11,9 +11,7 @@ import edu.wpi.first.wpilibj.MotorSafety;
 import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.SendableImpl;
 
-/**
- * Common base class for drive platforms.
- */
+/** Common base class for drive platforms. */
 public abstract class RobotDriveBase extends MotorSafety implements Sendable, AutoCloseable {
   public static final double kDefaultDeadband = 0.02;
   public static final double kDefaultMaxOutput = 1.0;
@@ -23,12 +21,15 @@ public abstract class RobotDriveBase extends MotorSafety implements Sendable, Au
 
   private final SendableImpl m_sendableImpl;
 
-  /**
-   * The location of a motor on the robot for the purpose of driving.
-   */
+  /** The location of a motor on the robot for the purpose of driving. */
   public enum MotorType {
-    kFrontLeft(0), kFrontRight(1), kRearLeft(2), kRearRight(3), kLeft(0),
-    kRight(1), kBack(2);
+    kFrontLeft(0),
+    kFrontRight(1),
+    kRearLeft(2),
+    kRearRight(3),
+    kLeft(0),
+    kRight(1),
+    kBack(2);
 
     @SuppressWarnings("MemberName")
     public final int value;
@@ -38,9 +39,7 @@ public abstract class RobotDriveBase extends MotorSafety implements Sendable, Au
     }
   }
 
-  /**
-   * RobotDriveBase constructor.
-   */
+  /** RobotDriveBase constructor. */
   public RobotDriveBase() {
     m_sendableImpl = new SendableImpl(true);
 
@@ -67,7 +66,7 @@ public abstract class RobotDriveBase extends MotorSafety implements Sendable, Au
    * Sets the name of the sensor with a channel number.
    *
    * @param moduleType A string that defines the module name in the label for the value
-   * @param channel    The channel number the device is plugged into
+   * @param channel The channel number the device is plugged into
    */
   protected final void setName(String moduleType, int channel) {
     m_sendableImpl.setName(moduleType, channel);
@@ -76,9 +75,9 @@ public abstract class RobotDriveBase extends MotorSafety implements Sendable, Au
   /**
    * Sets the name of the sensor with a module and channel number.
    *
-   * @param moduleType   A string that defines the module name in the label for the value
+   * @param moduleType A string that defines the module name in the label for the value
    * @param moduleNumber The number of the particular module type
-   * @param channel      The channel number the device is plugged into (usually PWM)
+   * @param channel The channel number the device is plugged into (usually PWM)
    */
   protected final void setName(String moduleType, int moduleNumber, int channel) {
     m_sendableImpl.setName(moduleType, moduleNumber, channel);
@@ -107,8 +106,8 @@ public abstract class RobotDriveBase extends MotorSafety implements Sendable, Au
    * Sets the deadband applied to the drive inputs (e.g., joystick values).
    *
    * <p>The default value is {@value #kDefaultDeadband}. Inputs smaller than the deadband are set to
-   * 0.0 while inputs larger than the deadband are scaled from 0.0 to 1.0. See
-   * {@link #applyDeadband}.
+   * 0.0 while inputs larger than the deadband are scaled from 0.0 to 1.0. See {@link
+   * #applyDeadband}.
    *
    * @param deadband The deadband to set.
    */
@@ -143,9 +142,7 @@ public abstract class RobotDriveBase extends MotorSafety implements Sendable, Au
   @Override
   public abstract String getDescription();
 
-  /**
-   * Limit motor values to the -1.0 to +1.0 range.
-   */
+  /** Limit motor values to the -1.0 to +1.0 range. */
   protected double limit(double value) {
     if (value > 1.0) {
       return 1.0;
@@ -160,7 +157,7 @@ public abstract class RobotDriveBase extends MotorSafety implements Sendable, Au
    * Returns 0.0 if the given value is within the specified range around zero. The remaining range
    * between the deadband and 1.0 is scaled from 0.0 to 1.0.
    *
-   * @param value    value to clip
+   * @param value value to clip
    * @param deadband range around zero
    */
   protected double applyDeadband(double value, double deadband) {
@@ -175,9 +172,7 @@ public abstract class RobotDriveBase extends MotorSafety implements Sendable, Au
     }
   }
 
-  /**
-   * Normalize all wheel speeds if the magnitude of any wheel is greater than 1.0.
-   */
+  /** Normalize all wheel speeds if the magnitude of any wheel is greater than 1.0. */
   protected void normalize(double[] wheelSpeeds) {
     double maxMagnitude = Math.abs(wheelSpeeds[0]);
     for (int i = 1; i < wheelSpeeds.length; i++) {

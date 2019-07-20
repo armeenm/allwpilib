@@ -10,13 +10,11 @@ package edu.wpi.first.wpilibj.examples.gearsbot.subsystems;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.examples.gearsbot.Robot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import edu.wpi.first.wpilibj.examples.gearsbot.Robot;
-
 /**
- * The wrist subsystem is like the elevator, but with a rotational joint instead
- * of a linear joint.
+ * The wrist subsystem is like the elevator, but with a rotational joint instead of a linear joint.
  */
 public class Wrist extends PIDSubsystem {
   private final Victor m_motor;
@@ -25,9 +23,7 @@ public class Wrist extends PIDSubsystem {
   private static final double kP_real = 1;
   private static final double kP_simulation = 0.05;
 
-  /**
-   * Create a new wrist subsystem.
-   */
+  /** Create a new wrist subsystem. */
   public Wrist() {
     super(kP_real, 0, 0);
     if (Robot.isSimulation()) { // Check for simulation and update PID values
@@ -51,29 +47,22 @@ public class Wrist extends PIDSubsystem {
   }
 
   @Override
-  public void initDefaultCommand() {
-  }
+  public void initDefaultCommand() {}
 
-  /**
-   * The log method puts interesting information to the SmartDashboard.
-   */
+  /** The log method puts interesting information to the SmartDashboard. */
   public void log() {
     SmartDashboard.putData("Wrist Angle", (AnalogPotentiometer) m_pot);
   }
 
   /**
-   * Use the potentiometer as the PID sensor. This method is automatically
-   * called by the subsystem.
+   * Use the potentiometer as the PID sensor. This method is automatically called by the subsystem.
    */
   @Override
   protected double returnPIDInput() {
     return m_pot.get();
   }
 
-  /**
-   * Use the motor as the PID output. This method is automatically called by
-   * the subsystem.
-   */
+  /** Use the motor as the PID output. This method is automatically called by the subsystem. */
   @Override
   protected void usePIDOutput(double power) {
     m_motor.set(power);

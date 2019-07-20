@@ -7,14 +7,13 @@
 
 package edu.wpi.first.wpilibj;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
 import edu.wpi.first.hal.HAL;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 
 /**
  * ADXL362 SPI Accelerometer.
@@ -64,7 +63,7 @@ public class ADXL362 extends SendableBase implements Accelerometer {
   private double m_gsPerLSB;
 
   /**
-   * Constructor.  Uses the onboard CS1.
+   * Constructor. Uses the onboard CS1.
    *
    * @param range The range (+ or -) that the accelerometer will measure.
    */
@@ -75,7 +74,7 @@ public class ADXL362 extends SendableBase implements Accelerometer {
   /**
    * Constructor.
    *
-   * @param port  The SPI port that the accelerometer is connected to
+   * @param port The SPI port that the accelerometer is connected to
    * @param range The range (+ or -) that the accelerometer will measure.
    */
   public ADXL362(SPI.Port port, Range range) {
@@ -137,21 +136,19 @@ public class ADXL362 extends SendableBase implements Accelerometer {
         m_gsPerLSB = 0.002;
         break;
       case k8G:
-      case k16G:  // 16G not supported; treat as 8G
+      case k16G: // 16G not supported; treat as 8G
         value = kFilterCtl_Range8G;
         m_gsPerLSB = 0.004;
         break;
       default:
         throw new IllegalArgumentException(range + " unsupported");
-
     }
 
     // Specify the data format to read
-    byte[] commands = new byte[]{kRegWrite, kFilterCtlRegister, (byte) (kFilterCtl_ODR_100Hz
-        | value)};
+    byte[] commands =
+        new byte[] {kRegWrite, kFilterCtlRegister, (byte) (kFilterCtl_ODR_100Hz | value)};
     m_spi.write(commands, commands.length);
   }
-
 
   @Override
   public double getX() {
@@ -217,11 +214,12 @@ public class ADXL362 extends SendableBase implements Accelerometer {
     NetworkTableEntry entryX = builder.getEntry("X");
     NetworkTableEntry entryY = builder.getEntry("Y");
     NetworkTableEntry entryZ = builder.getEntry("Z");
-    builder.setUpdateTable(() -> {
-      AllAxes data = getAccelerations();
-      entryX.setDouble(data.XAxis);
-      entryY.setDouble(data.YAxis);
-      entryZ.setDouble(data.ZAxis);
-    });
+    builder.setUpdateTable(
+        () -> {
+          AllAxes data = getAccelerations();
+          entryX.setDouble(data.XAxis);
+          entryY.setDouble(data.YAxis);
+          entryZ.setDouble(data.ZAxis);
+        });
   }
 }

@@ -182,13 +182,16 @@ public class AnalogInput extends SendableBase implements PIDSource {
     return AnalogJNI.getAnalogOversampleBits(m_port);
   }
 
-  /**
-   * Initialize the accumulator.
-   */
+  /** Initialize the accumulator. */
   public void initAccumulator() {
     if (!isAccumulatorChannel()) {
-      throw new AllocationException("Accumulators are only available on slot " + kAccumulatorSlot
-          + " on channels " + kAccumulatorChannels[0] + ", " + kAccumulatorChannels[1]);
+      throw new AllocationException(
+          "Accumulators are only available on slot "
+              + kAccumulatorSlot
+              + " on channels "
+              + kAccumulatorChannels[0]
+              + ", "
+              + kAccumulatorChannels[1]);
     }
     m_accumulatorOffset = 0;
     AnalogJNI.initAccumulator(m_port);
@@ -205,9 +208,7 @@ public class AnalogInput extends SendableBase implements PIDSource {
     m_accumulatorOffset = initialValue;
   }
 
-  /**
-   * Resets the accumulator to the initial value.
-   */
+  /** Resets the accumulator to the initial value. */
   public void resetAccumulator() {
     AnalogJNI.resetAccumulator(m_port);
 
@@ -217,7 +218,6 @@ public class AnalogInput extends SendableBase implements PIDSource {
     final double overSamples = 1 << getOversampleBits();
     final double averageSamples = 1 << getAverageBits();
     Timer.delay(sampleTime * overSamples * averageSamples);
-
   }
 
   /**

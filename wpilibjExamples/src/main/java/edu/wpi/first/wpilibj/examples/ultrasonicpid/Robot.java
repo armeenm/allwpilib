@@ -15,8 +15,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 /**
- * This is a sample program to demonstrate the use of a PIDController with an
- * ultrasonic sensor to reach and maintain a set distance from an object.
+ * This is a sample program to demonstrate the use of a PIDController with an ultrasonic sensor to
+ * reach and maintain a set distance from an object.
  */
 public class Robot extends TimedRobot {
   // distance in inches the robot wants to stay from an object
@@ -42,16 +42,12 @@ public class Robot extends TimedRobot {
   private static final int kUltrasonicPort = 0;
 
   private final AnalogInput m_ultrasonic = new AnalogInput(kUltrasonicPort);
-  private final DifferentialDrive m_robotDrive
-      = new DifferentialDrive(new PWMVictorSPX(kLeftMotorPort),
-      new PWMVictorSPX(kRightMotorPort));
-  private final PIDController m_pidController
-      = new PIDController(kP, kI, kD, m_ultrasonic, new MyPidOutput());
+  private final DifferentialDrive m_robotDrive =
+      new DifferentialDrive(new PWMVictorSPX(kLeftMotorPort), new PWMVictorSPX(kRightMotorPort));
+  private final PIDController m_pidController =
+      new PIDController(kP, kI, kD, m_ultrasonic, new MyPidOutput());
 
-  /**
-   * Drives the robot a set distance from an object using PID control and the
-   * ultrasonic sensor.
-   */
+  /** Drives the robot a set distance from an object using PID control and the ultrasonic sensor. */
   @Override
   public void teleopInit() {
     // Set expected range to 0-24 inches; e.g. at 24 inches from object go

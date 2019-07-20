@@ -17,9 +17,7 @@ public abstract class SendableBase implements Sendable, AutoCloseable {
   private String m_name = "";
   private String m_subsystem = "Ungrouped";
 
-  /**
-   * Creates an instance of the sensor base.
-   */
+  /** Creates an instance of the sensor base. */
   public SendableBase() {
     this(true);
   }
@@ -59,7 +57,7 @@ public abstract class SendableBase implements Sendable, AutoCloseable {
    * Sets the name of the sensor with a channel number.
    *
    * @param moduleType A string that defines the module name in the label for the value
-   * @param channel    The channel number the device is plugged into
+   * @param channel The channel number the device is plugged into
    */
   protected final void setName(String moduleType, int channel) {
     setName(moduleType + "[" + channel + "]");
@@ -68,9 +66,9 @@ public abstract class SendableBase implements Sendable, AutoCloseable {
   /**
    * Sets the name of the sensor with a module and channel number.
    *
-   * @param moduleType   A string that defines the module name in the label for the value
+   * @param moduleType A string that defines the module name in the label for the value
    * @param moduleNumber The number of the particular module type
-   * @param channel      The channel number the device is plugged into (usually PWM)
+   * @param channel The channel number the device is plugged into (usually PWM)
    */
   protected final void setName(String moduleType, int moduleNumber, int channel) {
     setName(moduleType + "[" + moduleNumber + "," + channel + "]");

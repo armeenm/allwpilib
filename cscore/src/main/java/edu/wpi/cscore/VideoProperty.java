@@ -7,12 +7,14 @@
 
 package edu.wpi.cscore;
 
-/**
- * A source or sink property.
- */
+/** A source or sink property. */
 public class VideoProperty {
   public enum Kind {
-    kNone(0), kBoolean(1), kInteger(2), kString(4), kEnum(8);
+    kNone(0),
+    kBoolean(1),
+    kInteger(2),
+    kString(4),
+    kEnum(8);
 
     @SuppressWarnings("MemberName")
     private final int value;
@@ -34,11 +36,16 @@ public class VideoProperty {
    */
   public static Kind getKindFromInt(int kind) {
     switch (kind) {
-      case 1: return Kind.kBoolean;
-      case 2: return Kind.kInteger;
-      case 4: return Kind.kString;
-      case 8: return Kind.kEnum;
-      default: return Kind.kNone;
+      case 1:
+        return Kind.kBoolean;
+      case 2:
+        return Kind.kInteger;
+      case 4:
+        return Kind.kString;
+      case 8:
+        return Kind.kEnum;
+      default:
+        return Kind.kNone;
     }
   }
 

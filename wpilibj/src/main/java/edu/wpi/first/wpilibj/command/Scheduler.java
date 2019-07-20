@@ -7,10 +7,6 @@
 
 package edu.wpi.first.wpilibj.command;
 
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.Vector;
-
 import edu.wpi.first.hal.FRCNetComm.tInstances;
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
 import edu.wpi.first.hal.HAL;
@@ -18,23 +14,24 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.SendableBase;
 import edu.wpi.first.wpilibj.buttons.Trigger.ButtonScheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Vector;
 
 /**
  * The {@link Scheduler} is a singleton which holds the top-level running commands. It is in charge
  * of both calling the command's {@link Command#run() run()} method and to make sure that there are
  * no two commands with conflicting requirements running.
  *
- * <p> It is fine if teams wish to take control of the {@link Scheduler} themselves, all that needs
+ * <p>It is fine if teams wish to take control of the {@link Scheduler} themselves, all that needs
  * to be done is to call {@link Scheduler#getInstance() Scheduler.getInstance()}.{@link
  * Scheduler#run() run()} often to have {@link Command Commands} function correctly. However, this
- * is already done for you if you use the CommandBased Robot template. </p>
+ * is already done for you if you use the CommandBased Robot template.
  *
  * @see Command
  */
 public final class Scheduler extends SendableBase {
-  /**
-   * The Singleton Instance.
-   */
+  /** The Singleton Instance. */
   private static Scheduler instance;
 
   /**
@@ -49,36 +46,23 @@ public final class Scheduler extends SendableBase {
     return instance;
   }
 
-  /**
-   * A hashtable of active {@link Command Commands} to their {@link LinkedListElement}.
-   */
+  /** A hashtable of active {@link Command Commands} to their {@link LinkedListElement}. */
   @SuppressWarnings("PMD.LooseCoupling")
   private final Hashtable<Command, LinkedListElement> m_commandTable = new Hashtable<>();
-  /**
-   * The {@link Set} of all {@link Subsystem Subsystems}.
-   */
+  /** The {@link Set} of all {@link Subsystem Subsystems}. */
   private final Set m_subsystems = new Set();
-  /**
-   * The first {@link Command} in the list.
-   */
+  /** The first {@link Command} in the list. */
   private LinkedListElement m_firstCommand;
-  /**
-   * The last {@link Command} in the list.
-   */
+  /** The last {@link Command} in the list. */
   private LinkedListElement m_lastCommand;
-  /**
-   * Whether or not we are currently adding a command.
-   */
+  /** Whether or not we are currently adding a command. */
   private boolean m_adding;
-  /**
-   * Whether or not we are currently disabled.
-   */
+  /** Whether or not we are currently disabled. */
   private boolean m_disabled;
-  /**
-   * A list of all {@link Command Commands} which need to be added.
-   */
+  /** A list of all {@link Command Commands} which need to be added. */
   @SuppressWarnings({"PMD.LooseCoupling", "PMD.UseArrayListInsteadOfVector"})
   private final Vector<Command> m_additions = new Vector<>();
+
   private NetworkTableEntry m_namesEntry;
   private NetworkTableEntry m_idsEntry;
   private NetworkTableEntry m_cancelEntry;
@@ -88,11 +72,10 @@ public final class Scheduler extends SendableBase {
    */
   @SuppressWarnings("PMD.LooseCoupling")
   private Vector<ButtonScheduler> m_buttons;
+
   private boolean m_runningCommandsChanged;
 
-  /**
-   * Instantiates a {@link Scheduler}.
-   */
+  /** Instantiates a {@link Scheduler}. */
   private Scheduler() {
     HAL.report(tResourceType.kResourceType_Command, tInstances.kCommand_Scheduler);
     setName("Scheduler");
@@ -103,8 +86,8 @@ public final class Scheduler extends SendableBase {
    * but will instead wait for the proper time in the {@link Scheduler#run()} loop before doing so.
    * The command returns immediately and does nothing if given null.
    *
-   * <p> Adding a {@link Command} to the {@link Scheduler} involves the {@link Scheduler} removing
-   * any {@link Command} which has shared requirements. </p>
+   * <p>Adding a {@link Command} to the {@link Scheduler} involves the {@link Scheduler} removing
+   * any {@link Command} which has shared requirements.
    *
    * @param command the command to add
    */
@@ -192,8 +175,13 @@ public final class Scheduler extends SendableBase {
    * Runs a single iteration of the loop. This method should be called often in order to have a
    * functioning {@link Command} system. The loop has five stages:
    *
-   * <ol> <li>Poll the Buttons</li> <li>Execute/Remove the Commands</li> <li>Send values to
-   * SmartDashboard</li> <li>Add Commands</li> <li>Add Defaults</li> </ol>
+   * <ol>
+   *   <li>Poll the Buttons
+   *   <li>Execute/Remove the Commands
+   *   <li>Send values to SmartDashboard
+   *   <li>Add Commands
+   *   <li>Add Defaults
+   * </ol>
    */
   @SuppressWarnings({"PMD.CyclomaticComplexity", "PMD.NPathComplexity"})
   public void run() {
@@ -285,9 +273,7 @@ public final class Scheduler extends SendableBase {
     command.removed();
   }
 
-  /**
-   * Removes all commands.
-   */
+  /** Removes all commands. */
   public void removeAll() {
     // TODO: Confirm that this works with "uninteruptible" commands
     while (m_firstCommand != null) {
@@ -295,16 +281,12 @@ public final class Scheduler extends SendableBase {
     }
   }
 
-  /**
-   * Disable the command scheduler.
-   */
+  /** Disable the command scheduler. */
   public void disable() {
     m_disabled = true;
   }
 
-  /**
-   * Enable the command scheduler.
-   */
+  /** Enable the command scheduler. */
   public void enable() {
     m_disabled = false;
   }
@@ -315,39 +297,40 @@ public final class Scheduler extends SendableBase {
     m_namesEntry = builder.getEntry("Names");
     m_idsEntry = builder.getEntry("Ids");
     m_cancelEntry = builder.getEntry("Cancel");
-    builder.setUpdateTable(() -> {
-      if (m_namesEntry != null && m_idsEntry != null && m_cancelEntry != null) {
-        // Get the commands to cancel
-        double[] toCancel = m_cancelEntry.getDoubleArray(new double[0]);
-        if (toCancel.length > 0) {
-          for (LinkedListElement e = m_firstCommand; e != null; e = e.getNext()) {
-            for (double d : toCancel) {
-              if (e.getData().hashCode() == d) {
-                e.getData().cancel();
+    builder.setUpdateTable(
+        () -> {
+          if (m_namesEntry != null && m_idsEntry != null && m_cancelEntry != null) {
+            // Get the commands to cancel
+            double[] toCancel = m_cancelEntry.getDoubleArray(new double[0]);
+            if (toCancel.length > 0) {
+              for (LinkedListElement e = m_firstCommand; e != null; e = e.getNext()) {
+                for (double d : toCancel) {
+                  if (e.getData().hashCode() == d) {
+                    e.getData().cancel();
+                  }
+                }
               }
+              m_cancelEntry.setDoubleArray(new double[0]);
+            }
+
+            if (m_runningCommandsChanged) {
+              // Set the the running commands
+              int number = 0;
+              for (LinkedListElement e = m_firstCommand; e != null; e = e.getNext()) {
+                number++;
+              }
+              String[] commands = new String[number];
+              double[] ids = new double[number];
+              number = 0;
+              for (LinkedListElement e = m_firstCommand; e != null; e = e.getNext()) {
+                commands[number] = e.getData().getName();
+                ids[number] = e.getData().hashCode();
+                number++;
+              }
+              m_namesEntry.setStringArray(commands);
+              m_idsEntry.setDoubleArray(ids);
             }
           }
-          m_cancelEntry.setDoubleArray(new double[0]);
-        }
-
-        if (m_runningCommandsChanged) {
-          // Set the the running commands
-          int number = 0;
-          for (LinkedListElement e = m_firstCommand; e != null; e = e.getNext()) {
-            number++;
-          }
-          String[] commands = new String[number];
-          double[] ids = new double[number];
-          number = 0;
-          for (LinkedListElement e = m_firstCommand; e != null; e = e.getNext()) {
-            commands[number] = e.getData().getName();
-            ids[number] = e.getData().hashCode();
-            number++;
-          }
-          m_namesEntry.setStringArray(commands);
-          m_idsEntry.setDoubleArray(ids);
-        }
-      }
-    });
+        });
   }
 }

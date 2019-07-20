@@ -15,13 +15,21 @@ public class PWMJNI extends DIOJNI {
 
   public static native void freePWMPort(int pwmPortHandle);
 
-  public static native void setPWMConfigRaw(int pwmPortHandle, int maxPwm,
-                                            int deadbandMaxPwm, int centerPwm,
-                                            int deadbandMinPwm, int minPwm);
+  public static native void setPWMConfigRaw(
+      int pwmPortHandle,
+      int maxPwm,
+      int deadbandMaxPwm,
+      int centerPwm,
+      int deadbandMinPwm,
+      int minPwm);
 
-  public static native void setPWMConfig(int pwmPortHandle, double maxPwm,
-                                         double deadbandMaxPwm, double centerPwm,
-                                         double deadbandMinPwm, double minPwm);
+  public static native void setPWMConfig(
+      int pwmPortHandle,
+      double maxPwm,
+      double deadbandMaxPwm,
+      double centerPwm,
+      double deadbandMinPwm,
+      double minPwm);
 
   public static native PWMConfigDataResult getPWMConfigRaw(int pwmPortHandle);
 
@@ -41,7 +49,7 @@ public class PWMJNI extends DIOJNI {
 
   public static native double getPWMPosition(int pwmPortHandle);
 
-  public static native  void setPWMDisabled(int pwmPortHandle);
+  public static native void setPWMDisabled(int pwmPortHandle);
 
   public static native void latchPWMZero(int pwmPortHandle);
 

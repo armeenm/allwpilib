@@ -13,11 +13,11 @@ import java.nio.ByteBuffer;
 public class SPIJNI extends JNIWrapper {
   public static native void spiInitialize(int port);
 
-  public static native int spiTransaction(int port, ByteBuffer dataToSend,
-                                          ByteBuffer dataReceived, byte size);
+  public static native int spiTransaction(
+      int port, ByteBuffer dataToSend, ByteBuffer dataReceived, byte size);
 
-  public static native int spiTransactionB(int port, byte[] dataToSend,
-                                           byte[] dataReceived, byte size);
+  public static native int spiTransactionB(
+      int port, byte[] dataToSend, byte[] dataReceived, byte size);
 
   public static native int spiWrite(int port, ByteBuffer dataToSend, byte sendSize);
 
@@ -31,8 +31,8 @@ public class SPIJNI extends JNIWrapper {
 
   public static native void spiSetSpeed(int port, int speed);
 
-  public static native void spiSetOpts(int port, int msbFirst, int sampleOnTrailing,
-                                       int clkIdleHigh);
+  public static native void spiSetOpts(
+      int port, int msbFirst, int sampleOnTrailing, int clkIdleHigh);
 
   public static native void spiSetChipSelectActiveHigh(int port);
 
@@ -44,9 +44,12 @@ public class SPIJNI extends JNIWrapper {
 
   public static native void spiStartAutoRate(int port, double period);
 
-  public static native void spiStartAutoTrigger(int port, int digitalSourceHandle,
-                                                int analogTriggerType, boolean triggerRising,
-                                                boolean triggerFalling);
+  public static native void spiStartAutoTrigger(
+      int port,
+      int digitalSourceHandle,
+      int analogTriggerType,
+      boolean triggerRising,
+      boolean triggerFalling);
 
   public static native void spiStopAuto(int port);
 
@@ -54,11 +57,11 @@ public class SPIJNI extends JNIWrapper {
 
   public static native void spiForceAutoRead(int port);
 
-  public static native int spiReadAutoReceivedData(int port, ByteBuffer buffer, int numToRead,
-                                                   double timeout);
+  public static native int spiReadAutoReceivedData(
+      int port, ByteBuffer buffer, int numToRead, double timeout);
 
-  public static native int spiReadAutoReceivedData(int port, int[] buffer, int numToRead,
-                                                   double timeout);
+  public static native int spiReadAutoReceivedData(
+      int port, int[] buffer, int numToRead, double timeout);
 
   public static native int spiGetAutoDroppedCount(int port);
 }

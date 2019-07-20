@@ -7,6 +7,10 @@
 
 package edu.wpi.first.wpilibj.smartdashboard;
 
+import edu.wpi.first.networktables.EntryListenerFlags;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableValue;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BooleanSupplier;
@@ -15,11 +19,6 @@ import java.util.function.DoubleConsumer;
 import java.util.function.DoubleSupplier;
 import java.util.function.Function;
 import java.util.function.Supplier;
-
-import edu.wpi.first.networktables.EntryListenerFlags;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableValue;
 
 @SuppressWarnings("PMD.TooManyMethods")
 public class SendableBuilderImpl implements SendableBuilder {
@@ -61,8 +60,8 @@ public class SendableBuilderImpl implements SendableBuilder {
   private boolean m_actuator;
 
   /**
-   * Set the network table.  Must be called prior to any Add* functions being
-   * called.
+   * Set the network table. Must be called prior to any Add* functions being called.
+   *
    * @param table Network table
    */
   public void setTable(NetworkTable table) {
@@ -72,6 +71,7 @@ public class SendableBuilderImpl implements SendableBuilder {
 
   /**
    * Get the network table.
+   *
    * @return The network table
    */
   public NetworkTable getTable() {
@@ -80,15 +80,14 @@ public class SendableBuilderImpl implements SendableBuilder {
 
   /**
    * Return whether this sendable should be treated as an actuator.
+   *
    * @return True if actuator, false if not.
    */
   public boolean isActuator() {
     return m_actuator;
   }
 
-  /**
-   * Update the network table values by calling the getters for all properties.
-   */
+  /** Update the network table values by calling the getters for all properties. */
   public void updateTable() {
     for (Property property : m_properties) {
       if (property.m_update != null) {
@@ -100,9 +99,7 @@ public class SendableBuilderImpl implements SendableBuilder {
     }
   }
 
-  /**
-   * Hook setters for all properties.
-   */
+  /** Hook setters for all properties. */
   public void startListeners() {
     for (Property property : m_properties) {
       property.startListener();
@@ -112,9 +109,7 @@ public class SendableBuilderImpl implements SendableBuilder {
     }
   }
 
-  /**
-   * Unhook setters for all properties.
-   */
+  /** Unhook setters for all properties. */
   public void stopListeners() {
     for (Property property : m_properties) {
       property.stopListener();
@@ -125,8 +120,8 @@ public class SendableBuilderImpl implements SendableBuilder {
   }
 
   /**
-   * Start LiveWindow mode by hooking the setters for all properties.  Also
-   * calls the safeState function if one was provided.
+   * Start LiveWindow mode by hooking the setters for all properties. Also calls the safeState
+   * function if one was provided.
    */
   public void startLiveWindowMode() {
     if (m_safeState != null) {
@@ -136,8 +131,8 @@ public class SendableBuilderImpl implements SendableBuilder {
   }
 
   /**
-   * Stop LiveWindow mode by unhooking the setters for all properties.  Also
-   * calls the safeState function if one was provided.
+   * Stop LiveWindow mode by unhooking the setters for all properties. Also calls the safeState
+   * function if one was provided.
    */
   public void stopLiveWindowMode() {
     stopListeners();
@@ -147,10 +142,10 @@ public class SendableBuilderImpl implements SendableBuilder {
   }
 
   /**
-   * Set the string representation of the named data type that will be used
-   * by the smart dashboard for this sendable.
+   * Set the string representation of the named data type that will be used by the smart dashboard
+   * for this sendable.
    *
-   * @param type    data type
+   * @param type data type
    */
   @Override
   public void setSmartDashboardType(String type) {
@@ -158,10 +153,10 @@ public class SendableBuilderImpl implements SendableBuilder {
   }
 
   /**
-   * Set a flag indicating if this sendable should be treated as an actuator.
-   * By default this flag is false.
+   * Set a flag indicating if this sendable should be treated as an actuator. By default this flag
+   * is false.
    *
-   * @param value   true if actuator, false if not
+   * @param value true if actuator, false if not
    */
   @Override
   public void setActuator(boolean value) {
@@ -170,10 +165,10 @@ public class SendableBuilderImpl implements SendableBuilder {
   }
 
   /**
-   * Set the function that should be called to set the Sendable into a safe
-   * state.  This is called when entering and exiting Live Window mode.
+   * Set the function that should be called to set the Sendable into a safe state. This is called
+   * when entering and exiting Live Window mode.
    *
-   * @param func    function
+   * @param func function
    */
   @Override
   public void setSafeState(Runnable func) {
@@ -181,12 +176,11 @@ public class SendableBuilderImpl implements SendableBuilder {
   }
 
   /**
-   * Set the function that should be called to update the network table
-   * for things other than properties.  Note this function is not passed
-   * the network table object; instead it should use the entry handles
-   * returned by getEntry().
+   * Set the function that should be called to update the network table for things other than
+   * properties. Note this function is not passed the network table object; instead it should use
+   * the entry handles returned by getEntry().
    *
-   * @param func    function
+   * @param func function
    */
   @Override
   public void setUpdateTable(Runnable func) {
@@ -194,10 +188,10 @@ public class SendableBuilderImpl implements SendableBuilder {
   }
 
   /**
-   * Add a property without getters or setters.  This can be used to get
-   * entry handles for the function called by setUpdateTable().
+   * Add a property without getters or setters. This can be used to get entry handles for the
+   * function called by setUpdateTable().
    *
-   * @param key   property name
+   * @param key property name
    * @return Network table entry
    */
   @Override
@@ -208,9 +202,9 @@ public class SendableBuilderImpl implements SendableBuilder {
   /**
    * Add a boolean property.
    *
-   * @param key     property name
-   * @param getter  getter function (returns current value)
-   * @param setter  setter function (sets new value)
+   * @param key property name
+   * @param getter getter function (returns current value)
+   * @param setter setter function (sets new value)
    */
   @Override
   public void addBooleanProperty(String key, BooleanSupplier getter, BooleanConsumer setter) {
@@ -219,11 +213,17 @@ public class SendableBuilderImpl implements SendableBuilder {
       property.m_update = entry -> entry.setBoolean(getter.getAsBoolean());
     }
     if (setter != null) {
-      property.m_createListener = entry -> entry.addListener(event -> {
-        if (event.value.isBoolean()) {
-          setter.accept(event.value.getBoolean());
-        }
-      }, EntryListenerFlags.kImmediate | EntryListenerFlags.kNew | EntryListenerFlags.kUpdate);
+      property.m_createListener =
+          entry ->
+              entry.addListener(
+                  event -> {
+                    if (event.value.isBoolean()) {
+                      setter.accept(event.value.getBoolean());
+                    }
+                  },
+                  EntryListenerFlags.kImmediate
+                      | EntryListenerFlags.kNew
+                      | EntryListenerFlags.kUpdate);
     }
     m_properties.add(property);
   }
@@ -231,9 +231,9 @@ public class SendableBuilderImpl implements SendableBuilder {
   /**
    * Add a double property.
    *
-   * @param key     property name
-   * @param getter  getter function (returns current value)
-   * @param setter  setter function (sets new value)
+   * @param key property name
+   * @param getter getter function (returns current value)
+   * @param setter setter function (sets new value)
    */
   @Override
   public void addDoubleProperty(String key, DoubleSupplier getter, DoubleConsumer setter) {
@@ -242,11 +242,17 @@ public class SendableBuilderImpl implements SendableBuilder {
       property.m_update = entry -> entry.setDouble(getter.getAsDouble());
     }
     if (setter != null) {
-      property.m_createListener = entry -> entry.addListener(event -> {
-        if (event.value.isDouble()) {
-          setter.accept(event.value.getDouble());
-        }
-      }, EntryListenerFlags.kImmediate | EntryListenerFlags.kNew | EntryListenerFlags.kUpdate);
+      property.m_createListener =
+          entry ->
+              entry.addListener(
+                  event -> {
+                    if (event.value.isDouble()) {
+                      setter.accept(event.value.getDouble());
+                    }
+                  },
+                  EntryListenerFlags.kImmediate
+                      | EntryListenerFlags.kNew
+                      | EntryListenerFlags.kUpdate);
     }
     m_properties.add(property);
   }
@@ -254,9 +260,9 @@ public class SendableBuilderImpl implements SendableBuilder {
   /**
    * Add a string property.
    *
-   * @param key     property name
-   * @param getter  getter function (returns current value)
-   * @param setter  setter function (sets new value)
+   * @param key property name
+   * @param getter getter function (returns current value)
+   * @param setter setter function (sets new value)
    */
   @Override
   public void addStringProperty(String key, Supplier<String> getter, Consumer<String> setter) {
@@ -265,11 +271,17 @@ public class SendableBuilderImpl implements SendableBuilder {
       property.m_update = entry -> entry.setString(getter.get());
     }
     if (setter != null) {
-      property.m_createListener = entry -> entry.addListener(event -> {
-        if (event.value.isString()) {
-          setter.accept(event.value.getString());
-        }
-      }, EntryListenerFlags.kImmediate | EntryListenerFlags.kNew | EntryListenerFlags.kUpdate);
+      property.m_createListener =
+          entry ->
+              entry.addListener(
+                  event -> {
+                    if (event.value.isString()) {
+                      setter.accept(event.value.getString());
+                    }
+                  },
+                  EntryListenerFlags.kImmediate
+                      | EntryListenerFlags.kNew
+                      | EntryListenerFlags.kUpdate);
     }
     m_properties.add(property);
   }
@@ -277,23 +289,29 @@ public class SendableBuilderImpl implements SendableBuilder {
   /**
    * Add a boolean array property.
    *
-   * @param key     property name
-   * @param getter  getter function (returns current value)
-   * @param setter  setter function (sets new value)
+   * @param key property name
+   * @param getter getter function (returns current value)
+   * @param setter setter function (sets new value)
    */
   @Override
-  public void addBooleanArrayProperty(String key, Supplier<boolean[]> getter,
-                                      Consumer<boolean[]> setter) {
+  public void addBooleanArrayProperty(
+      String key, Supplier<boolean[]> getter, Consumer<boolean[]> setter) {
     Property property = new Property(m_table, key);
     if (getter != null) {
       property.m_update = entry -> entry.setBooleanArray(getter.get());
     }
     if (setter != null) {
-      property.m_createListener = entry -> entry.addListener(event -> {
-        if (event.value.isBooleanArray()) {
-          setter.accept(event.value.getBooleanArray());
-        }
-      }, EntryListenerFlags.kImmediate | EntryListenerFlags.kNew | EntryListenerFlags.kUpdate);
+      property.m_createListener =
+          entry ->
+              entry.addListener(
+                  event -> {
+                    if (event.value.isBooleanArray()) {
+                      setter.accept(event.value.getBooleanArray());
+                    }
+                  },
+                  EntryListenerFlags.kImmediate
+                      | EntryListenerFlags.kNew
+                      | EntryListenerFlags.kUpdate);
     }
     m_properties.add(property);
   }
@@ -301,23 +319,29 @@ public class SendableBuilderImpl implements SendableBuilder {
   /**
    * Add a double array property.
    *
-   * @param key     property name
-   * @param getter  getter function (returns current value)
-   * @param setter  setter function (sets new value)
+   * @param key property name
+   * @param getter getter function (returns current value)
+   * @param setter setter function (sets new value)
    */
   @Override
-  public void addDoubleArrayProperty(String key, Supplier<double[]> getter,
-                                     Consumer<double[]> setter) {
+  public void addDoubleArrayProperty(
+      String key, Supplier<double[]> getter, Consumer<double[]> setter) {
     Property property = new Property(m_table, key);
     if (getter != null) {
       property.m_update = entry -> entry.setDoubleArray(getter.get());
     }
     if (setter != null) {
-      property.m_createListener = entry -> entry.addListener(event -> {
-        if (event.value.isDoubleArray()) {
-          setter.accept(event.value.getDoubleArray());
-        }
-      }, EntryListenerFlags.kImmediate | EntryListenerFlags.kNew | EntryListenerFlags.kUpdate);
+      property.m_createListener =
+          entry ->
+              entry.addListener(
+                  event -> {
+                    if (event.value.isDoubleArray()) {
+                      setter.accept(event.value.getDoubleArray());
+                    }
+                  },
+                  EntryListenerFlags.kImmediate
+                      | EntryListenerFlags.kNew
+                      | EntryListenerFlags.kUpdate);
     }
     m_properties.add(property);
   }
@@ -325,23 +349,29 @@ public class SendableBuilderImpl implements SendableBuilder {
   /**
    * Add a string array property.
    *
-   * @param key     property name
-   * @param getter  getter function (returns current value)
-   * @param setter  setter function (sets new value)
+   * @param key property name
+   * @param getter getter function (returns current value)
+   * @param setter setter function (sets new value)
    */
   @Override
-  public void addStringArrayProperty(String key, Supplier<String[]> getter,
-                                     Consumer<String[]> setter) {
+  public void addStringArrayProperty(
+      String key, Supplier<String[]> getter, Consumer<String[]> setter) {
     Property property = new Property(m_table, key);
     if (getter != null) {
       property.m_update = entry -> entry.setStringArray(getter.get());
     }
     if (setter != null) {
-      property.m_createListener = entry -> entry.addListener(event -> {
-        if (event.value.isStringArray()) {
-          setter.accept(event.value.getStringArray());
-        }
-      }, EntryListenerFlags.kImmediate | EntryListenerFlags.kNew | EntryListenerFlags.kUpdate);
+      property.m_createListener =
+          entry ->
+              entry.addListener(
+                  event -> {
+                    if (event.value.isStringArray()) {
+                      setter.accept(event.value.getStringArray());
+                    }
+                  },
+                  EntryListenerFlags.kImmediate
+                      | EntryListenerFlags.kNew
+                      | EntryListenerFlags.kUpdate);
     }
     m_properties.add(property);
   }
@@ -349,9 +379,9 @@ public class SendableBuilderImpl implements SendableBuilder {
   /**
    * Add a raw property.
    *
-   * @param key     property name
-   * @param getter  getter function (returns current value)
-   * @param setter  setter function (sets new value)
+   * @param key property name
+   * @param getter getter function (returns current value)
+   * @param setter setter function (sets new value)
    */
   @Override
   public void addRawProperty(String key, Supplier<byte[]> getter, Consumer<byte[]> setter) {
@@ -360,11 +390,17 @@ public class SendableBuilderImpl implements SendableBuilder {
       property.m_update = entry -> entry.setRaw(getter.get());
     }
     if (setter != null) {
-      property.m_createListener = entry -> entry.addListener(event -> {
-        if (event.value.isRaw()) {
-          setter.accept(event.value.getRaw());
-        }
-      }, EntryListenerFlags.kImmediate | EntryListenerFlags.kNew | EntryListenerFlags.kUpdate);
+      property.m_createListener =
+          entry ->
+              entry.addListener(
+                  event -> {
+                    if (event.value.isRaw()) {
+                      setter.accept(event.value.getRaw());
+                    }
+                  },
+                  EntryListenerFlags.kImmediate
+                      | EntryListenerFlags.kNew
+                      | EntryListenerFlags.kUpdate);
     }
     m_properties.add(property);
   }
@@ -372,21 +408,27 @@ public class SendableBuilderImpl implements SendableBuilder {
   /**
    * Add a NetworkTableValue property.
    *
-   * @param key     property name
-   * @param getter  getter function (returns current value)
-   * @param setter  setter function (sets new value)
+   * @param key property name
+   * @param getter getter function (returns current value)
+   * @param setter setter function (sets new value)
    */
   @Override
-  public void addValueProperty(String key, Supplier<NetworkTableValue> getter,
-                               Consumer<NetworkTableValue> setter) {
+  public void addValueProperty(
+      String key, Supplier<NetworkTableValue> getter, Consumer<NetworkTableValue> setter) {
     Property property = new Property(m_table, key);
     if (getter != null) {
       property.m_update = entry -> entry.setValue(getter.get());
     }
     if (setter != null) {
-      property.m_createListener = entry -> entry.addListener(event -> {
-        setter.accept(event.value);
-      }, EntryListenerFlags.kImmediate | EntryListenerFlags.kNew | EntryListenerFlags.kUpdate);
+      property.m_createListener =
+          entry ->
+              entry.addListener(
+                  event -> {
+                    setter.accept(event.value);
+                  },
+                  EntryListenerFlags.kImmediate
+                      | EntryListenerFlags.kNew
+                      | EntryListenerFlags.kUpdate);
     }
     m_properties.add(property);
   }

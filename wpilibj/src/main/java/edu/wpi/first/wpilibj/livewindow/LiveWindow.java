@@ -7,20 +7,17 @@
 
 package edu.wpi.first.wpilibj.livewindow;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilderImpl;
-
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * The LiveWindow class is the public interface for putting sensors and actuators on the
- * LiveWindow.
+ * The LiveWindow class is the public interface for putting sensors and actuators on the LiveWindow.
  */
 @SuppressWarnings("PMD.TooManyMethods")
 public class LiveWindow {
@@ -39,6 +36,7 @@ public class LiveWindow {
 
   @SuppressWarnings("PMD.UseConcurrentHashMap")
   private static final Map<Object, Component> components = new HashMap<>();
+
   private static final NetworkTable liveWindowTable =
       NetworkTableInstance.getDefault().getTable("LiveWindow");
   private static final NetworkTable statusTable = liveWindowTable.getSubTable(".status");
@@ -148,9 +146,7 @@ public class LiveWindow {
     }
   }
 
-  /**
-   * Disable ALL telemetry.
-   */
+  /** Disable ALL telemetry. */
   public static synchronized void disableAllTelemetry() {
     telemetryEnabled = false;
     for (Component component : components.values()) {
@@ -161,8 +157,8 @@ public class LiveWindow {
   /**
    * Tell all the sensors to update (send) their values.
    *
-   * <p>Actuators are handled through callbacks on their value changing from the
-   * SmartDashboard widgets.
+   * <p>Actuators are handled through callbacks on their value changing from the SmartDashboard
+   * widgets.
    */
   @SuppressWarnings("PMD.CyclomaticComplexity")
   public static synchronized void updateValues() {
@@ -172,7 +168,8 @@ public class LiveWindow {
     }
 
     for (Component component : components.values()) {
-      if (component.m_sendable != null && component.m_parent == null
+      if (component.m_sendable != null
+          && component.m_parent == null
           && (liveWindowEnabled || component.m_telemetryEnabled)) {
         if (component.m_firstTime) {
           // By holding off creating the NetworkTable entries, it allows the

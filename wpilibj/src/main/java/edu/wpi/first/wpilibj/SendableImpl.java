@@ -10,16 +10,12 @@ package edu.wpi.first.wpilibj;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 
-/**
- * The base interface for objects that can be sent over the network through network tables.
- */
+/** The base interface for objects that can be sent over the network through network tables. */
 public class SendableImpl implements Sendable, AutoCloseable {
   private String m_name = "";
   private String m_subsystem = "Ungrouped";
 
-  /**
-   * Creates an instance of the sensor base.
-   */
+  /** Creates an instance of the sensor base. */
   public SendableImpl() {
     this(true);
   }
@@ -59,7 +55,7 @@ public class SendableImpl implements Sendable, AutoCloseable {
    * Sets the name of the sensor with a channel number.
    *
    * @param moduleType A string that defines the module name in the label for the value
-   * @param channel    The channel number the device is plugged into
+   * @param channel The channel number the device is plugged into
    */
   public void setName(String moduleType, int channel) {
     setName(moduleType + "[" + channel + "]");
@@ -68,9 +64,9 @@ public class SendableImpl implements Sendable, AutoCloseable {
   /**
    * Sets the name of the sensor with a module and channel number.
    *
-   * @param moduleType   A string that defines the module name in the label for the value
+   * @param moduleType A string that defines the module name in the label for the value
    * @param moduleNumber The number of the particular module type
-   * @param channel      The channel number the device is plugged into (usually PWM)
+   * @param channel The channel number the device is plugged into (usually PWM)
    */
   public void setName(String moduleType, int moduleNumber, int channel) {
     setName(moduleType + "[" + moduleNumber + "," + channel + "]");
@@ -87,8 +83,7 @@ public class SendableImpl implements Sendable, AutoCloseable {
   }
 
   @Override
-  public void initSendable(SendableBuilder builder) {
-  }
+  public void initSendable(SendableBuilder builder) {}
 
   /**
    * Add a child component.

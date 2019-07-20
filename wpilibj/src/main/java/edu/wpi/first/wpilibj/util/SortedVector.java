@@ -9,13 +9,9 @@ package edu.wpi.first.wpilibj.util;
 
 import java.util.Vector;
 
-/**
- * A vector that is sorted.
- */
+/** A vector that is sorted. */
 public class SortedVector<E> extends Vector<E> {
-  /**
-   * Interface used to determine the order to place sorted objects.
-   */
+  /** Interface used to determine the order to place sorted objects. */
   public interface Comparator {
     /**
      * Compare the given two objects.
@@ -36,7 +32,7 @@ public class SortedVector<E> extends Vector<E> {
    * Create a new sorted vector and use the given comparator to determine order.
    *
    * @param comparator The comparator to use to determine what order to place the elements in this
-   *                   vector.
+   *     vector.
    */
   public SortedVector(Comparator comparator) {
     m_comparator = comparator;
@@ -66,9 +62,7 @@ public class SortedVector<E> extends Vector<E> {
     insertElementAt(element, lowBound);
   }
 
-  /**
-   * Sort the vector.
-   */
+  /** Sort the vector. */
   @SuppressWarnings("unchecked")
   public synchronized void sort() {
     Object[] array = new Object[size()];

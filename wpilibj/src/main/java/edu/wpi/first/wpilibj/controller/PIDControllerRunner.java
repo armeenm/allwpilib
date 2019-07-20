@@ -7,13 +7,12 @@
 
 package edu.wpi.first.wpilibj.controller;
 
-import java.util.concurrent.locks.ReentrantLock;
-import java.util.function.DoubleConsumer;
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.SendableBase;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.function.DoubleConsumer;
+import java.util.function.DoubleSupplier;
 
 public class PIDControllerRunner extends SendableBase {
   private final Notifier m_notifier = new Notifier(this::run);
@@ -31,22 +30,20 @@ public class PIDControllerRunner extends SendableBase {
   /**
    * Allocates a PIDControllerRunner.
    *
-   * @param controller        The controller on which to call update().
+   * @param controller The controller on which to call update().
    * @param measurementSource The function that supplies the current process variable measurement.
-   * @param controllerOutput  The function which updates the plant using the controller output
-   *                          passed as the argument.
+   * @param controllerOutput The function which updates the plant using the controller output passed
+   *     as the argument.
    */
-  public PIDControllerRunner(PIDController controller, DoubleSupplier measurementSource,
-                          DoubleConsumer controllerOutput) {
+  public PIDControllerRunner(
+      PIDController controller, DoubleSupplier measurementSource, DoubleConsumer controllerOutput) {
     m_controller = controller;
     m_controllerOutput = controllerOutput;
     m_measurementSource = measurementSource;
     m_notifier.startPeriodic(m_controller.getPeriod());
   }
 
-  /**
-   * Begins running the controller.
-   */
+  /** Begins running the controller. */
   public void enable() {
     m_thisMutex.lock();
     try {
@@ -79,9 +76,7 @@ public class PIDControllerRunner extends SendableBase {
     }
   }
 
-  /**
-   * Returns whether controller is running.
-   */
+  /** Returns whether controller is running. */
   public boolean isEnabled() {
     m_thisMutex.lock();
     try {
@@ -90,7 +85,6 @@ public class PIDControllerRunner extends SendableBase {
       m_thisMutex.unlock();
     }
   }
-
 
   private void run() {
     // Ensures m_enabled check and m_controllerOutput() call occur atomically
@@ -118,12 +112,15 @@ public class PIDControllerRunner extends SendableBase {
   public void initSendable(SendableBuilder builder) {
     m_controller.initSendable(builder);
     builder.setSafeState(this::disable);
-    builder.addBooleanProperty("enabled", this::isEnabled, enabled -> {
-      if (enabled) {
-        enable();
-      } else {
-        disable();
-      }
-    });
+    builder.addBooleanProperty(
+        "enabled",
+        this::isEnabled,
+        enabled -> {
+          if (enabled) {
+            enable();
+          } else {
+            disable();
+          }
+        });
   }
 }

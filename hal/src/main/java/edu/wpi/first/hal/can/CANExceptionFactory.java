@@ -18,8 +18,9 @@ public final class CANExceptionFactory {
   static final int ERR_CANSessionMux_NotInitialized = -44089;
 
   @SuppressWarnings({"JavadocMethod", "PMD.CyclomaticComplexity"})
-  public static void checkStatus(int status, int messageID) throws CANInvalidBufferException,
-      CANMessageNotAllowedException, CANNotInitializedException, UncleanStatusException {
+  public static void checkStatus(int status, int messageID)
+      throws CANInvalidBufferException, CANMessageNotAllowedException, CANNotInitializedException,
+          UncleanStatusException {
     switch (status) {
       case NIRioStatus.kRioStatusSuccess:
         // Everything is ok... don't throw.
@@ -37,12 +38,10 @@ public final class CANExceptionFactory {
       case NIRioStatus.kRIOStatusResourceNotInitialized:
         throw new CANNotInitializedException();
       default:
-        throw new UncleanStatusException("Fatal status code detected:  " + Integer.toString(
-            status));
+        throw new UncleanStatusException(
+            "Fatal status code detected:  " + Integer.toString(status));
     }
   }
 
-  private CANExceptionFactory() {
-
-  }
+  private CANExceptionFactory() {}
 }

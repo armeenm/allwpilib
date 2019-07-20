@@ -10,7 +10,8 @@ package edu.wpi.first.hal;
 import java.nio.ByteBuffer;
 
 /**
- * JNI Wrapper for HAL<br>.
+ * JNI Wrapper for HAL<br>
+ * .
  */
 @SuppressWarnings({"AbbreviationAsWordInName", "MethodName", "PMD.TooManyMethods"})
 public final class HAL extends JNIWrapper {
@@ -42,13 +43,12 @@ public final class HAL extends JNIWrapper {
    * <p>Original signature: <code>uint32_t report(tResourceType, uint8_t, uint8_t, const
    * char*)</code>
    *
-   * @param resource       one of the values in the tResourceType above (max value 51). <br>
+   * @param resource one of the values in the tResourceType above (max value 51). <br>
    * @param instanceNumber an index that identifies the resource instance. <br>
-   * @param context        an optional additional context number for some cases (such as module
-   *                       number). Set to 0 to omit. <br>
-   * @param feature        a string to be included describing features in use on a specific
-   *                       resource. Setting the same resource more than once allows you to change
-   *                       the feature string.
+   * @param context an optional additional context number for some cases (such as module number).
+   *     Set to 0 to omit. <br>
+   * @param feature a string to be included describing features in use on a specific resource.
+   *     Setting the same resource more than once allows you to change the feature string.
    */
   public static native int report(int resource, int instanceNumber, int context, String feature);
 
@@ -57,8 +57,13 @@ public final class HAL extends JNIWrapper {
   @SuppressWarnings("JavadocMethod")
   public static void getControlWord(ControlWord controlWord) {
     int word = nativeGetControlWord();
-    controlWord.update((word & 1) != 0, ((word >> 1) & 1) != 0, ((word >> 2) & 1) != 0,
-        ((word >> 3) & 1) != 0, ((word >> 4) & 1) != 0, ((word >> 5) & 1) != 0);
+    controlWord.update(
+        (word & 1) != 0,
+        ((word >> 1) & 1) != 0,
+        ((word >> 2) & 1) != 0,
+        ((word >> 3) & 1) != 0,
+        ((word >> 4) & 1) != 0,
+        ((word >> 5) & 1) != 0);
   }
 
   private static native int nativeGetAllianceStation();
@@ -101,8 +106,8 @@ public final class HAL extends JNIWrapper {
 
   public static native int getJoystickButtons(byte joystickNum, ByteBuffer count);
 
-  public static native int setJoystickOutputs(byte joystickNum, int outputs, short leftRumble,
-                                              short rightRumble);
+  public static native int setJoystickOutputs(
+      byte joystickNum, int outputs, short leftRumble, short rightRumble);
 
   public static native int getJoystickIsXbox(byte joystickNum);
 
@@ -120,15 +125,18 @@ public final class HAL extends JNIWrapper {
 
   public static native int getMatchInfo(MatchInfoData info);
 
-  public static native int sendError(boolean isError, int errorCode, boolean isLVCode,
-                                     String details, String location, String callStack,
-                                     boolean printMsg);
+  public static native int sendError(
+      boolean isError,
+      int errorCode,
+      boolean isLVCode,
+      String details,
+      String location,
+      String callStack,
+      boolean printMsg);
 
   public static native int getPortWithModule(byte module, byte channel);
 
   public static native int getPort(byte channel);
 
-  private HAL() {
-
-  }
+  private HAL() {}
 }

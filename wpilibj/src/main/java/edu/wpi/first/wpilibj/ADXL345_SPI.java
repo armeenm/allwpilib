@@ -7,19 +7,16 @@
 
 package edu.wpi.first.wpilibj;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-
 import edu.wpi.first.hal.FRCNetComm.tInstances;
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
 import edu.wpi.first.hal.HAL;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 
-/**
- * ADXL345 SPI Accelerometer.
- */
+/** ADXL345 SPI Accelerometer. */
 @SuppressWarnings({"TypeName", "PMD.UnusedPrivateField"})
 public class ADXL345_SPI extends SendableBase implements Accelerometer {
   private static final int kPowerCtlRegister = 0x2D;
@@ -46,9 +43,7 @@ public class ADXL345_SPI extends SendableBase implements Accelerometer {
     kY((byte) 0x02),
     kZ((byte) 0x04);
 
-    /**
-     * The integer value representing this enumeration.
-     */
+    /** The integer value representing this enumeration. */
     @SuppressWarnings("MemberName")
     public final byte value;
 
@@ -69,7 +64,7 @@ public class ADXL345_SPI extends SendableBase implements Accelerometer {
   /**
    * Constructor.
    *
-   * @param port  The SPI port that the accelerometer is connected to
+   * @param port The SPI port that the accelerometer is connected to
    * @param range The range (+ or -) that the accelerometer will measure.
    */
   public ADXL345_SPI(SPI.Port port, Range range) {
@@ -129,7 +124,7 @@ public class ADXL345_SPI extends SendableBase implements Accelerometer {
     }
 
     // Specify the data format to read
-    byte[] commands = new byte[]{kDataFormatRegister, (byte) (kDataFormat_FullRes | value)};
+    byte[] commands = new byte[] {kDataFormatRegister, (byte) (kDataFormat_FullRes | value)};
     m_spi.write(commands, commands.length);
   }
 
@@ -156,8 +151,8 @@ public class ADXL345_SPI extends SendableBase implements Accelerometer {
    */
   public double getAcceleration(ADXL345_SPI.Axes axis) {
     ByteBuffer transferBuffer = ByteBuffer.allocate(3);
-    transferBuffer.put(0,
-        (byte) ((kAddress_Read | kAddress_MultiByte | kDataRegister) + axis.value));
+    transferBuffer.put(
+        0, (byte) ((kAddress_Read | kAddress_MultiByte | kDataRegister) + axis.value));
     m_spi.transaction(transferBuffer, transferBuffer, 3);
     // Sensor is little endian
     transferBuffer.order(ByteOrder.LITTLE_ENDIAN);
@@ -193,11 +188,12 @@ public class ADXL345_SPI extends SendableBase implements Accelerometer {
     NetworkTableEntry entryX = builder.getEntry("X");
     NetworkTableEntry entryY = builder.getEntry("Y");
     NetworkTableEntry entryZ = builder.getEntry("Z");
-    builder.setUpdateTable(() -> {
-      AllAxes data = getAccelerations();
-      entryX.setDouble(data.XAxis);
-      entryY.setDouble(data.YAxis);
-      entryZ.setDouble(data.ZAxis);
-    });
+    builder.setUpdateTable(
+        () -> {
+          AllAxes data = getAccelerations();
+          entryX.setDouble(data.XAxis);
+          entryY.setDouble(data.YAxis);
+          entryZ.setDouble(data.ZAxis);
+        });
   }
 }

@@ -9,9 +9,7 @@ package edu.wpi.first.wpilibj.buttons;
 
 import edu.wpi.first.wpilibj.GenericHID;
 
-/**
- * A {@link Button} that gets its state from a {@link GenericHID}.
- */
+/** A {@link Button} that gets its state from a {@link GenericHID}. */
 public class JoystickButton extends Button {
   private final GenericHID m_joystick;
   private final int m_buttonNumber;
@@ -19,8 +17,7 @@ public class JoystickButton extends Button {
   /**
    * Create a joystick button for triggering commands.
    *
-   * @param joystick     The GenericHID object that has the button (e.g. Joystick, KinectStick,
-   *                     etc)
+   * @param joystick The GenericHID object that has the button (e.g. Joystick, KinectStick, etc)
    * @param buttonNumber The button number (see {@link GenericHID#getRawButton(int) }
    */
   public JoystickButton(GenericHID joystick, int buttonNumber) {

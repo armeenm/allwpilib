@@ -7,17 +7,9 @@
 
 package edu.wpi.first.wpilibj;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.logging.Logger;
-
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.PIDControllerRunner;
@@ -25,11 +17,16 @@ import edu.wpi.first.wpilibj.filters.LinearDigitalFilter;
 import edu.wpi.first.wpilibj.fixtures.MotorEncoderFixture;
 import edu.wpi.first.wpilibj.test.AbstractComsSetup;
 import edu.wpi.first.wpilibj.test.TestBench;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.logging.Logger;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
 public class MotorEncoderTest extends AbstractComsSetup {
@@ -62,17 +59,21 @@ public class MotorEncoderTest extends AbstractComsSetup {
   @Parameters(name = "{index}: {0}")
   public static Collection<MotorEncoderFixture<?>[]> generateData() {
     // logger.fine("Loading the MotorList");
-    return Arrays.asList(new MotorEncoderFixture<?>[][]{{TestBench.getInstance().getTalonPair()},
-        {TestBench.getInstance().getVictorPair()}, {TestBench.getInstance().getJaguarPair()}});
+    return Arrays.asList(
+        new MotorEncoderFixture<?>[][] {
+          {TestBench.getInstance().getTalonPair()},
+          {TestBench.getInstance().getVictorPair()},
+          {TestBench.getInstance().getJaguarPair()}
+        });
   }
 
   @Before
   public void setUp() {
     double initialSpeed = me.getMotor().get();
-    assertTrue(me.getType() + " Did not start with an initial speed of 0 instead got: "
-        + initialSpeed, Math.abs(initialSpeed) < 0.001);
+    assertTrue(
+        me.getType() + " Did not start with an initial speed of 0 instead got: " + initialSpeed,
+        Math.abs(initialSpeed) < 0.001);
     me.setup();
-
   }
 
   @After
@@ -112,9 +113,13 @@ public class MotorEncoderTest extends AbstractComsSetup {
     me.getMotor().set(.2);
     Timer.delay(MOTOR_RUNTIME);
     int currentValue = me.getEncoder().get();
-    assertTrue(me.getType() + " Encoder not incremented: start: " + startValue + "; current: "
-        + currentValue, startValue < currentValue);
-
+    assertTrue(
+        me.getType()
+            + " Encoder not incremented: start: "
+            + startValue
+            + "; current: "
+            + currentValue,
+        startValue < currentValue);
   }
 
   /**
@@ -128,13 +133,16 @@ public class MotorEncoderTest extends AbstractComsSetup {
     me.getMotor().set(-.2);
     Timer.delay(MOTOR_RUNTIME);
     int currentValue = me.getEncoder().get();
-    assertTrue(me.getType() + " Encoder not decremented: start: " + startValue + "; current: "
-        + currentValue, startValue > currentValue);
+    assertTrue(
+        me.getType()
+            + " Encoder not decremented: start: "
+            + startValue
+            + "; current: "
+            + currentValue,
+        startValue > currentValue);
   }
 
-  /**
-   * This method test if the counters count when the motors rotate.
-   */
+  /** This method test if the counters count when the motors rotate. */
   @Test
   public void testCounter() {
     final int counter1Start = me.getCounters()[0].get();
@@ -144,10 +152,20 @@ public class MotorEncoderTest extends AbstractComsSetup {
     Timer.delay(MOTOR_RUNTIME);
     int counter1End = me.getCounters()[0].get();
     int counter2End = me.getCounters()[1].get();
-    assertTrue(me.getType() + " Counter not incremented: start: " + counter1Start + "; current: "
-        + counter1End, counter1Start < counter1End);
-    assertTrue(me.getType() + " Counter not incremented: start: " + counter1Start + "; current: "
-        + counter2End, counter2Start < counter2End);
+    assertTrue(
+        me.getType()
+            + " Counter not incremented: start: "
+            + counter1Start
+            + "; current: "
+            + counter1End,
+        counter1Start < counter1End);
+    assertTrue(
+        me.getType()
+            + " Counter not incremented: start: "
+            + counter1Start
+            + "; current: "
+            + counter2End,
+        counter2Start < counter2End);
     me.reset();
     encodersResetCheck(me);
   }
@@ -159,7 +177,8 @@ public class MotorEncoderTest extends AbstractComsSetup {
   @Test
   public void testSetHighForwardSpeed() {
     me.getMotor().set(15);
-    assertTrue(me.getType() + " Motor speed was not close to 1.0, was: " + me.getMotor().get(),
+    assertTrue(
+        me.getType() + " Motor speed was not close to 1.0, was: " + me.getMotor().get(),
         me.isMotorSpeedWithinRange(1.0, 0.001));
   }
 
@@ -170,10 +189,10 @@ public class MotorEncoderTest extends AbstractComsSetup {
   @Test
   public void testSetHighReverseSpeed() {
     me.getMotor().set(-15);
-    assertTrue(me.getType() + " Motor speed was not close to 1.0, was: " + me.getMotor().get(),
+    assertTrue(
+        me.getType() + " Motor speed was not close to 1.0, was: " + me.getMotor().get(),
         me.isMotorSpeedWithinRange(-1.0, 0.001));
   }
-
 
   @Test
   public void testPositionPIDController() {
@@ -182,15 +201,17 @@ public class MotorEncoderTest extends AbstractComsSetup {
     pidController.setOutputRange(-0.2, 0.2);
     pidController.setSetpoint(1000);
 
-    PIDControllerRunner pidRunner = new PIDControllerRunner(pidController,
-        me.getEncoder()::getDistance, output -> me.getMotor().set(output));
+    PIDControllerRunner pidRunner =
+        new PIDControllerRunner(
+            pidController, me.getEncoder()::getDistance, output -> me.getMotor().set(output));
     pidRunner.enable();
     Timer.delay(10.0);
     pidRunner.disable();
 
     assertTrue(
-        "PID loop did not reach reference within 10 seconds. The current error was" + pidController
-            .getError(), pidController.atSetpoint());
+        "PID loop did not reach reference within 10 seconds. The current error was"
+            + pidController.getError(),
+        pidController.atSetpoint());
 
     pidController.close();
   }
@@ -204,15 +225,17 @@ public class MotorEncoderTest extends AbstractComsSetup {
     pidController.setOutputRange(-0.3, 0.3);
     pidController.setSetpoint(600);
 
-    PIDControllerRunner pidRunner = new PIDControllerRunner(pidController, filter::pidGet,
-        output -> me.getMotor().set(output + 8e-5));
+    PIDControllerRunner pidRunner =
+        new PIDControllerRunner(
+            pidController, filter::pidGet, output -> me.getMotor().set(output + 8e-5));
     pidRunner.enable();
     Timer.delay(10.0);
     pidRunner.disable();
 
     assertTrue(
         "PID loop did not reach reference within 10 seconds. The error was: "
-        + pidController.getError(), pidController.atSetpoint());
+            + pidController.getError(),
+        pidController.atSetpoint());
 
     pidController.close();
   }
@@ -223,18 +246,18 @@ public class MotorEncoderTest extends AbstractComsSetup {
    * @param me The MotorEncoderFixture under test
    */
   private void encodersResetCheck(MotorEncoderFixture<?> me) {
-    assertEquals(me.getType() + " Encoder value was incorrect after reset.", me.getEncoder().get(),
-        0);
-    assertEquals(me.getType() + " Motor value was incorrect after reset.", me.getMotor().get(), 0,
-        0);
-    assertEquals(me.getType() + " Counter1 value was incorrect after reset.",
-        me.getCounters()[0].get(), 0);
-    assertEquals(me.getType() + " Counter2 value was incorrect after reset.",
-        me.getCounters()[1].get(), 0);
+    assertEquals(
+        me.getType() + " Encoder value was incorrect after reset.", me.getEncoder().get(), 0);
+    assertEquals(
+        me.getType() + " Motor value was incorrect after reset.", me.getMotor().get(), 0, 0);
+    assertEquals(
+        me.getType() + " Counter1 value was incorrect after reset.", me.getCounters()[0].get(), 0);
+    assertEquals(
+        me.getType() + " Counter2 value was incorrect after reset.", me.getCounters()[1].get(), 0);
     Timer.delay(0.5); // so this doesn't fail with the 0.5 second default
     // timeout on the encoders
-    assertTrue(me.getType() + " Encoder.getStopped() returned false after the motor was reset.", me
-        .getEncoder().getStopped());
+    assertTrue(
+        me.getType() + " Encoder.getStopped() returned false after the motor was reset.",
+        me.getEncoder().getStopped());
   }
-
 }

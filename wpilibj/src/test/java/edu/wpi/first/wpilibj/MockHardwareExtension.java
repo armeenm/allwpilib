@@ -7,12 +7,11 @@
 
 package edu.wpi.first.wpilibj;
 
+import edu.wpi.first.hal.HAL;
+import edu.wpi.first.hal.sim.DriverStationSim;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ExtensionContext.Namespace;
-
-import edu.wpi.first.hal.HAL;
-import edu.wpi.first.hal.sim.DriverStationSim;
 
 public final class MockHardwareExtension implements BeforeAllCallback {
   private static ExtensionContext getRoot(ExtensionContext context) {
@@ -21,10 +20,15 @@ public final class MockHardwareExtension implements BeforeAllCallback {
 
   @Override
   public void beforeAll(ExtensionContext context) throws Exception {
-    getRoot(context).getStore(Namespace.GLOBAL).getOrComputeIfAbsent("HAL Initalized", key -> {
-      initializeHardware();
-      return true;
-    }, Boolean.class);
+    getRoot(context)
+        .getStore(Namespace.GLOBAL)
+        .getOrComputeIfAbsent(
+            "HAL Initalized",
+            key -> {
+              initializeHardware();
+              return true;
+            },
+            Boolean.class);
   }
 
   private void initializeHardware() {
@@ -34,7 +38,5 @@ public final class MockHardwareExtension implements BeforeAllCallback {
     dsSim.setAutonomous(false);
     dsSim.setEnabled(true);
     dsSim.setTest(true);
-
-
   }
 }

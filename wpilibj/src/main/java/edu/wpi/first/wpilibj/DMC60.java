@@ -10,9 +10,7 @@ package edu.wpi.first.wpilibj;
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
 import edu.wpi.first.hal.HAL;
 
-/**
- * Digilent DMC 60 Speed Controller.
- */
+/** Digilent DMC 60 Speed Controller. */
 public class DMC60 extends PWMSpeedController {
   /**
    * Constructor.
@@ -23,12 +21,12 @@ public class DMC60 extends PWMSpeedController {
    * calibration is recommended. The calibration procedure can be found in the DMC 60 User Manual
    * available from Digilent
    *
-   * <p>- 2.004ms = full "forward" - 1.52ms = the "high end" of the deadband range - 1.50ms =
-   * center of the deadband range (off) - 1.48ms = the "low end" of the deadband range - .997ms =
-   * full "reverse"
+   * <p>- 2.004ms = full "forward" - 1.52ms = the "high end" of the deadband range - 1.50ms = center
+   * of the deadband range (off) - 1.48ms = the "low end" of the deadband range - .997ms = full
+   * "reverse"
    *
-   * @param channel The PWM channel that the DMC60 is attached to. 0-9 are
-   *        on-board, 10-19 are on the MXP port
+   * @param channel The PWM channel that the DMC60 is attached to. 0-9 are on-board, 10-19 are on
+   *     the MXP port
    */
   public DMC60(final int channel) {
     super(channel);

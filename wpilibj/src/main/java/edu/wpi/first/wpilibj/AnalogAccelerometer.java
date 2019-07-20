@@ -7,11 +7,11 @@
 
 package edu.wpi.first.wpilibj;
 
+import static edu.wpi.first.wpilibj.util.ErrorMessages.requireNonNullParam;
+
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
 import edu.wpi.first.hal.HAL;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
-
-import static edu.wpi.first.wpilibj.util.ErrorMessages.requireNonNullParam;
 
 /**
  * Handle operation of an analog accelerometer. The accelerometer reads acceleration directly
@@ -25,12 +25,9 @@ public class AnalogAccelerometer extends SendableBase implements PIDSource {
   private final boolean m_allocatedChannel;
   protected PIDSourceType m_pidSource = PIDSourceType.kDisplacement;
 
-  /**
-   * Common initialization.
-   */
+  /** Common initialization. */
   private void initAccelerometer() {
-    HAL.report(tResourceType.kResourceType_Accelerometer,
-                                   m_analogChannel.getChannel());
+    HAL.report(tResourceType.kResourceType_Accelerometer, m_analogChannel.getChannel());
     setName("Accelerometer", m_analogChannel.getChannel());
   }
 
@@ -52,7 +49,7 @@ public class AnalogAccelerometer extends SendableBase implements PIDSource {
    * read as an analog channel as well as through the Accelerometer class.
    *
    * @param channel The existing AnalogInput object for the analog input the accelerometer is
-   *                connected to
+   *     connected to
    */
   public AnalogAccelerometer(final AnalogInput channel) {
     this(channel, false);
@@ -65,9 +62,7 @@ public class AnalogAccelerometer extends SendableBase implements PIDSource {
     initAccelerometer();
   }
 
-  /**
-   * Delete the analog components used for the accelerometer.
-   */
+  /** Delete the analog components used for the accelerometer. */
   @Override
   public void close() {
     super.close();

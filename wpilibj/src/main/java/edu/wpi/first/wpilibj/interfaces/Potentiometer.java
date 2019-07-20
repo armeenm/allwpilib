@@ -9,9 +9,7 @@ package edu.wpi.first.wpilibj.interfaces;
 
 import edu.wpi.first.wpilibj.PIDSource;
 
-/**
- * Interface for a Potentiometer.
- */
+/** Interface for a Potentiometer. */
 public interface Potentiometer extends PIDSource {
   double get();
 }

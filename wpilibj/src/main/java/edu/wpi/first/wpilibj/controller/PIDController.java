@@ -7,16 +7,13 @@
 
 package edu.wpi.first.wpilibj.controller;
 
-import java.util.concurrent.locks.ReentrantLock;
-
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
 import edu.wpi.first.hal.HAL;
 import edu.wpi.first.wpilibj.SendableBase;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
+import java.util.concurrent.locks.ReentrantLock;
 
-/**
- * Implements a PID control loop.
- */
+/** Implements a PID control loop. */
 @SuppressWarnings("PMD.TooManyFields")
 public class PIDController extends SendableBase {
   protected final ReentrantLock m_thisMutex = new ReentrantLock();
@@ -66,7 +63,8 @@ public class PIDController extends SendableBase {
   private double m_totalError;
 
   enum Tolerance {
-    kAbsolute, kPercent;
+    kAbsolute,
+    kPercent;
   }
 
   private Tolerance m_toleranceType = Tolerance.kAbsolute;
@@ -94,9 +92,9 @@ public class PIDController extends SendableBase {
   /**
    * Allocates a PIDController with the given constants for Kp, Ki, and Kd.
    *
-   * @param Kp     The proportional coefficient.
-   * @param Ki     The integral coefficient.
-   * @param Kd     The derivative coefficient.
+   * @param Kp The proportional coefficient.
+   * @param Ki The integral coefficient.
+   * @param Kd The derivative coefficient.
    * @param period The period between controller updates in seconds.
    */
   @SuppressWarnings("ParameterName")
@@ -277,9 +275,8 @@ public class PIDController extends SendableBase {
   }
 
   /**
-   * Returns true if the error is within the percentage of the total input range,
-   * determined by SetTolerance. This asssumes that the maximum and minimum
-   * input were set using SetInput.
+   * Returns true if the error is within the percentage of the total input range, determined by
+   * SetTolerance. This asssumes that the maximum and minimum input were set using SetInput.
    *
    * <p>This will return false until at least one input value has been computed.
    *
@@ -295,7 +292,7 @@ public class PIDController extends SendableBase {
    * @param tolerance The maximum allowable error.
    * @param deltaTolerance The maximum allowable change in error from the previous iteration.
    * @param toleranceType Whether the given tolerance values are absolute, or percentages of the
-   *                      total input range.
+   *     total input range.
    * @return Whether the error is within the acceptable bounds.
    */
   public boolean atSetpoint(double tolerance, double deltaTolerance, Tolerance toleranceType) {
@@ -308,8 +305,7 @@ public class PIDController extends SendableBase {
         return Math.abs(error) < tolerance / 100 * m_inputRange
             && Math.abs(deltaError) < deltaTolerance / 100 * m_inputRange;
       } else {
-        return Math.abs(error) < tolerance
-            && Math.abs(deltaError) < deltaTolerance;
+        return Math.abs(error) < tolerance && Math.abs(deltaError) < deltaTolerance;
       }
     } finally {
       m_thisMutex.unlock();
@@ -393,7 +389,7 @@ public class PIDController extends SendableBase {
   /**
    * Sets the absolute error which is considered tolerable for use with atSetpoint().
    *
-   * @param tolerance      Absolute error which is tolerable.
+   * @param tolerance Absolute error which is tolerable.
    * @param deltaTolerance Change in absolute error per second which is tolerable.
    */
   public void setAbsoluteTolerance(double tolerance, double deltaTolerance) {
@@ -419,7 +415,7 @@ public class PIDController extends SendableBase {
   /**
    * Sets the percent error which is considered tolerable for use with atSetpoint().
    *
-   * @param tolerance      Percent error which is tolerable.
+   * @param tolerance Percent error which is tolerable.
    * @param deltaTolerance Change in percent error per second which is tolerable.
    */
   public void setPercentTolerance(double tolerance, double deltaTolerance) {
@@ -447,9 +443,7 @@ public class PIDController extends SendableBase {
     }
   }
 
-  /**
-   * Returns the change in error per second.
-   */
+  /** Returns the change in error per second. */
   public double getDeltaError() {
     double error = getError();
 
@@ -497,9 +491,7 @@ public class PIDController extends SendableBase {
     }
   }
 
-  /**
-   * Resets the previous error and the integral term. Also disables the controller.
-   */
+  /** Resets the previous error and the integral term. Also disables the controller. */
   public void reset() {
     m_thisMutex.lock();
     try {
@@ -554,12 +546,20 @@ public class PIDController extends SendableBase {
     m_currError = getContinuousError(m_setpoint - measurement);
 
     if (m_Ki != 0) {
-      m_totalError = clamp(m_totalError + m_currError * getPeriod(), m_minimumOutput / m_Ki,
-          m_maximumOutput / m_Ki);
+      m_totalError =
+          clamp(
+              m_totalError + m_currError * getPeriod(),
+              m_minimumOutput / m_Ki,
+              m_maximumOutput / m_Ki);
     }
 
-    m_output = clamp(m_Kp * m_currError + m_Ki * m_totalError
-        + m_Kd * (m_currError - m_prevError) / getPeriod(), m_minimumOutput, m_maximumOutput);
+    m_output =
+        clamp(
+            m_Kp * m_currError
+                + m_Ki * m_totalError
+                + m_Kd * (m_currError - m_prevError) / getPeriod(),
+            m_minimumOutput,
+            m_maximumOutput);
 
     return m_output;
   }

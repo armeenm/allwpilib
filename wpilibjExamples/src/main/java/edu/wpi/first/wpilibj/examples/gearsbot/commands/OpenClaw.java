@@ -8,13 +8,9 @@
 package edu.wpi.first.wpilibj.examples.gearsbot.commands;
 
 import edu.wpi.first.wpilibj.command.TimedCommand;
-
 import edu.wpi.first.wpilibj.examples.gearsbot.Robot;
 
-/**
- * Opens the claw for one second. Real robots should use sensors, stalling
- * motors is BAD!
- */
+/** Opens the claw for one second. Real robots should use sensors, stalling motors is BAD! */
 public class OpenClaw extends TimedCommand {
   public OpenClaw() {
     super(1);

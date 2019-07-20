@@ -7,8 +7,5 @@
 
 package edu.wpi.first.wpilibj.commands.emptyclass;
 
-/**
- * Add your docs here.
- */
-public class ReplaceMeEmptyClass {
-}
+/** Add your docs here. */
+public class ReplaceMeEmptyClass {}

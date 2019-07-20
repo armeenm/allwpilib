@@ -10,8 +10,7 @@ package edu.wpi.first.hal.sim;
 import edu.wpi.first.hal.sim.mockdata.SimulatorJNI;
 
 public final class SimHooks {
-  private SimHooks() {
-  }
+  private SimHooks() {}
 
   public static void waitForProgramStart() {
     SimulatorJNI.waitForProgramStart();

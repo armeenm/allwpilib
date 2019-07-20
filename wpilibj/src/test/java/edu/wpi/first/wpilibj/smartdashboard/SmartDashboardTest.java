@@ -7,15 +7,14 @@
 
 package edu.wpi.first.wpilibj.smartdashboard;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.UtilityClassTest;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 class SmartDashboardTest extends UtilityClassTest {
   private final NetworkTable m_table = NetworkTableInstance.getDefault().getTable("SmartDashboard");
@@ -107,13 +106,14 @@ class SmartDashboardTest extends UtilityClassTest {
 
   @Test
   void putStringNullKeyTest() {
-    assertThrows(NullPointerException.class,
-        () -> SmartDashboard.putString(null, "This should not work"));
+    assertThrows(
+        NullPointerException.class, () -> SmartDashboard.putString(null, "This should not work"));
   }
 
   @Test
   void putStringNullValueTest() {
-    assertThrows(NullPointerException.class,
+    assertThrows(
+        NullPointerException.class,
         () -> SmartDashboard.putString("KEY_SHOULD_NOT_BE_STORED", null));
   }
 }

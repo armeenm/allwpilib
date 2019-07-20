@@ -10,9 +10,7 @@ package edu.wpi.first.wpilibj;
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
 import edu.wpi.first.hal.HAL;
 
-/**
- * REV Robotics SPARK Speed Controller.
- */
+/** REV Robotics SPARK Speed Controller. */
 public class Spark extends PWMSpeedController {
   /**
    * Common initialization code called by all constructors.
@@ -23,9 +21,9 @@ public class Spark extends PWMSpeedController {
    * calibration is recommended. The calibration procedure can be found in the Spark User Manual
    * available from REV Robotics.
    *
-   * <p>- 2.003ms = full "forward" - 1.55ms = the "high end" of the deadband range - 1.50ms =
-   * center of the deadband range (off) - 1.46ms = the "low end" of the deadband range - .999ms =
-   * full "reverse"
+   * <p>- 2.003ms = full "forward" - 1.55ms = the "high end" of the deadband range - 1.50ms = center
+   * of the deadband range (off) - 1.46ms = the "low end" of the deadband range - .999ms = full
+   * "reverse"
    */
   protected void initSpark() {
     setBounds(2.003, 1.55, 1.50, 1.46, .999);
@@ -41,7 +39,7 @@ public class Spark extends PWMSpeedController {
    * Constructor.
    *
    * @param channel The PWM channel that the SPARK is attached to. 0-9 are on-board, 10-19 are on
-   *                the MXP port
+   *     the MXP port
    */
   public Spark(final int channel) {
     super(channel);

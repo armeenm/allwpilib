@@ -19,9 +19,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 public class GearTooth extends Counter {
   private static final double kGearToothThreshold = 55e-6;
 
-  /**
-   * Common code called by the constructors.
-   */
+  /** Common code called by the constructors. */
   public void enableDirectionSensing(boolean directionSensitive) {
     if (directionSensitive) {
       setPulseLengthMode(kGearToothThreshold);
@@ -42,10 +40,10 @@ public class GearTooth extends Counter {
   /**
    * Construct a GearTooth sensor given a channel.
    *
-   * @param channel            The DIO channel that the sensor is connected to. 0-9 are on-board,
-   *                           10-25 are on the MXP port
+   * @param channel The DIO channel that the sensor is connected to. 0-9 are on-board, 10-25 are on
+   *     the MXP port
    * @param directionSensitive True to enable the pulse length decoding in hardware to specify count
-   *                           direction.
+   *     direction.
    */
   public GearTooth(final int channel, boolean directionSensitive) {
     super(channel);
@@ -62,9 +60,9 @@ public class GearTooth extends Counter {
    * Construct a GearTooth sensor given a digital input. This should be used when sharing digital
    * inputs.
    *
-   * @param source             An existing DigitalSource object (such as a DigitalInput)
+   * @param source An existing DigitalSource object (such as a DigitalInput)
    * @param directionSensitive True to enable the pulse length decoding in hardware to specify count
-   *                           direction.
+   *     direction.
    */
   public GearTooth(DigitalSource source, boolean directionSensitive) {
     super(source);

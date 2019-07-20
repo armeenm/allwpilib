@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
  * Class for getting voltage, current, temperature, power and energy from the Power Distribution
  * Panel over CAN.
  */
-public class PowerDistributionPanel extends SendableBase  {
+public class PowerDistributionPanel extends SendableBase {
   private final int m_handle;
 
   /**
@@ -32,9 +32,7 @@ public class PowerDistributionPanel extends SendableBase  {
     setName("PowerDistributionPanel", module);
   }
 
-  /**
-   * Constructor.  Uses the default CAN ID (0).
-   */
+  /** Constructor. Uses the default CAN ID (0). */
   public PowerDistributionPanel() {
     this(0);
   }
@@ -97,16 +95,12 @@ public class PowerDistributionPanel extends SendableBase  {
     return PDPJNI.getPDPTotalEnergy(m_handle);
   }
 
-  /**
-   * Reset the total energy to 0.
-   */
+  /** Reset the total energy to 0. */
   public void resetTotalEnergy() {
     PDPJNI.resetPDPTotalEnergy(m_handle);
   }
 
-  /**
-   * Clear all PDP sticky faults.
-   */
+  /** Clear all PDP sticky faults. */
   public void clearStickyFaults() {
     PDPJNI.clearPDPStickyFaults(m_handle);
   }

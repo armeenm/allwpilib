@@ -8,12 +8,9 @@
 package edu.wpi.first.wpilibj.command;
 
 import java.util.logging.Logger;
-
 import org.junit.jupiter.api.Test;
 
-/**
- * Ported from the old CrioTest Classes.
- */
+/** Ported from the old CrioTest Classes. */
 class CommandSequentialGroupTest extends AbstractCommandTest {
   private static final Logger logger = Logger.getLogger(CommandSequentialGroupTest.class.getName());
 
@@ -38,7 +35,6 @@ class CommandSequentialGroupTest extends AbstractCommandTest {
     commandGroup.addSequential(command1, 1.0);
     commandGroup.addSequential(command2, 2.0);
     commandGroup.addSequential(command3);
-
 
     assertCommandState(command1, 0, 0, 0, 0, 0);
     assertCommandState(command2, 0, 0, 0, 0, 0);
@@ -89,5 +85,4 @@ class CommandSequentialGroupTest extends AbstractCommandTest {
     assertCommandState(command2, 1, 2, 2, 0, 1);
     assertCommandState(command3, 1, 3, 3, 1, 0);
   }
-
 }

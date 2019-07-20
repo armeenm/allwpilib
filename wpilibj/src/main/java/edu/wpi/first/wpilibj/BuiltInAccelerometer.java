@@ -31,9 +31,7 @@ public class BuiltInAccelerometer extends SendableBase implements Accelerometer 
     setName("BuiltInAccel", 0);
   }
 
-  /**
-   * Constructor. The accelerometer will measure +/-8 g-forces
-   */
+  /** Constructor. The accelerometer will measure +/-8 g-forces */
   public BuiltInAccelerometer() {
     this(Range.k8G);
   }
@@ -55,7 +53,6 @@ public class BuiltInAccelerometer extends SendableBase implements Accelerometer 
       case k16G:
       default:
         throw new IllegalArgumentException(range + " range not supported (use k2G, k4G, or k8G)");
-
     }
 
     AccelerometerJNI.setAccelerometerActive(true);

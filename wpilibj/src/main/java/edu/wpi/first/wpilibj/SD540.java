@@ -10,9 +10,7 @@ package edu.wpi.first.wpilibj;
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
 import edu.wpi.first.hal.HAL;
 
-/**
- * Mindsensors SD540 Speed Controller.
- */
+/** Mindsensors SD540 Speed Controller. */
 public class SD540 extends PWMSpeedController {
   /**
    * Common initialization code called by all constructors.
@@ -41,7 +39,7 @@ public class SD540 extends PWMSpeedController {
    * Constructor.
    *
    * @param channel The PWM channel that the SD540 is attached to. 0-9 are on-board, 10-19 are on
-   *                the MXP port
+   *     the MXP port
    */
   public SD540(final int channel) {
     super(channel);

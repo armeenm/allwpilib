@@ -10,9 +10,7 @@ package edu.wpi.first.wpilibj.mockhardware;
 import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.Timer;
 
-/**
- * Simulates an encoder for testing purposes.
- */
+/** Simulates an encoder for testing purposes. */
 public class FakeCounterSource implements AutoCloseable {
   private Thread m_task;
   private int m_count;
@@ -20,9 +18,7 @@ public class FakeCounterSource implements AutoCloseable {
   private DigitalOutput m_output;
   private boolean m_allocated;
 
-  /**
-   * Thread object that allows emulation of an encoder.
-   */
+  /** Thread object that allows emulation of an encoder. */
   private class EncoderThread extends Thread {
     FakeCounterSource m_encoder;
 
@@ -68,9 +64,7 @@ public class FakeCounterSource implements AutoCloseable {
     initEncoder();
   }
 
-  /**
-   * Destroy Object with minimum memory leak.
-   */
+  /** Destroy Object with minimum memory leak. */
   @Override
   public void close() {
     m_task = null;
@@ -81,25 +75,19 @@ public class FakeCounterSource implements AutoCloseable {
     }
   }
 
-  /**
-   * Common initailization code.
-   */
+  /** Common initailization code. */
   private void initEncoder() {
     m_milliSec = 1;
     m_task = new EncoderThread(this);
     m_output.set(false);
   }
 
-  /**
-   * Starts the thread execution task.
-   */
+  /** Starts the thread execution task. */
   public void start() {
     m_task.start();
   }
 
-  /**
-   * Waits for the thread to complete.
-   */
+  /** Waits for the thread to complete. */
   public void complete() {
     try {
       m_task.join();
@@ -110,9 +98,7 @@ public class FakeCounterSource implements AutoCloseable {
     Timer.delay(.01);
   }
 
-  /**
-   * Starts and completes a task set - does not return until thred has finished its operations.
-   */
+  /** Starts and completes a task set - does not return until thred has finished its operations. */
   public void execute() {
     start();
     complete();

@@ -8,13 +8,12 @@
 package edu.wpi.first.wpilibj.examples.gearsbot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-
 import edu.wpi.first.wpilibj.examples.gearsbot.Robot;
 
 /**
- * Move the wrist to a given angle. This command finishes when it is within the
- * tolerance, but leaves the PID loop running to maintain the position. Other
- * commands using the wrist should make sure they disable PID!
+ * Move the wrist to a given angle. This command finishes when it is within the tolerance, but
+ * leaves the PID loop running to maintain the position. Other commands using the wrist should make
+ * sure they disable PID!
  */
 public class SetWristSetpoint extends Command {
   private final double m_setpoint;

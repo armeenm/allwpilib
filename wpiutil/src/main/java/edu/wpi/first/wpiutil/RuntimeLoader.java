@@ -23,9 +23,7 @@ import java.util.Scanner;
 public final class RuntimeLoader<T> {
   private static String defaultExtractionRoot;
 
-  /**
-   * Gets the default extration root location (~/.wpilib/nativecache).
-   */
+  /** Gets the default extration root location (~/.wpilib/nativecache). */
   public static synchronized String getDefaultExtractionRoot() {
     if (defaultExtractionRoot != null) {
       return defaultExtractionRoot;
@@ -42,8 +40,8 @@ public final class RuntimeLoader<T> {
   /**
    * Creates a new library loader.
    *
-   * <p>Resources loaded on disk from extractionRoot, and from classpath from the
-   * passed in class. Library name is the passed in name.
+   * <p>Resources loaded on disk from extractionRoot, and from classpath from the passed in class.
+   * Library name is the passed in name.
    */
   public RuntimeLoader(String libraryName, String extractionRoot, Class<T> cls) {
     m_libraryName = libraryName;
@@ -54,16 +52,15 @@ public final class RuntimeLoader<T> {
   private String getLoadErrorMessage() {
     StringBuilder msg = new StringBuilder(256);
     msg.append(m_libraryName)
-       .append(" could not be loaded from path or an embedded resource.\n"
-               + "\tattempted to load for platform ")
-       .append(RuntimeDetector.getPlatformPath())
-       .append('\n');
+        .append(
+            " could not be loaded from path or an embedded resource.\n"
+                + "\tattempted to load for platform ")
+        .append(RuntimeDetector.getPlatformPath())
+        .append('\n');
     return msg.toString();
   }
 
-  /**
-   * Loads a native library.
-   */
+  /** Loads a native library. */
   @SuppressWarnings("PMD.PreserveStackTrace")
   public void loadLibrary() throws IOException {
     try {
@@ -106,11 +103,14 @@ public final class RuntimeLoader<T> {
     }
   }
 
-  /**
-   * Load a native library by directly hashing the file.
-   */
-  @SuppressWarnings({"PMD.NPathComplexity", "PMD.PreserveStackTrace", "PMD.EmptyWhileStmt",
-                     "PMD.AvoidThrowingRawExceptionTypes", "PMD.CyclomaticComplexity"})
+  /** Load a native library by directly hashing the file. */
+  @SuppressWarnings({
+    "PMD.NPathComplexity",
+    "PMD.PreserveStackTrace",
+    "PMD.EmptyWhileStmt",
+    "PMD.AvoidThrowingRawExceptionTypes",
+    "PMD.CyclomaticComplexity"
+  })
   public void loadLibraryHashed() throws IOException {
     try {
       // First, try loading path

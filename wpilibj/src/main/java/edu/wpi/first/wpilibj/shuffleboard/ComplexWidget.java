@@ -58,5 +58,4 @@ public final class ComplexWidget extends ShuffleboardWidget<ComplexWidget> {
       m_builder.stopLiveWindowMode();
     }
   }
-
 }

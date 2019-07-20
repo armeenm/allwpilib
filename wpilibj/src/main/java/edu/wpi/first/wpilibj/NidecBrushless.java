@@ -11,11 +11,9 @@ import edu.wpi.first.hal.FRCNetComm.tResourceType;
 import edu.wpi.first.hal.HAL;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 
-/**
- * Nidec Brushless Motor.
- */
-public class NidecBrushless extends MotorSafety implements SpeedController, Sendable,
-    AutoCloseable {
+/** Nidec Brushless Motor. */
+public class NidecBrushless extends MotorSafety
+    implements SpeedController, Sendable, AutoCloseable {
   private boolean m_isInverted;
   private final DigitalOutput m_dio;
   private final PWM m_pwm;
@@ -27,10 +25,10 @@ public class NidecBrushless extends MotorSafety implements SpeedController, Send
   /**
    * Constructor.
    *
-   * @param pwmChannel The PWM channel that the Nidec Brushless controller is attached to.
-   *                   0-9 are on-board, 10-19 are on the MXP port
-   * @param dioChannel The DIO channel that the Nidec Brushless controller is attached to.
-   *                   0-9 are on-board, 10-25 are on the MXP port
+   * @param pwmChannel The PWM channel that the Nidec Brushless controller is attached to. 0-9 are
+   *     on-board, 10-19 are on the MXP port
+   * @param dioChannel The DIO channel that the Nidec Brushless controller is attached to. 0-9 are
+   *     on-board, 10-25 are on the MXP port
    */
   public NidecBrushless(final int pwmChannel, final int dioChannel) {
     m_sendableImpl = new SendableImpl(true);
@@ -72,7 +70,7 @@ public class NidecBrushless extends MotorSafety implements SpeedController, Send
    * Sets the name of the sensor with a channel number.
    *
    * @param moduleType A string that defines the module name in the label for the value
-   * @param channel    The channel number the device is plugged into
+   * @param channel The channel number the device is plugged into
    */
   protected final void setName(String moduleType, int channel) {
     m_sendableImpl.setName(moduleType, channel);
@@ -81,9 +79,9 @@ public class NidecBrushless extends MotorSafety implements SpeedController, Send
   /**
    * Sets the name of the sensor with a module and channel number.
    *
-   * @param moduleType   A string that defines the module name in the label for the value
+   * @param moduleType A string that defines the module name in the label for the value
    * @param moduleNumber The number of the particular module type
-   * @param channel      The channel number the device is plugged into (usually PWM)
+   * @param channel The channel number the device is plugged into (usually PWM)
    */
   protected final void setName(String moduleType, int moduleNumber, int channel) {
     m_sendableImpl.setName(moduleType, moduleNumber, channel);
@@ -172,10 +170,7 @@ public class NidecBrushless extends MotorSafety implements SpeedController, Send
     return "Nidec " + getChannel();
   }
 
-  /**
-   * Disable the motor.  The enable() function must be called to re-enable
-   * the motor.
-   */
+  /** Disable the motor. The enable() function must be called to re-enable the motor. */
   @Override
   public void disable() {
     m_disabled = true;
@@ -184,8 +179,8 @@ public class NidecBrushless extends MotorSafety implements SpeedController, Send
   }
 
   /**
-   * Re-enable the motor after disable() has been called.  The set()
-   * function must be called to set a new motor speed.
+   * Re-enable the motor after disable() has been called. The set() function must be called to set a
+   * new motor speed.
    */
   public void enable() {
     m_disabled = false;

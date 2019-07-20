@@ -7,9 +7,7 @@
 
 package edu.wpi.first.hal.util;
 
-/**
- * Exception indicating that an error has occured with a HAL Handle.
- */
+/** Exception indicating that an error has occured with a HAL Handle. */
 public class HalHandleException extends RuntimeException {
   /**
    * Create a new HalHandleException.

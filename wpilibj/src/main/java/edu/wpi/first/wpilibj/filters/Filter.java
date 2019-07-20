@@ -10,9 +10,7 @@ package edu.wpi.first.wpilibj.filters;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 
-/**
- * Superclass for filters.
- */
+/** Superclass for filters. */
 public abstract class Filter implements PIDSource {
   private final PIDSource m_source;
 
@@ -40,9 +38,7 @@ public abstract class Filter implements PIDSource {
    */
   public abstract double get();
 
-  /**
-   * Reset the filter state.
-   */
+  /** Reset the filter state. */
   public abstract void reset();
 
   /**

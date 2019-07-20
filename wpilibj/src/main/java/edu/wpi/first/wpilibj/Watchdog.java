@@ -37,6 +37,7 @@ public class Watchdog implements Closeable, Comparable<Watchdog> {
 
   @SuppressWarnings("PMD.UseConcurrentHashMap")
   private final Map<String, Long> m_epochs = new HashMap<>();
+
   boolean m_isExpired;
 
   boolean m_suppressTimeoutMessage;
@@ -52,7 +53,7 @@ public class Watchdog implements Closeable, Comparable<Watchdog> {
   /**
    * Watchdog constructor.
    *
-   * @param timeout  The watchdog's timeout in seconds with microsecond resolution.
+   * @param timeout The watchdog's timeout in seconds with microsecond resolution.
    * @param callback This function is called when the timeout expires.
    */
   public Watchdog(double timeout, Runnable callback) {
@@ -78,9 +79,7 @@ public class Watchdog implements Closeable, Comparable<Watchdog> {
     }
   }
 
-  /**
-   * Returns the time in seconds since the watchdog was last fed.
-   */
+  /** Returns the time in seconds since the watchdog was last fed. */
   public double getTime() {
     return (RobotController.getFPGATime() - m_startTime) / 1.0e6;
   }
@@ -88,8 +87,7 @@ public class Watchdog implements Closeable, Comparable<Watchdog> {
   /**
    * Sets the watchdog's timeout.
    *
-   * @param timeout The watchdog's timeout in seconds with microsecond
-   *                resolution.
+   * @param timeout The watchdog's timeout in seconds with microsecond resolution.
    */
   public void setTimeout(double timeout) {
     m_startTime = RobotController.getFPGATime();
@@ -109,9 +107,7 @@ public class Watchdog implements Closeable, Comparable<Watchdog> {
     }
   }
 
-  /**
-   * Returns the watchdog's timeout in seconds.
-   */
+  /** Returns the watchdog's timeout in seconds. */
   public double getTimeout() {
     m_queueMutex.lock();
     try {
@@ -121,9 +117,7 @@ public class Watchdog implements Closeable, Comparable<Watchdog> {
     }
   }
 
-  /**
-   * Returns true if the watchdog timer has expired.
-   */
+  /** Returns true if the watchdog timer has expired. */
   public boolean isExpired() {
     m_queueMutex.lock();
     try {
@@ -147,16 +141,15 @@ public class Watchdog implements Closeable, Comparable<Watchdog> {
     m_startTime = currentTime;
   }
 
-  /**
-   * Prints list of epochs added so far and their times.
-   */
+  /** Prints list of epochs added so far and their times. */
   public void printEpochs() {
     long now = RobotController.getFPGATime();
-    if (now  - m_lastEpochsPrintTime > kMinPrintPeriod) {
+    if (now - m_lastEpochsPrintTime > kMinPrintPeriod) {
       m_lastEpochsPrintTime = now;
-      m_epochs.forEach((key, value) -> {
-        System.out.format("\t%s: %.6fs\n", key, value / 1.0e6);
-      });
+      m_epochs.forEach(
+          (key, value) -> {
+            System.out.format("\t%s: %.6fs\n", key, value / 1.0e6);
+          });
     }
   }
 
@@ -169,9 +162,7 @@ public class Watchdog implements Closeable, Comparable<Watchdog> {
     enable();
   }
 
-  /**
-   * Enables the watchdog timer.
-   */
+  /** Enables the watchdog timer. */
   public void enable() {
     m_startTime = RobotController.getFPGATime();
     m_epochs.clear();
@@ -189,9 +180,7 @@ public class Watchdog implements Closeable, Comparable<Watchdog> {
     }
   }
 
-  /**
-   * Disables the watchdog timer.
-   */
+  /** Disables the watchdog timer. */
   public void disable() {
     m_queueMutex.lock();
     try {
@@ -220,7 +209,6 @@ public class Watchdog implements Closeable, Comparable<Watchdog> {
     return inst;
   }
 
-
   private static void schedulerFunc() {
     m_queueMutex.lock();
 
@@ -229,8 +217,8 @@ public class Watchdog implements Closeable, Comparable<Watchdog> {
         if (m_watchdogs.size() > 0) {
           boolean timedOut = !awaitUntil(m_schedulerWaiter, m_watchdogs.peek().m_expirationTime);
           if (timedOut) {
-            if (m_watchdogs.size() == 0 || m_watchdogs.peek().m_expirationTime
-                > RobotController.getFPGATime()) {
+            if (m_watchdogs.size() == 0
+                || m_watchdogs.peek().m_expirationTime > RobotController.getFPGATime()) {
               continue;
             }
 
@@ -239,7 +227,7 @@ public class Watchdog implements Closeable, Comparable<Watchdog> {
             Watchdog watchdog = m_watchdogs.poll();
 
             long now = RobotController.getFPGATime();
-            if (now  - watchdog.m_lastTimeoutPrintTime > kMinPrintPeriod) {
+            if (now - watchdog.m_lastTimeoutPrintTime > kMinPrintPeriod) {
               watchdog.m_lastTimeoutPrintTime = now;
               if (!watchdog.m_suppressTimeoutMessage) {
                 System.out.format("Watchdog not fed within %.6fs\n", watchdog.m_timeout / 1.0e6);

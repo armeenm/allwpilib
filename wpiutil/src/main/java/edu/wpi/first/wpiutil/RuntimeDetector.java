@@ -24,7 +24,6 @@ public final class RuntimeDetector {
       return;
     }
 
-
     boolean intel32 = is32BitIntel();
     boolean intel64 = is64BitIntel();
 
@@ -63,36 +62,28 @@ public final class RuntimeDetector {
     }
   }
 
-  /**
-   * Get the file prefix for the current system.
-   */
+  /** Get the file prefix for the current system. */
   public static synchronized String getFilePrefix() {
     computePlatform();
 
     return filePrefix;
   }
 
-  /**
-   * Get the file extension for the current system.
-   */
+  /** Get the file extension for the current system. */
   public static synchronized String getFileExtension() {
     computePlatform();
 
     return fileExtension;
   }
 
-  /**
-   * Get the platform path for the current system.
-   */
+  /** Get the platform path for the current system. */
   public static synchronized String getPlatformPath() {
     computePlatform();
 
     return filePath;
   }
 
-  /**
-   * Get the path to the requested resource.
-   */
+  /** Get the path to the requested resource. */
   public static synchronized String getLibraryResource(String libName) {
     computePlatform();
 
@@ -100,9 +91,7 @@ public final class RuntimeDetector {
     return toReturn;
   }
 
-  /**
-   * Get the path to the hash to the requested resource.
-   */
+  /** Get the path to the hash to the requested resource. */
   public static synchronized String getHashLibraryResource(String libName) {
     computePlatform();
 
@@ -115,7 +104,8 @@ public final class RuntimeDetector {
     return runRobotFile.exists();
   }
 
-  /** check if os is raspbian.
+  /**
+   * check if os is raspbian.
    *
    * @return if os is raspbian
    */
@@ -150,7 +140,5 @@ public final class RuntimeDetector {
     return "amd64".equals(arch) || "x86_64".equals(arch);
   }
 
-  private RuntimeDetector() {
-
-  }
+  private RuntimeDetector() {}
 }

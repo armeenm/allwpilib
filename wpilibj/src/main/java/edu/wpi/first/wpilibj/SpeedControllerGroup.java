@@ -9,9 +9,7 @@ package edu.wpi.first.wpilibj;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 
-/**
- * Allows multiple {@link SpeedController} objects to be linked together.
- */
+/** Allows multiple {@link SpeedController} objects to be linked together. */
 public class SpeedControllerGroup extends SendableBase implements SpeedController {
   private boolean m_isInverted;
   private final SpeedController[] m_speedControllers;
@@ -23,8 +21,8 @@ public class SpeedControllerGroup extends SendableBase implements SpeedControlle
    * @param speedControllers The SpeedControllers to add
    */
   @SuppressWarnings("PMD.AvoidArrayLoops")
-  public SpeedControllerGroup(SpeedController speedController,
-                              SpeedController... speedControllers) {
+  public SpeedControllerGroup(
+      SpeedController speedController, SpeedController... speedControllers) {
     m_speedControllers = new SpeedController[speedControllers.length + 1];
     m_speedControllers[0] = speedController;
     addChild(speedController);

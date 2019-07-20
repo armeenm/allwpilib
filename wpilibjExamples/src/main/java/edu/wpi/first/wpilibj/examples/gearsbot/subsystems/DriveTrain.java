@@ -16,33 +16,28 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import edu.wpi.first.wpilibj.examples.gearsbot.Robot;
 import edu.wpi.first.wpilibj.examples.gearsbot.commands.TankDriveWithJoystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * The DriveTrain subsystem incorporates the sensors and actuators attached to
- * the robots chassis. These include four drive motors, a left and right encoder
- * and a gyro.
+ * The DriveTrain subsystem incorporates the sensors and actuators attached to the robots chassis.
+ * These include four drive motors, a left and right encoder and a gyro.
  */
 public class DriveTrain extends Subsystem {
-  private final SpeedController m_leftMotor
-      = new SpeedControllerGroup(new PWMVictorSPX(0), new PWMVictorSPX(1));
-  private final SpeedController m_rightMotor
-      = new SpeedControllerGroup(new PWMVictorSPX(2), new PWMVictorSPX(3));
+  private final SpeedController m_leftMotor =
+      new SpeedControllerGroup(new PWMVictorSPX(0), new PWMVictorSPX(1));
+  private final SpeedController m_rightMotor =
+      new SpeedControllerGroup(new PWMVictorSPX(2), new PWMVictorSPX(3));
 
-  private final DifferentialDrive m_drive
-      = new DifferentialDrive(m_leftMotor, m_rightMotor);
+  private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotor, m_rightMotor);
 
   private final Encoder m_leftEncoder = new Encoder(1, 2);
   private final Encoder m_rightEncoder = new Encoder(3, 4);
   private final AnalogInput m_rangefinder = new AnalogInput(6);
   private final AnalogGyro m_gyro = new AnalogGyro(1);
 
-  /**
-   * Create a new drive train subsystem.
-   */
+  /** Create a new drive train subsystem. */
   public DriveTrain() {
     super();
 
@@ -68,18 +63,13 @@ public class DriveTrain extends Subsystem {
     addChild("Gyro", m_gyro);
   }
 
-  /**
-   * When no other command is running let the operator drive around using the
-   * PS3 joystick.
-   */
+  /** When no other command is running let the operator drive around using the PS3 joystick. */
   @Override
   public void initDefaultCommand() {
     setDefaultCommand(new TankDriveWithJoystick());
   }
 
-  /**
-   * The log method puts interesting information to the SmartDashboard.
-   */
+  /** The log method puts interesting information to the SmartDashboard. */
   public void log() {
     SmartDashboard.putNumber("Left Distance", m_leftEncoder.getDistance());
     SmartDashboard.putNumber("Right Distance", m_rightEncoder.getDistance());
@@ -116,9 +106,7 @@ public class DriveTrain extends Subsystem {
     return m_gyro.getAngle();
   }
 
-  /**
-   * Reset the robots sensors to the zero states.
-   */
+  /** Reset the robots sensors to the zero states. */
   public void reset() {
     m_gyro.reset();
     m_leftEncoder.reset();

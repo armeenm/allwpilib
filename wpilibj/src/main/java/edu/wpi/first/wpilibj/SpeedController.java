@@ -7,9 +7,7 @@
 
 package edu.wpi.first.wpilibj;
 
-/**
- * Interface for speed controlling devices.
- */
+/** Interface for speed controlling devices. */
 public interface SpeedController extends PIDOutput {
   /**
    * Common interface for setting the speed of a speed controller.
@@ -39,9 +37,7 @@ public interface SpeedController extends PIDOutput {
    */
   boolean getInverted();
 
-  /**
-   * Disable the speed controller.
-   */
+  /** Disable the speed controller. */
   void disable();
 
   /**

@@ -9,8 +9,6 @@ package edu.wpi.first.wpilibj.examples.gearsbot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import edu.wpi.first.wpilibj.examples.gearsbot.commands.Autonomous;
 import edu.wpi.first.wpilibj.examples.gearsbot.commands.CloseClaw;
 import edu.wpi.first.wpilibj.examples.gearsbot.commands.OpenClaw;
@@ -19,17 +17,16 @@ import edu.wpi.first.wpilibj.examples.gearsbot.commands.Place;
 import edu.wpi.first.wpilibj.examples.gearsbot.commands.PrepareToPickup;
 import edu.wpi.first.wpilibj.examples.gearsbot.commands.SetElevatorSetpoint;
 import edu.wpi.first.wpilibj.examples.gearsbot.commands.SetWristSetpoint;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * This class is the glue that binds the controls on the physical operator
- * interface to the commands and command groups that allow control of the robot.
+ * This class is the glue that binds the controls on the physical operator interface to the commands
+ * and command groups that allow control of the robot.
  */
 public class OI {
   private final Joystick m_joystick = new Joystick(0);
 
-  /**
-   * Construct the OI and all of the buttons on it.
-   */
+  /** Construct the OI and all of the buttons on it. */
   public OI() {
     // Put Some buttons on the SmartDashboard
     SmartDashboard.putData("Elevator Bottom", new SetElevatorSetpoint(0));

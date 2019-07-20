@@ -33,6 +33,5 @@ public final class RobotState {
     return DriverStation.getInstance().isTest();
   }
 
-  private RobotState() {
-  }
+  private RobotState() {}
 }

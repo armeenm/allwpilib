@@ -10,19 +10,17 @@ package edu.wpi.first.wpilibj.examples.gearsbot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import edu.wpi.first.wpilibj.examples.gearsbot.commands.Autonomous;
 import edu.wpi.first.wpilibj.examples.gearsbot.subsystems.Claw;
 import edu.wpi.first.wpilibj.examples.gearsbot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj.examples.gearsbot.subsystems.Elevator;
 import edu.wpi.first.wpilibj.examples.gearsbot.subsystems.Wrist;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the TimedRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the manifest file in the resource
+ * The VM is configured to automatically run this class, and to call the functions corresponding to
+ * each mode, as described in the TimedRobot documentation. If you change the name of this class or
+ * the package after creating this project, you must also update the manifest file in the resource
  * directory.
  */
 public class Robot extends TimedRobot {
@@ -35,8 +33,8 @@ public class Robot extends TimedRobot {
   public static OI m_oi;
 
   /**
-   * This function is run when the robot is first started up and should be
-   * used for any initialization code.
+   * This function is run when the robot is first started up and should be used for any
+   * initialization code.
    */
   @Override
   public void robotInit() {
@@ -62,9 +60,7 @@ public class Robot extends TimedRobot {
     m_autonomousCommand.start(); // schedule the autonomous command (example)
   }
 
-  /**
-   * This function is called periodically during autonomous.
-   */
+  /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
     Scheduler.getInstance().run();
@@ -80,25 +76,18 @@ public class Robot extends TimedRobot {
     m_autonomousCommand.cancel();
   }
 
-  /**
-   * This function is called periodically during teleoperated mode.
-   */
+  /** This function is called periodically during teleoperated mode. */
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
     log();
   }
 
-  /**
-   * This function is called periodically during test mode.
-   */
+  /** This function is called periodically during test mode. */
   @Override
-  public void testPeriodic() {
-  }
+  public void testPeriodic() {}
 
-  /**
-   * The log method puts interesting information to the SmartDashboard.
-   */
+  /** The log method puts interesting information to the SmartDashboard. */
   private void log() {
     m_wrist.log();
     m_elevator.log();

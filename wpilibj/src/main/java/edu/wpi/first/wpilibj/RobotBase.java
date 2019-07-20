@@ -7,13 +7,6 @@
 
 package edu.wpi.first.wpilibj;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.util.function.Supplier;
-
 import edu.wpi.cscore.CameraServerJNI;
 import edu.wpi.first.cameraserver.CameraServerShared;
 import edu.wpi.first.cameraserver.CameraServerSharedStore;
@@ -25,6 +18,12 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.util.WPILibVersion;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.util.function.Supplier;
 
 /**
  * Implement a Robot Program framework. The RobotBase class is intended to be subclassed by a user
@@ -34,45 +33,44 @@ import edu.wpi.first.wpilibj.util.WPILibVersion;
  * might be spawned as a task, then killed at the end of the Autonomous period.
  */
 public abstract class RobotBase implements AutoCloseable {
-  /**
-   * The ID of the main Java thread.
-   */
+  /** The ID of the main Java thread. */
   // This is usually 1, but it is best to make sure
   public static final long MAIN_THREAD_ID = Thread.currentThread().getId();
 
   private static void setupCameraServerShared() {
-    CameraServerShared shared = new CameraServerShared() {
+    CameraServerShared shared =
+        new CameraServerShared() {
 
-      @Override
-      public void reportVideoServer(int id) {
-        HAL.report(tResourceType.kResourceType_PCVideoServer, id);
-      }
+          @Override
+          public void reportVideoServer(int id) {
+            HAL.report(tResourceType.kResourceType_PCVideoServer, id);
+          }
 
-      @Override
-      public void reportUsbCamera(int id) {
-        HAL.report(tResourceType.kResourceType_UsbCamera, id);
-      }
+          @Override
+          public void reportUsbCamera(int id) {
+            HAL.report(tResourceType.kResourceType_UsbCamera, id);
+          }
 
-      @Override
-      public void reportDriverStationError(String error) {
-        DriverStation.reportError(error, true);
-      }
+          @Override
+          public void reportDriverStationError(String error) {
+            DriverStation.reportError(error, true);
+          }
 
-      @Override
-      public void reportAxisCamera(int id) {
-        HAL.report(tResourceType.kResourceType_AxisCamera, id);
-      }
+          @Override
+          public void reportAxisCamera(int id) {
+            HAL.report(tResourceType.kResourceType_AxisCamera, id);
+          }
 
-      @Override
-      public Long getRobotMainThreadId() {
-        return MAIN_THREAD_ID;
-      }
+          @Override
+          public Long getRobotMainThreadId() {
+            return MAIN_THREAD_ID;
+          }
 
-      @Override
-      public boolean isRoboRIO() {
-        return RobotBase.isReal();
-      }
-    };
+          @Override
+          public boolean isRoboRIO() {
+            return RobotBase.isReal();
+          }
+        };
 
     CameraServerSharedStore.setCameraServerShared(shared);
   }
@@ -85,8 +83,7 @@ public abstract class RobotBase implements AutoCloseable {
    * completion before Autonomous is entered.
    *
    * <p>This must be used to ensure that the communications code starts. In the future it would be
-   * nice
-   * to put this code into it's own task that loads on boot so ensure that it runs.
+   * nice to put this code into it's own task that loads on boot so ensure that it runs.
    */
   protected RobotBase() {
     NetworkTableInstance inst = NetworkTableInstance.getDefault();
@@ -101,12 +98,10 @@ public abstract class RobotBase implements AutoCloseable {
   }
 
   @Deprecated
-  public void free() {
-  }
+  public void free() {}
 
   @Override
-  public void close() {
-  }
+  public void close() {}
 
   /**
    * Get if the robot is a simulation.
@@ -145,8 +140,7 @@ public abstract class RobotBase implements AutoCloseable {
   }
 
   /**
-   * Determine if the robot is currently in Autonomous mode as determined by the field
-   * controls.
+   * Determine if the robot is currently in Autonomous mode as determined by the field controls.
    *
    * @return True if the robot is currently operating Autonomously.
    */
@@ -155,8 +149,7 @@ public abstract class RobotBase implements AutoCloseable {
   }
 
   /**
-   * Determine if the robot is currently in Test mode as determined by the driver
-   * station.
+   * Determine if the robot is currently in Test mode as determined by the driver station.
    *
    * @return True if the robot is currently operating in Test mode.
    */
@@ -183,9 +176,7 @@ public abstract class RobotBase implements AutoCloseable {
     return m_ds.isNewControlData();
   }
 
-  /**
-   * Provide an alternate "main loop" via startCompetition().
-   */
+  /** Provide an alternate "main loop" via startCompetition(). */
   public abstract void startCompetition();
 
   @SuppressWarnings("JavadocMethod")
@@ -203,11 +194,11 @@ public abstract class RobotBase implements AutoCloseable {
     }
   }
 
-  /**
-   * Starting point for the applications.
-   */
-  @SuppressWarnings({"PMD.AvoidInstantiatingObjectsInLoops", "PMD.AvoidCatchingThrowable",
-                     "PMD.CyclomaticComplexity", "PMD.NPathComplexity"})
+  /** Starting point for the applications. */
+  @SuppressWarnings({
+    "PMD.AvoidInstantiatingObjectsInLoops", "PMD.AvoidCatchingThrowable",
+    "PMD.CyclomaticComplexity", "PMD.NPathComplexity"
+  })
   public static <T extends RobotBase> void startRobot(Supplier<T> robotSupplier) {
     if (!HAL.initialize(500, 0)) {
       throw new IllegalStateException("Failed to initialize. Terminating");
@@ -234,8 +225,9 @@ public abstract class RobotBase implements AutoCloseable {
       if (elements.length > 0) {
         robotName = elements[0].getClassName();
       }
-      DriverStation.reportError("Unhandled exception instantiating robot " + robotName + " "
-          + throwable.toString(), elements);
+      DriverStation.reportError(
+          "Unhandled exception instantiating robot " + robotName + " " + throwable.toString(),
+          elements);
       DriverStation.reportWarning("Robots should not quit, but yours did!", false);
       DriverStation.reportError("Could not instantiate robot " + robotName + "!", false);
       System.exit(1);
@@ -258,8 +250,8 @@ public abstract class RobotBase implements AutoCloseable {
         }
 
       } catch (IOException ex) {
-        DriverStation.reportError("Could not write FRC_Lib_Version.ini: " + ex.toString(),
-                ex.getStackTrace());
+        DriverStation.reportError(
+            "Could not write FRC_Lib_Version.ini: " + ex.toString(), ex.getStackTrace());
       }
     }
 
@@ -271,8 +263,8 @@ public abstract class RobotBase implements AutoCloseable {
       if (cause != null) {
         throwable = cause;
       }
-      DriverStation.reportError("Unhandled exception: " + throwable.toString(),
-          throwable.getStackTrace());
+      DriverStation.reportError(
+          "Unhandled exception: " + throwable.toString(), throwable.getStackTrace());
       errorOnExit = true;
     } finally {
       // startCompetition never returns unless exception occurs....
@@ -280,7 +272,8 @@ public abstract class RobotBase implements AutoCloseable {
       if (errorOnExit) {
         DriverStation.reportError(
             "The startCompetition() method (or methods called by it) should have "
-                + "handled the exception above.", false);
+                + "handled the exception above.",
+            false);
       } else {
         DriverStation.reportError("Unexpected return from startCompetition() method.", false);
       }

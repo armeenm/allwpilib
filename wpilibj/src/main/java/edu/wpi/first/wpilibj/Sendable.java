@@ -9,10 +9,7 @@ package edu.wpi.first.wpilibj;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 
-
-/**
- * The base interface for objects that can be sent over the network through network tables.
- */
+/** The base interface for objects that can be sent over the network through network tables. */
 public interface Sendable {
   /**
    * Gets the name of this {@link Sendable} object.

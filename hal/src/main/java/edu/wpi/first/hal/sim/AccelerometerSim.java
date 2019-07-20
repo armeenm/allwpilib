@@ -20,9 +20,11 @@ public class AccelerometerSim {
     int uid = AccelerometerDataJNI.registerActiveCallback(m_index, callback, initialNotify);
     return new CallbackStore(m_index, uid, AccelerometerDataJNI::cancelActiveCallback);
   }
+
   public boolean getActive() {
     return AccelerometerDataJNI.getActive(m_index);
   }
+
   public void setActive(boolean active) {
     AccelerometerDataJNI.setActive(m_index, active);
   }
@@ -31,9 +33,11 @@ public class AccelerometerSim {
     int uid = AccelerometerDataJNI.registerRangeCallback(m_index, callback, initialNotify);
     return new CallbackStore(m_index, uid, AccelerometerDataJNI::cancelRangeCallback);
   }
+
   public int getRange() {
     return AccelerometerDataJNI.getRange(m_index);
   }
+
   public void setRange(int range) {
     AccelerometerDataJNI.setRange(m_index, range);
   }
@@ -42,9 +46,11 @@ public class AccelerometerSim {
     int uid = AccelerometerDataJNI.registerXCallback(m_index, callback, initialNotify);
     return new CallbackStore(m_index, uid, AccelerometerDataJNI::cancelXCallback);
   }
+
   public double getX() {
     return AccelerometerDataJNI.getX(m_index);
   }
+
   public void setX(double x) {
     AccelerometerDataJNI.setX(m_index, x);
   }
@@ -53,9 +59,11 @@ public class AccelerometerSim {
     int uid = AccelerometerDataJNI.registerYCallback(m_index, callback, initialNotify);
     return new CallbackStore(m_index, uid, AccelerometerDataJNI::cancelYCallback);
   }
+
   public double getY() {
     return AccelerometerDataJNI.getY(m_index);
   }
+
   public void setY(double y) {
     AccelerometerDataJNI.setY(m_index, y);
   }
@@ -64,9 +72,11 @@ public class AccelerometerSim {
     int uid = AccelerometerDataJNI.registerZCallback(m_index, callback, initialNotify);
     return new CallbackStore(m_index, uid, AccelerometerDataJNI::cancelZCallback);
   }
+
   public double getZ() {
     return AccelerometerDataJNI.getZ(m_index);
   }
+
   public void setZ(double z) {
     AccelerometerDataJNI.setZ(m_index, z);
   }
