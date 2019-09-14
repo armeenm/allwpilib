@@ -7,7 +7,7 @@
 
 #include <uv.h>
 
-#include "cscore_cpp.h"
+#include "wpi/NetworkUtil.h"
 
 #pragma comment(lib, "Ws2_32.lib")
 

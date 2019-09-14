@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "wpi/hostname.h"
+#include "wpi/NetworkUtil.h"  // NOLINT(build/include_order)
 
 #include <cstdlib>
 #include <string>

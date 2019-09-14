@@ -64,6 +64,8 @@ endif()
 
 GENERATE_RESOURCES(src/main/native/resources generated/main/cpp WPI wpi wpiutil_resources_src)
 
+file(GLOB_RECURSE wpiutil_darwin_src src/main/native/osx/*.cpp)
+file(GLOB_RECURSE wpiutil_linux_src src/main/native/linux/*.cpp)
 file(GLOB_RECURSE wpiutil_native_src src/main/native/cpp/*.cpp)
 file(GLOB_RECURSE wpiutil_unix_src src/main/native/unix/*.cpp)
 file(GLOB_RECURSE wpiutil_windows_src src/main/native/windows/*.cpp)
@@ -164,6 +166,11 @@ if (MSVC)
     target_sources(wpiutil PRIVATE ${wpiutil_windows_src})
 else ()
     target_sources(wpiutil PRIVATE ${wpiutil_unix_src})
+    if (APPLE)
+        target_sources(wpiutil PRIVATE ${wpiutil_darwin_src})
+    else()
+        target_sources(wpiutil PRIVATE ${wpiutil_linux_src})
+    endif()
 endif()
 
 target_include_directories(wpiutil PUBLIC

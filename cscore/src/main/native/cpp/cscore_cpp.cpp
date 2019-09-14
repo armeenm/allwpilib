@@ -7,8 +7,8 @@
 
 #include "cscore_cpp.h"
 
+#include <wpi/NetworkUtil.h>
 #include <wpi/SmallString.h>
-#include <wpi/hostname.h>
 #include <wpi/json.h>
 
 #include "Handle.h"
@@ -761,5 +761,9 @@ wpi::ArrayRef<CS_Sink> EnumerateSinkHandles(wpi::SmallVectorImpl<CS_Sink>& vec,
 }
 
 std::string GetHostname() { return wpi::GetHostname(); }
+
+std::vector<std::string> GetNetworkInterfaces() {
+  return wpi::GetNetworkInterfaces();
+}
 
 }  // namespace cs

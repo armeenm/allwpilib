@@ -1,18 +1,18 @@
 /*----------------------------------------------------------------------------*/
-/* Copyright (c) 2016-2018 FIRST. All Rights Reserved.                        */
+/* Copyright (c) 2016-2019 FIRST. All Rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "cscore_cpp.h"  // NOLINT(build/include_order)
+#include "wpi/NetworkUtil.h"  // NOLINT(build/include_order)
 
 #include <arpa/inet.h>
 #include <ifaddrs.h>
 #include <sys/types.h>
 #include <unistd.h>
 
-namespace cs {
+namespace wpi {
 
 std::vector<std::string> GetNetworkInterfaces() {
   struct ifaddrs* ifa;
@@ -34,4 +34,4 @@ std::vector<std::string> GetNetworkInterfaces() {
   return rv;
 }
 
-}  // namespace cs
+}  // namespace wpi

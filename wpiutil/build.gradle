@@ -118,6 +118,16 @@ ext {
                         srcDirs 'src/main/native/include', 'src/main/native/libuv/include', 'src/main/native/libuv/src'
                     }
                 }
+                wpiutilMacCpp(CppSourceSet) {
+                    source {
+                        srcDirs 'src/main/native/osx'
+                        include '**/*.cpp'
+                    }
+                    exportedHeaders {
+                        srcDirs 'src/main/native/include', 'src/main/native/cpp'
+                        include '**/*.h'
+                    }
+                }
             }
         } else {
             it.sources {
@@ -135,6 +145,16 @@ ext {
                     }
                     exportedHeaders {
                         srcDirs 'src/main/native/include', 'src/main/native/libuv/include', 'src/main/native/libuv/src'
+                    }
+                }
+                wpiutilLinuxCpp(CppSourceSet) {
+                    source {
+                        srcDirs 'src/main/native/linux'
+                        include '**/*.cpp'
+                    }
+                    exportedHeaders {
+                        srcDirs 'src/main/native/include', 'src/main/native/cpp'
+                        include '**/*.h'
                     }
                 }
             }
