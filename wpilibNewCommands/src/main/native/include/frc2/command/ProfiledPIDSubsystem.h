@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------*/
-/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
+/* Copyright (c) 2019-2020 FIRST. All Rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
@@ -32,46 +32,40 @@ class ProfiledPIDSubsystem : public SubsystemBase {
    * Creates a new ProfiledPIDSubsystem.
    *
    * @param controller the ProfiledPIDController to use
+   * @param initialPosition the initial goal position of the subsystem
    */
-  explicit ProfiledPIDSubsystem(frc::ProfiledPIDController<Distance> controller)
-      : m_controller{controller} {}
+  explicit ProfiledPIDSubsystem(frc::ProfiledPIDController<Distance> controller,
+                                Distance_t initialPosition = Distance_t{0})
+      : m_controller{controller} {
+    SetGoal(initialPosition);
+  }
 
   void Periodic() override {
     if (m_enabled) {
-      UseOutput(m_controller.Calculate(GetMeasurement(), GetGoal()),
+      UseOutput(m_controller.Calculate(GetMeasurement(), m_goal),
                 m_controller.GetSetpoint());
     }
   }
 
   /**
-   * Uses the output from the ProfiledPIDController.
+   * Sets the goal state for the subsystem.
    *
-   * @param output the output of the ProfiledPIDController
-   * @param setpoint the setpoint state of the ProfiledPIDController, for
-   * feedforward
+   * @param goal The goal state for the subsystem's motion profile.
    */
-  virtual void UseOutput(double output, State setpoint) = 0;
+  void SetGoal(State goal) { m_goal = goal; }
 
   /**
-   * Returns the goal used by the ProfiledPIDController.
+   * Sets the goal state for the subsystem.  Goal velocity assumed to be zero.
    *
-   * @return the goal to be used by the controller
+   * @param goal The goal position for the subsystem's motion profile.
    */
-  virtual State GetGoal() = 0;
+  void SetGoal(Distance_t goal) { m_goal = State{goal, Velocity_t(0)}; }
 
   /**
-   * Returns the measurement of the process variable used by the
-   * ProfiledPIDController.
-   *
-   * @return the measurement of the process variable
-   */
-  virtual Distance_t GetMeasurement() = 0;
-
-  /**
-   * Enables the PID control.  Resets the controller.
+   * Enables the PID control. Resets the controller.
    */
   virtual void Enable() {
-    m_controller.Reset();
+    m_controller.Reset(GetMeasurement());
     m_enabled = true;
   }
 
@@ -84,6 +78,13 @@ class ProfiledPIDSubsystem : public SubsystemBase {
   }
 
   /**
+   * Returns whether the controller is enabled.
+   *
+   * @return Whether the controller is enabled.
+   */
+  bool IsEnabled() { return m_enabled; }
+
+  /**
    * Returns the ProfiledPIDController.
    *
    * @return The controller.
@@ -92,6 +93,26 @@ class ProfiledPIDSubsystem : public SubsystemBase {
 
  protected:
   frc::ProfiledPIDController<Distance> m_controller;
-  bool m_enabled;
+  bool m_enabled{false};
+
+  /**
+   * Returns the measurement of the process variable used by the
+   * ProfiledPIDController.
+   *
+   * @return the measurement of the process variable
+   */
+  virtual Distance_t GetMeasurement() = 0;
+
+  /**
+   * Uses the output from the ProfiledPIDController.
+   *
+   * @param output the output of the ProfiledPIDController
+   * @param setpoint the setpoint state of the ProfiledPIDController, for
+   * feedforward
+   */
+  virtual void UseOutput(double output, State setpoint) = 0;
+
+ private:
+  State m_goal;
 };
 }  // namespace frc2

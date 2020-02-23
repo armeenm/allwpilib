@@ -37,26 +37,36 @@ class TrapezoidProfileSubsystem : public SubsystemBase {
    * when the subsystem is constructed.
    * @param period          The period of the main robot loop, in seconds.
    */
-  TrapezoidProfileSubsystem(Constraints constraints, Distance_t position,
-                            units::second_t period = 20_ms)
+  explicit TrapezoidProfileSubsystem(Constraints constraints,
+                                     Distance_t initialPosition = Distance_t{0},
+                                     units::second_t period = 20_ms)
       : m_constraints(constraints),
-        m_state{position, Velocity_t(0)},
+        m_state{initialPosition, Velocity_t(0)},
+        m_goal{initialPosition, Velocity_t{0}},
         m_period(period) {}
 
   void Periodic() override {
     auto profile =
-        frc::TrapezoidProfile<Distance>(m_constraints, GetGoal(), m_state);
+        frc::TrapezoidProfile<Distance>(m_constraints, m_goal, m_state);
     m_state = profile.Calculate(m_period);
-    UseState(m_state);
+    if (m_enabled) {
+      UseState(m_state);
+    }
   }
 
   /**
-   * Users should override this to return the goal state for the subsystem's
-   * motion profile.
+   * Sets the goal state for the subsystem.
    *
-   * @return The goal state for the subsystem's motion profile.
+   * @param goal The goal state for the subsystem's motion profile.
    */
-  virtual State GetGoal() = 0;
+  void SetGoal(State goal) { m_goal = goal; }
+
+  /**
+   * Sets the goal state for the subsystem.  Goal velocity assumed to be zero.
+   *
+   * @param goal The goal position for the subsystem's motion profile.
+   */
+  void SetGoal(Distance_t goal) { m_goal = State{goal, Velocity_t(0)}; }
 
  protected:
   /**
@@ -67,9 +77,21 @@ class TrapezoidProfileSubsystem : public SubsystemBase {
    */
   virtual void UseState(State state) = 0;
 
+  /**
+   * Enable the TrapezoidProfileSubsystem's output.
+   */
+  void Enable() { m_enabled = true; }
+
+  /**
+   * Disable the TrapezoidProfileSubsystem's output.
+   */
+  void Disable() { m_enabled = false; }
+
  private:
   Constraints m_constraints;
   State m_state;
+  State m_goal;
   units::second_t m_period;
+  bool m_enabled{false};
 };
 }  // namespace frc2

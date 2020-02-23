@@ -1,15 +1,11 @@
 /*----------------------------------------------------------------------------*/
-/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
+/* Copyright (c) 2019-2020 FIRST. All Rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
 #include "AddressableLEDGui.h"
-
-#include <cstdio>
-#include <cstring>
-#include <vector>
 
 #include <hal/Ports.h>
 #include <imgui.h>
@@ -20,54 +16,55 @@
 
 #include "ExtraGuiWidgets.h"
 #include "HALSimGui.h"
+#include "IniSaver.h"
+#include "IniSaverInfo.h"
 
 using namespace halsimgui;
 
-static constexpr int kDefaultColumns = 10;
-static std::vector<int> numColumns;
+namespace {
+struct LEDDisplayInfo {
+  int numColumns = 10;
+  LEDConfig config;
 
-// read/write columns setting to ini file
-static void* AddressableLEDReadOpen(ImGuiContext* ctx,
-                                    ImGuiSettingsHandler* handler,
-                                    const char* name) {
-  int num;
-  if (wpi::StringRef{name}.getAsInteger(10, num)) return nullptr;
-  if (num < 0) return nullptr;
-  if (num >= static_cast<int>(numColumns.size()))
-    numColumns.resize(num + 1, kDefaultColumns);
-  return &numColumns[num];
-}
+  bool ReadIni(wpi::StringRef name, wpi::StringRef value);
+  void WriteIni(ImGuiTextBuffer* out);
+};
+}  // namespace
 
-static void AddressableLEDReadLine(ImGuiContext* ctx,
-                                   ImGuiSettingsHandler* handler, void* entry,
-                                   const char* lineStr) {
-  int* cols = static_cast<int*>(entry);
-  // format: columns=#
-  wpi::StringRef line{lineStr};
-  auto [name, value] = line.split('=');
-  name = name.trim();
-  value = value.trim();
+static IniSaver<LEDDisplayInfo> gDisplaySettings{"AddressableLED"};
+
+bool LEDDisplayInfo::ReadIni(wpi::StringRef name, wpi::StringRef value) {
   if (name == "columns") {
     int num;
-    if (value.getAsInteger(10, num)) return;
-    *cols = num;
+    if (value.getAsInteger(10, num)) return true;
+    numColumns = num;
+  } else if (name == "serpentine") {
+    int num;
+    if (value.getAsInteger(10, num)) return true;
+    config.serpentine = num != 0;
+  } else if (name == "order") {
+    int num;
+    if (value.getAsInteger(10, num)) return true;
+    config.order = static_cast<LEDConfig::Order>(num);
+  } else if (name == "start") {
+    int num;
+    if (value.getAsInteger(10, num)) return true;
+    config.start = static_cast<LEDConfig::Start>(num);
+  } else {
+    return false;
   }
+  return true;
 }
 
-static void AddressableLEDWriteAll(ImGuiContext* ctx,
-                                   ImGuiSettingsHandler* handler,
-                                   ImGuiTextBuffer* out_buf) {
-  for (size_t i = 0; i < numColumns.size(); ++i) {
-    out_buf->appendf("[AddressableLED][%d]\ncolumns=%d\n\n",
-                     static_cast<int>(i), numColumns[i]);
-  }
+void LEDDisplayInfo::WriteIni(ImGuiTextBuffer* out) {
+  out->appendf("columns=%d\nserpentine=%d\norder=%d\nstart=%d\n", numColumns,
+               config.serpentine ? 1 : 0, static_cast<int>(config.order),
+               static_cast<int>(config.start));
 }
 
 static void DisplayAddressableLEDs() {
   bool hasAny = false;
   static const int numLED = HAL_GetNumAddressableLEDs();
-  if (numLED > static_cast<int>(numColumns.size()))
-    numColumns.resize(numLED, kDefaultColumns);
 
   for (int i = 0; i < numLED; ++i) {
     if (!HALSIM_GetAddressableLEDInitialized(i)) continue;
@@ -78,12 +75,27 @@ static void DisplayAddressableLEDs() {
     static HAL_AddressableLEDData data[HAL_kAddressableLEDMaxLength];
     int length = HALSIM_GetAddressableLEDData(i, data);
     bool running = HALSIM_GetAddressableLEDRunning(i);
+    auto& info = gDisplaySettings[i];
 
     ImGui::PushItemWidth(ImGui::GetFontSize() * 6);
     ImGui::LabelText("Length", "%d", length);
     ImGui::LabelText("Running", "%s", running ? "Yes" : "No");
-    ImGui::InputInt("Columns", &numColumns[i]);
-    if (numColumns[i] < 1) numColumns[i] = 1;
+    ImGui::InputInt("Columns", &info.numColumns);
+    {
+      static const char* options[] = {"Row Major", "Column Major"};
+      int val = info.config.order;
+      if (ImGui::Combo("Order", &val, options, 2))
+        info.config.order = static_cast<LEDConfig::Order>(val);
+    }
+    {
+      static const char* options[] = {"Upper Left", "Lower Left", "Upper Right",
+                                      "Lower Right"};
+      int val = info.config.start;
+      if (ImGui::Combo("Start", &val, options, 4))
+        info.config.start = static_cast<LEDConfig::Start>(val);
+    }
+    ImGui::Checkbox("Serpentine", &info.config.serpentine);
+    if (info.numColumns < 1) info.numColumns = 1;
     ImGui::PopItemWidth();
 
     // show as LED indicators
@@ -100,21 +112,13 @@ static void DisplayAddressableLEDs() {
       }
     }
 
-    DrawLEDs(values, length, numColumns[i], colors);
+    DrawLEDs(values, length, info.numColumns, colors, 0, 0, info.config);
   }
   if (!hasAny) ImGui::Text("No addressable LEDs");
 }
 
 void AddressableLEDGui::Initialize() {
-  // hook ini handler to save columns settings
-  ImGuiSettingsHandler iniHandler;
-  iniHandler.TypeName = "AddressableLED";
-  iniHandler.TypeHash = ImHashStr(iniHandler.TypeName);
-  iniHandler.ReadOpenFn = AddressableLEDReadOpen;
-  iniHandler.ReadLineFn = AddressableLEDReadLine;
-  iniHandler.WriteAllFn = AddressableLEDWriteAll;
-  ImGui::GetCurrentContext()->SettingsHandlers.push_back(iniHandler);
-
+  gDisplaySettings.Initialize();
   HALSimGui::AddWindow("Addressable LEDs", DisplayAddressableLEDs,
                        ImGuiWindowFlags_AlwaysAutoResize);
   HALSimGui::SetWindowVisibility("Addressable LEDs", HALSimGui::kHide);

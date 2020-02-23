@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------*/
-/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
+/* Copyright (c) 2019-2020 FIRST. All Rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
@@ -53,8 +53,8 @@ public class RamseteCommand extends CommandBase {
 
   /**
    * Constructs a new RamseteCommand that, when executed, will follow the provided trajectory.
-   * PID control and feedforward are handled internally, and outputs are scaled -1 to 1 for easy
-   * consumption by speed controllers.
+   * PID control and feedforward are handled internally, and outputs are scaled -12 to 12
+   * representing units of volts.
    *
    * <p>Note: The controller will *not* set the outputVolts to zero upon completion of the path -
    * this
@@ -201,6 +201,6 @@ public class RamseteCommand extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return m_timer.hasPeriodPassed(m_trajectory.getTotalTimeSeconds());
+    return m_timer.hasElapsed(m_trajectory.getTotalTimeSeconds());
   }
 }

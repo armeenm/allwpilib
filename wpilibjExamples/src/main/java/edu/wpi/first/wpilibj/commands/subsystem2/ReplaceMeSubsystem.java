@@ -5,21 +5,20 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package edu.wpi.first.wpiutil.math;
+package edu.wpi.first.wpilibj.commands.subsystem2;
 
-public final class MathUtils {
-  private MathUtils() {
-    throw new AssertionError("utility class");
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+public class ReplaceMeSubsystem extends SubsystemBase {
+  /**
+   * Creates a new ReplaceMeSubsystem.
+   */
+  public ReplaceMeSubsystem() {
+
   }
 
-  /**
-   * Returns value clamped between low and high boundaries.
-   *
-   * @param value Value to clamp.
-   * @param low   The lower boundary to which to clamp value.
-   * @param high  The higher boundary to which to clamp value.
-   */
-  public static double clamp(double value, double low, double high) {
-    return Math.max(low, Math.min(value, high));
+  @Override
+  public void periodic() {
+    // This method will be called once per scheduler run
   }
 }

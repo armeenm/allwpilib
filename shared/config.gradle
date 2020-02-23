@@ -8,10 +8,10 @@ nativeUtils {
   wpi {
     configureDependencies {
       wpiVersion = "-1"
-      niLibVersion = "2020.7.1"
+      niLibVersion = "2020.10.1"
       opencvVersion = "3.4.7-2"
-      googleTestVersion = "1.9.0-3-437e100"
-      imguiVersion = "1.72b-2"
+      googleTestVersion = "1.9.0-4-437e100-1"
+      imguiVersion = "1.72b-3"
     }
   }
 }
@@ -20,6 +20,10 @@ nativeUtils.wpi.addWarnings()
 nativeUtils.wpi.addWarningsAsErrors()
 
 nativeUtils.setSinglePrintPerPlatform()
+
+nativeUtils.platformConfigs.named("osxx86-64").configure {
+    it.linker.args << "-headerpad_max_install_names"
+}
 
 model {
     components {

@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------*/
-/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
+/* Copyright (c) 2019-2020 FIRST. All Rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include <hal/FRCUsageReporting.h>
 #include <units/units.h>
 
 namespace frc {
@@ -42,6 +43,7 @@ namespace frc {
  */
 template <class Distance>
 class TrapezoidProfile {
+ public:
   using Distance_t = units::unit_t<Distance>;
   using Velocity =
       units::compound_unit<Distance, units::inverse<units::seconds>>;
@@ -50,9 +52,15 @@ class TrapezoidProfile {
       units::compound_unit<Velocity, units::inverse<units::seconds>>;
   using Acceleration_t = units::unit_t<Acceleration>;
 
- public:
   class Constraints {
    public:
+    Constraints() {
+      HAL_Report(HALUsageReporting::kResourceType_TrapezoidProfile, 1);
+    }
+    Constraints(Velocity_t maxVelocity_, Acceleration_t maxAcceleration_)
+        : maxVelocity{maxVelocity_}, maxAcceleration{maxAcceleration_} {
+      HAL_Report(HALUsageReporting::kResourceType_TrapezoidProfile, 1);
+    }
     Velocity_t maxVelocity{0};
     Acceleration_t maxAcceleration{0};
   };
