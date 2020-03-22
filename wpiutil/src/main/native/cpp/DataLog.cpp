@@ -47,7 +47,7 @@
 /*
  * DATA STORAGE FORMAT
  *
- * TIMESTAMP FILE
+ * **Timestamp File**
  *
  * Timestamp file (named whatever the user provides as filename) consists of:
  * - 4KiB header
@@ -87,7 +87,7 @@
  *
  * timeWritePos: next byte write position in the timestamp file
  *
- * TIMESTAMP FILE RECORDS
+ * **Timestamp File Records**
  *
  * Each record in the timestamp file starts with a 64-bit timestamp.  The
  * epoch and resolution of the timestamp is unspecified, but most files
@@ -101,7 +101,7 @@
  * and size can either be 32-bit or 64-bit (as determined by recordSize, so
  * recordSize=16 if 32-bit offset+size, recordSize=24 if 64-bit offset+size).
  *
- * DATA FILE
+ * **Data File**
  *
  * Used only for variable-sized data (fixedSize=false).  File is named with
  * ".data" suffix to whatever the user provided as a filename.
