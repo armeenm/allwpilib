@@ -418,7 +418,7 @@ wpi::Error DataLogImpl::ReadHeader() {
   wpi::json j;
   try {
     j = wpi::json::parse(is);
-  } catch (const wpi::json::parse_error& e) {
+  } catch (const wpi::json::parse_error&) {
     return wpi::errorCodeToError(
         std::make_error_code(std::errc::wrong_protocol_type));
   }
@@ -433,7 +433,7 @@ wpi::Error DataLogImpl::ReadHeader() {
     m_gapData = j.at("gapData").get<std::string>();
     m_time.writePos = j.at("timeWritePos").get<uint64_t>();
     m_data.writePos = j.at("dataWritePos").get<uint64_t>();
-  } catch (const wpi::json::exception& e) {
+  } catch (const wpi::json::exception&) {
     return wpi::errorCodeToError(
         std::make_error_code(std::errc::wrong_protocol_type));
   }
