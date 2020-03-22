@@ -31,6 +31,7 @@
 #endif
 
 #include <algorithm>
+#include <cstdio>
 #include <cstring>
 #include <system_error>
 
@@ -95,7 +96,7 @@
  *
  * If fixedSize=true, the rest of the record contains the user data.
  *
- * If fixedSize=false, the rest of the record contains the offset and size 
+ * If fixedSize=false, the rest of the record contains the offset and size
  * (in that order) of the data contents in the data file.  The offset
  * and size can either be 32-bit or 64-bit (as determined by recordSize, so
  * recordSize=16 if 32-bit offset+size, recordSize=24 if 64-bit offset+size).
@@ -473,7 +474,7 @@ void DataLogImpl::FileInfo::Close() {
     _chsize_s(fd, writePos);
 #else
     if (::ftruncate(fd, writePos) == -1)
-      perror("could not truncate during close");
+      std::perror("could not truncate during close");
 #endif
   }
   if (fd != -1) ::close(fd);
@@ -503,7 +504,8 @@ size_t DataLogImpl::FileInfo::GetMappedOffset(uint64_t pos, size_t len,
 #ifdef _WIN32
     _chsize_s(fd, fileSize);
 #else
-    if (::ftruncate(fd, fileSize) == -1) perror("could not update file size");
+    if (::ftruncate(fd, fileSize) == -1)
+      std::perror("could not update file size");
 #endif
   }
 
