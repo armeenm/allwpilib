@@ -347,20 +347,20 @@ wpi::Error DataLogImpl::DoOpen(const wpi::Twine& filename,
   if (disp == CD_OpenExisting ||
       (disp == CD_OpenAlways && m_time.fileSize > 0)) {
     if (wpi::Error e = ReadHeader()) {
-#ifdef __clang__
-      return e;
-#else
+#if defined(__GNUC__) && __GNUC__ < 8
       return std::move(e);
+#else
+      return e;
 #endif
     }
 
     // check configuration
     if (wpi::Error e = Check(dataType, dataLayout, recordSize, config.checkType,
                              config.checkLayout, config.checkSize)) {
-#ifdef __clang__
-      return e;
-#else
+#if defined(__GNUC__) && __GNUC__ < 8
       return std::move(e);
+#else
+      return e;
 #endif
     }
   } else {
