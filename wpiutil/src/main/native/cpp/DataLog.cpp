@@ -133,7 +133,7 @@ MappedFile::MappedFile(int fd, size_t length, uint64_t offset, bool readOnly,
 #ifdef _WIN32
   HANDLE origFileHandle = reinterpret_cast<HANDLE>(_get_osfhandle(fd));
   if (origFileHandle == INVALID_HANDLE_VALUE) {
-    ec = std::make_error_code(errc::bad_file_descriptor);
+    ec = std::make_error_code(std::errc::bad_file_descriptor);
     return;
   }
 
@@ -163,7 +163,7 @@ MappedFile::MappedFile(int fd, size_t length, uint64_t offset, bool readOnly,
                          ::GetCurrentProcess(), &m_fileHandle, 0, 0,
                          DUPLICATE_SAME_ACCESS)) {
     ec = wpi::mapWindowsError(GetLastError());
-    ::UnmapViewOfFile(Mapping);
+    ::UnmapViewOfFile(m_mapping);
     m_mapping = nullptr;
     return;
   }
@@ -346,12 +346,23 @@ wpi::Error DataLogImpl::DoOpen(const wpi::Twine& filename,
 
   if (disp == CD_OpenExisting ||
       (disp == CD_OpenAlways && m_time.fileSize > 0)) {
-    if (wpi::Error e = ReadHeader()) return std::move(e);
+    if (wpi::Error e = ReadHeader()) {
+#ifdef __clang__
+      return e;
+#else
+      return std::move(e);
+#endif
+    }
 
     // check configuration
     if (wpi::Error e = Check(dataType, dataLayout, recordSize, config.checkType,
-                             config.checkLayout, config.checkSize))
+                             config.checkLayout, config.checkSize)) {
+#ifdef __clang__
+      return e;
+#else
       return std::move(e);
+#endif
+    }
   } else {
     m_dataType = dataType.str();
     m_dataLayout = dataLayout.str();
@@ -458,8 +469,12 @@ std::error_code DataLogImpl::FileInfo::Open(const wpi::Twine& filename,
 void DataLogImpl::FileInfo::Close() {
   map.Unmap();
   if (fd != -1 && writePos != 0 && !readOnly) {
+#ifdef _WIN32
+    _chsize_s(fd, writePos);
+#else
     if (::ftruncate(fd, writePos) == -1)
       perror("could not truncate during close");
+#endif
   }
   if (fd != -1) ::close(fd);
   fd = -1;
@@ -485,7 +500,11 @@ size_t DataLogImpl::FileInfo::GetMappedOffset(uint64_t pos, size_t len,
     }
 
     // update file size
+#ifdef _WIN32
+    _chsize_s(fd, fileSize);
+#else
     if (::ftruncate(fd, fileSize) == -1) perror("could not update file size");
+#endif
   }
 
   // update map
