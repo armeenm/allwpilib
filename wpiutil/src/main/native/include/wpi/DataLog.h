@@ -57,7 +57,7 @@ class ConstArrayIterator {
 
     explicit ReferenceProxy(ConstArrayIterator it) : it(std::move(it)) {}
 
-  public:
+   public:
     operator reference() const { return *it; }
   };
 

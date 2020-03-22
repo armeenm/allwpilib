@@ -10,15 +10,21 @@
 #include <sys/types.h>
 
 #ifdef _WIN32
+
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
 #endif
-#include <windows.h>
+
+#include <windows.h>  // NOLINT(build/include_order)
+
 #include <memoryapi.h>
-#else
+
+#else  // _WIN32
+
 #include <sys/mman.h>
 #include <unistd.h>
-#endif
+
+#endif  // _WIN32
 
 #ifdef _MSC_VER
 #include <io.h>
@@ -38,69 +44,69 @@
 #include <wpi/raw_istream.h>
 
 /*
-   DATA STORAGE FORMAT
-
-   TIMESTAMP FILE
-
-   Timestamp file (named whatever the user provides as filename) consists of:
-   - 4KiB header
-   - 0 or more fixed-size records
-
-   The timestamp file header contains 0-padded JSON data containing at least
-   the following fields:
-
-   {
-    "dataLayout": <string>,
-    "dataType": <string>,
-    "dataWritePos": <integer>,
-    "fixedSize": <boolean>,
-    "gapData": <string>,
-    "recordSize": <integer>,
-    "timeWritePos": <integer>
-   }
-
-   dataLayout: user-defined string that describes the detailed layout
-   of the data.
-
-   dataType: user-defined string, typically used to make sure there's not
-   a data type conflict when reading the file, or knowing what type of data
-   is stored when opening an arbitrary file.  Suggestions: make this java-style
-   (com.foo.bar) or MIME type.
-
-   dataWritePos: next byte write position in the data file
-
-   fixedSize: true if each record is fixed size (in which case there will not
-   be a data file), false if the records are variable size
-
-   gapData: user-defined string that contains the data that should be written
-   between each record's data in the data file.  Unused if fixedSize is true.
-
-   recordSize: the size of each record (including timestamp) in the timestamp
-   file, in bytes
-
-   timeWritePos: next byte write position in the timestamp file
-
-   TIMESTAMP FILE RECORDS
-
-   Each record in the timestamp file starts with a 64-bit timestamp.  The
-   epoch and resolution of the timestamp is unspecified, but most files
-   use microsecond resolution.  The timestamps must be monotonically
-   increasing for the find function to work.
-
-   If fixedSize=true, the rest of the record contains the user data.
-
-   If fixedSize=false, the rest of the record contains the offset and size 
-   (in that order) of the data contents in the data file.  The offset
-   and size can either be 32-bit or 64-bit (as determined by recordSize, so
-   recordSize=16 if 32-bit offset+size, recordSize=24 if 64-bit offset+size).
-
-   DATA FILE
-
-   Used only for variable-sized data (fixedSize=false).  File is named with
-   ".data" suffix to whatever the user provided as a filename.
-
-   Contains continuous data contents, potentially with gaps between each
-   record (as configured by gapData).
+ * DATA STORAGE FORMAT
+ *
+ * TIMESTAMP FILE
+ *
+ * Timestamp file (named whatever the user provides as filename) consists of:
+ * - 4KiB header
+ * - 0 or more fixed-size records
+ *
+ * The timestamp file header contains 0-padded JSON data containing at least
+ * the following fields:
+ *
+ * {
+ *  "dataLayout": <string>,
+ *  "dataType": <string>,
+ *  "dataWritePos": <integer>,
+ *  "fixedSize": <boolean>,
+ *  "gapData": <string>,
+ *  "recordSize": <integer>,
+ *  "timeWritePos": <integer>
+ * }
+ *
+ * dataLayout: user-defined string that describes the detailed layout
+ * of the data.
+ *
+ * dataType: user-defined string, typically used to make sure there's not
+ * a data type conflict when reading the file, or knowing what type of data
+ * is stored when opening an arbitrary file.  Suggestions: make this java-style
+ * (com.foo.bar) or MIME type.
+ *
+ * dataWritePos: next byte write position in the data file
+ *
+ * fixedSize: true if each record is fixed size (in which case there will not
+ * be a data file), false if the records are variable size
+ *
+ * gapData: user-defined string that contains the data that should be written
+ * between each record's data in the data file.  Unused if fixedSize is true.
+ *
+ * recordSize: the size of each record (including timestamp) in the timestamp
+ * file, in bytes
+ *
+ * timeWritePos: next byte write position in the timestamp file
+ *
+ * TIMESTAMP FILE RECORDS
+ *
+ * Each record in the timestamp file starts with a 64-bit timestamp.  The
+ * epoch and resolution of the timestamp is unspecified, but most files
+ * use microsecond resolution.  The timestamps must be monotonically
+ * increasing for the find function to work.
+ *
+ * If fixedSize=true, the rest of the record contains the user data.
+ *
+ * If fixedSize=false, the rest of the record contains the offset and size 
+ * (in that order) of the data contents in the data file.  The offset
+ * and size can either be 32-bit or 64-bit (as determined by recordSize, so
+ * recordSize=16 if 32-bit offset+size, recordSize=24 if 64-bit offset+size).
+ *
+ * DATA FILE
+ *
+ * Used only for variable-sized data (fixedSize=false).  File is named with
+ * ".data" suffix to whatever the user provided as a filename.
+ *
+ * Contains continuous data contents, potentially with gaps between each
+ * record (as configured by gapData).
  */
 
 using namespace wpi::log;
@@ -451,7 +457,10 @@ std::error_code DataLogImpl::FileInfo::Open(const wpi::Twine& filename,
 
 void DataLogImpl::FileInfo::Close() {
   map.Unmap();
-  if (fd != -1 && writePos != 0 && !readOnly) ::ftruncate(fd, writePos);
+  if (fd != -1 && writePos != 0 && !readOnly) {
+    if (::ftruncate(fd, writePos) == -1)
+      perror("could not truncate during close");
+  }
   if (fd != -1) ::close(fd);
   fd = -1;
 }
@@ -476,7 +485,7 @@ size_t DataLogImpl::FileInfo::GetMappedOffset(uint64_t pos, size_t len,
     }
 
     // update file size
-    ::ftruncate(fd, fileSize);
+    if (::ftruncate(fd, fileSize) == -1) perror("could not update file size");
   }
 
   // update map
@@ -586,7 +595,7 @@ bool DoubleArrayLog::Append(uint64_t timestamp, wpi::ArrayRef<double> arr) {
 }
 
 std::pair<uint64_t, wpi::ArrayRef<double>> DoubleArrayLog::Get(
-  size_t n, wpi::SmallVectorImpl<double>& buf) const {
+    size_t n, wpi::SmallVectorImpl<double>& buf) const {
   auto [ts, arr] = m_impl->ReadRaw(n);
   buf.clear();
   buf.reserve(arr.size() / 8);
