@@ -549,8 +549,13 @@ wpi::Expected<DataLog> DataLog::Open(const wpi::Twine& filename,
   DataLog log(new DataLogImpl, true);
   if (wpi::Error e = log.m_impl->DoOpen(filename, dataType, dataLayout,
                                         recordSize, disp, config))
+#if !defined(__clang__) && defined(__GNUC__) && __GNUC__ < 8
     return std::move(e);
   return std::move(log);
+#else
+    return e;
+  return log;
+#endif
 }
 
 bool DoubleLog::Append(uint64_t timestamp, double value) {
