@@ -158,7 +158,7 @@ JNIEXPORT jlong JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_openRaw
   (JNIEnv*, jclass, jstring, jobject)
 {
-  return 0; // TODO
+  return 0;  // TODO
 }
 
 /*
@@ -170,7 +170,7 @@ JNIEXPORT jboolean JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendRaw
   (JNIEnv*, jclass, jlong, jbyteArray)
 {
-  return JNI_FALSE; // TODO
+  return JNI_FALSE;  // TODO
 }
 
 /*
@@ -182,7 +182,7 @@ JNIEXPORT jboolean JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendRawTime
   (JNIEnv*, jclass, jlong, jlong, jbyteArray)
 {
-  return JNI_FALSE; // TODO
+  return JNI_FALSE;  // TODO
 }
 
 /*
@@ -194,7 +194,7 @@ JNIEXPORT jbyteArray JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_readRaw
   (JNIEnv*, jclass, jlong, jint)
 {
-  return nullptr; // TODO
+  return nullptr;  // TODO
 }
 
 /*
@@ -206,7 +206,7 @@ JNIEXPORT jlong JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_openBoolean
   (JNIEnv*, jclass, jstring, jint, jobject)
 {
-  return 0; // TODO
+  return 0;  // TODO
 }
 
 /*
@@ -218,7 +218,7 @@ JNIEXPORT jboolean JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendBoolean
   (JNIEnv*, jclass, jlong, jboolean)
 {
-  return JNI_FALSE; // TODO
+  return JNI_FALSE;  // TODO
 }
 
 /*
@@ -230,7 +230,7 @@ JNIEXPORT jboolean JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendBooleanTime
   (JNIEnv*, jclass, jlong, jlong, jboolean)
 {
-  return JNI_FALSE; // TODO
+  return JNI_FALSE;  // TODO
 }
 
 /*
@@ -242,7 +242,7 @@ JNIEXPORT jlong JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_openDouble
   (JNIEnv*, jclass, jstring, jint, jobject)
 {
-  return 0; // TODO
+  return 0;  // TODO
 }
 
 /*
@@ -254,7 +254,7 @@ JNIEXPORT jboolean JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendDouble
   (JNIEnv*, jclass, jlong, jdouble)
 {
-  return JNI_FALSE; // TODO
+  return JNI_FALSE;  // TODO
 }
 
 /*
@@ -266,7 +266,7 @@ JNIEXPORT jboolean JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendDoubleTime
   (JNIEnv*, jclass, jlong, jlong, jdouble)
 {
-  return JNI_FALSE; // TODO
+  return JNI_FALSE;  // TODO
 }
 
 /*
@@ -278,7 +278,7 @@ JNIEXPORT jlong JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_openString
   (JNIEnv*, jclass, jstring, jint, jobject)
 {
-  return 0; // TODO
+  return 0;  // TODO
 }
 
 /*
@@ -290,7 +290,7 @@ JNIEXPORT jboolean JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendString
   (JNIEnv*, jclass, jlong, jstring)
 {
-  return JNI_FALSE; // TODO
+  return JNI_FALSE;  // TODO
 }
 
 /*
@@ -302,7 +302,7 @@ JNIEXPORT jboolean JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendStringTime
   (JNIEnv*, jclass, jlong, jlong, jstring)
 {
-  return JNI_FALSE; // TODO
+  return JNI_FALSE;  // TODO
 }
 
 /*
@@ -314,7 +314,7 @@ JNIEXPORT jlong JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_openBooleanArray
   (JNIEnv*, jclass, jstring, jint, jobject)
 {
-  return 0; // TODO
+  return 0;  // TODO
 }
 
 /*
@@ -326,7 +326,7 @@ JNIEXPORT jboolean JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendBooleanArray
   (JNIEnv*, jclass, jlong, jbooleanArray)
 {
-  return JNI_FALSE; // TODO
+  return JNI_FALSE;  // TODO
 }
 
 /*
@@ -338,7 +338,7 @@ JNIEXPORT jboolean JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendBooleanArrayTime
   (JNIEnv*, jclass, jlong, jlong, jbooleanArray)
 {
-  return JNI_FALSE; // TODO
+  return JNI_FALSE;  // TODO
 }
 
 /*
@@ -350,7 +350,7 @@ JNIEXPORT jlong JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_openDoubleArray
   (JNIEnv*, jclass, jstring, jint, jobject)
 {
-  return 0; // TODO
+  return 0;  // TODO
 }
 
 /*
@@ -362,7 +362,7 @@ JNIEXPORT jboolean JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendDoubleArray
   (JNIEnv*, jclass, jlong, jdoubleArray)
 {
-  return JNI_FALSE; // TODO
+  return JNI_FALSE;  // TODO
 }
 
 /*
@@ -374,7 +374,7 @@ JNIEXPORT jboolean JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendDoubleArrayTime
   (JNIEnv*, jclass, jlong, jlong, jdoubleArray)
 {
-  return JNI_FALSE; // TODO
+  return JNI_FALSE;  // TODO
 }
 
 /*
@@ -386,7 +386,7 @@ JNIEXPORT jlong JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_openStringArray
   (JNIEnv*, jclass, jstring, jint, jobject)
 {
-  return 0; // TODO
+  return 0;  // TODO
 }
 
 /*
@@ -398,7 +398,7 @@ JNIEXPORT jboolean JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendStringArray
   (JNIEnv*, jclass, jlong, jobjectArray)
 {
-  return JNI_FALSE; // TODO
+  return JNI_FALSE;  // TODO
 }
 
 /*
@@ -410,7 +410,7 @@ JNIEXPORT jboolean JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendStringArrayTime
   (JNIEnv*, jclass, jlong, jlong, jobjectArray)
 {
-  return JNI_FALSE; // TODO
+  return JNI_FALSE;  // TODO
 }
 
 }  // extern "C"
