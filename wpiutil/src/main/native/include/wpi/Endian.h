@@ -89,7 +89,13 @@ template<typename value_type,
          endianness endian,
          std::size_t alignment>
 inline value_type read(const void *memory) {
-  return read<value_type, alignment>(memory, endian);
+  value_type ret;
+
+  memcpy(&ret,
+         LLVM_ASSUME_ALIGNED(
+             memory, (detail::PickAlignment<value_type, alignment>::value)),
+         sizeof(value_type));
+  return byte_swap<value_type, endian>(ret);
 }
 
 /// Read a value of a particular endianness from a buffer, and increment the
