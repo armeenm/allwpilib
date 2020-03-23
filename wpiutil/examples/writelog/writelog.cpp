@@ -16,12 +16,19 @@ int main() {
   using std::chrono::microseconds;
 
   {
-    auto log = wpi::log::DoubleLog::Open("test.log", wpi::log::CD_CreateAlways);
-    if (!log) {
-      wpi::errs() << "could not open log\n";
-      return EXIT_FAILURE;
+    auto start = high_resolution_clock::now();
+    {
+      auto log =
+          wpi::log::DoubleLog::Open("test.log", wpi::log::CD_CreateAlways);
+      if (!log) {
+        wpi::errs() << "could not open log\n";
+        return EXIT_FAILURE;
+      }
+      for (int i = 0; i < 50; ++i) log->Append(20000 * i, 1.3 * i);
     }
-    for (int i = 0; i < 50; ++i) log->Append(20000 * i, 1.3 * i);
+    auto stop = high_resolution_clock::now();
+    std::cout << "50 double append (test.log): "
+              << duration_cast<microseconds>(stop - start).count() << '\n';
   }
 
   {
@@ -38,8 +45,8 @@ int main() {
       for (int i = 0; i < 500000; ++i) log->Append(20000 * i, 1.3 * i);
     }
     auto stop = high_resolution_clock::now();
-    std::cout << " time: " << duration_cast<microseconds>(stop - start).count()
-              << "\n";
+    std::cout << "500k double append (test2.log): "
+              << duration_cast<microseconds>(stop - start).count() << '\n';
   }
 #if 0
   {
@@ -61,35 +68,53 @@ int main() {
   }
 #endif
   {
-    auto log =
-        wpi::log::StringLog::Open("test-string.log", wpi::log::CD_CreateAlways);
-    if (!log) {
-      wpi::errs() << "could not open log\n";
-      return EXIT_FAILURE;
+    auto start = high_resolution_clock::now();
+    {
+      auto log = wpi::log::StringLog::Open("test-string.log",
+                                           wpi::log::CD_CreateAlways);
+      if (!log) {
+        wpi::errs() << "could not open log\n";
+        return EXIT_FAILURE;
+      }
+      for (int i = 0; i < 50; ++i) log->Append(20000 * i, "hello");
     }
-    for (int i = 0; i < 50; ++i) log->Append(20000 * i, "hello");
+    auto stop = high_resolution_clock::now();
+    std::cout << "50 string append (test-string.log): "
+              << duration_cast<microseconds>(stop - start).count() << '\n';
   }
 
   {
-    auto log = wpi::log::DoubleArrayLog::Open("test-double-array.log",
-                                              wpi::log::CD_CreateAlways);
-    if (!log) {
-      wpi::errs() << "could not open log\n";
-      return EXIT_FAILURE;
+    auto start = high_resolution_clock::now();
+    {
+      auto log = wpi::log::DoubleArrayLog::Open("test-double-array.log",
+                                                wpi::log::CD_CreateAlways);
+      if (!log) {
+        wpi::errs() << "could not open log\n";
+        return EXIT_FAILURE;
+      }
+      log->Append(20000, {1, 2, 3});
+      log->Append(30000, {4, 5});
     }
-    log->Append(20000, {1, 2, 3});
-    log->Append(30000, {4, 5});
+    auto stop = high_resolution_clock::now();
+    std::cout << "Double array append (test-double-array.log): "
+              << duration_cast<microseconds>(stop - start).count() << '\n';
   }
 
   {
-    auto log = wpi::log::StringArrayLog::Open("test-string-array.log",
-                                              wpi::log::CD_CreateAlways);
-    if (!log) {
-      wpi::errs() << "could not open log\n";
-      return EXIT_FAILURE;
+    auto start = high_resolution_clock::now();
+    {
+      auto log = wpi::log::StringArrayLog::Open("test-string-array.log",
+                                                wpi::log::CD_CreateAlways);
+      if (!log) {
+        wpi::errs() << "could not open log\n";
+        return EXIT_FAILURE;
+      }
+      log->Append(20000, {"Hello", "World"});
+      log->Append(30000, {"This", "Is", "Fun"});
     }
-    log->Append(20000, {"Hello", "World"});
-    log->Append(30000, {"This", "Is", "Fun"});
+    auto stop = high_resolution_clock::now();
+    std::cout << "String array append (test-string-array.log): "
+              << duration_cast<microseconds>(stop - start).count() << '\n';
   }
 
   return EXIT_SUCCESS;
