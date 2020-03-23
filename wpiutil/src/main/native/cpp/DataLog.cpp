@@ -347,21 +347,13 @@ wpi::Error DataLogImpl::DoOpen(const wpi::Twine& filename,
   if (disp == CD_OpenExisting ||
       (disp == CD_OpenAlways && m_time.fileSize > 0)) {
     if (wpi::Error e = ReadHeader()) {
-#if !defined(__clang__) && defined(__GNUC__) && __GNUC__ < 8
-      return std::move(e);
-#else
       return e;
-#endif
     }
 
     // check configuration
     if (wpi::Error e = Check(dataType, dataLayout, recordSize, config.checkType,
                              config.checkLayout, config.checkSize)) {
-#if !defined(__clang__) && defined(__GNUC__) && __GNUC__ < 8
-      return std::move(e);
-#else
       return e;
-#endif
     }
   } else {
     m_dataType = dataType.str();
@@ -549,7 +541,7 @@ wpi::Expected<DataLog> DataLog::Open(const wpi::Twine& filename,
   DataLog log(new DataLogImpl, true);
   if (wpi::Error e = log.m_impl->DoOpen(filename, dataType, dataLayout,
                                         recordSize, disp, config))
-    return std::move(e);
+    return e;
   return std::move(log);
 }
 
