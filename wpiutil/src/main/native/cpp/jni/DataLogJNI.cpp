@@ -113,7 +113,7 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_close
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
  * Method:    open
- * Signature: (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IILedu/wpi/first/wpiutil/datalog/DataLogConfig;)J
+ * Signature: (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IILjava/lang/Object;)J
  */
 JNIEXPORT jlong JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_open
@@ -122,7 +122,7 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_open
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
  * Method:    openRaw
- * Signature: (Ljava/lang/String;Ledu/wpi/first/wpiutil/datalog/DataLogConfig;)J
+ * Signature: (Ljava/lang/String;Ljava/lang/Object;)J
  */
 JNIEXPORT jlong JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_openRaw
@@ -158,7 +158,7 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_readRaw
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
  * Method:    openBoolean
- * Signature: (Ljava/lang/String;ILedu/wpi/first/wpiutil/datalog/DataLogConfig;)J
+ * Signature: (Ljava/lang/String;ILjava/lang/Object;)J
  */
 JNIEXPORT jlong JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_openBoolean
@@ -185,7 +185,7 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendBooleanTime
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
  * Method:    openDouble
- * Signature: (Ljava/lang/String;ILedu/wpi/first/wpiutil/datalog/DataLogConfig;)J
+ * Signature: (Ljava/lang/String;ILjava/lang/Object;)J
  */
 JNIEXPORT jlong JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_openDouble
@@ -212,7 +212,7 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendDoubleTime
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
  * Method:    openString
- * Signature: (Ljava/lang/String;ILedu/wpi/first/wpiutil/datalog/DataLogConfig;)J
+ * Signature: (Ljava/lang/String;ILjava/lang/Object;)J
  */
 JNIEXPORT jlong JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_openString
@@ -239,7 +239,7 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendStringTime
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
  * Method:    openBooleanArray
- * Signature: (Ljava/lang/String;ILedu/wpi/first/wpiutil/datalog/DataLogConfig;)J
+ * Signature: (Ljava/lang/String;ILjava/lang/Object;)J
  */
 JNIEXPORT jlong JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_openBooleanArray
@@ -266,7 +266,7 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendBooleanArrayTime
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
  * Method:    openDoubleArray
- * Signature: (Ljava/lang/String;ILedu/wpi/first/wpiutil/datalog/DataLogConfig;)J
+ * Signature: (Ljava/lang/String;ILjava/lang/Object;)J
  */
 JNIEXPORT jlong JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_openDoubleArray
@@ -293,7 +293,7 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendDoubleArrayTime
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
  * Method:    openStringArray
- * Signature: (Ljava/lang/String;ILedu/wpi/first/wpiutil/datalog/DataLogConfig;)J
+ * Signature: (Ljava/lang/String;ILjava/lang/Object;)J
  */
 JNIEXPORT jlong JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_openStringArray
@@ -302,7 +302,7 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_openStringArray
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
  * Method:    appendStringArray
- * Signature: (J[Ljava/lang/String;)Z
+ * Signature: (J[Ljava/lang/Object;)Z
  */
 JNIEXPORT jboolean JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendStringArray
@@ -311,7 +311,7 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendStringArray
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
  * Method:    appendStringArrayTime
- * Signature: (JJ[Ljava/lang/String;)Z
+ * Signature: (JJ[Ljava/lang/Object;)Z
  */
 JNIEXPORT jboolean JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendStringArrayTime
