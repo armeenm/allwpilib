@@ -7,6 +7,7 @@
 
 package edu.wpi.first.wpiutil.datalog;
 
+@SuppressWarnings("MemberName")
 public final class DataLogConfig {
   /**
    * Start out timestamp file with space for this many records.  Note the
@@ -24,13 +25,13 @@ public final class DataLogConfig {
    * Maximum map window size.  Larger is more efficient, but may have
    * issues on 32-bit systems.  Defaults to unlimited.
    */
-  public int maxMapSize = 0;
+  public int maxMapSize;
 
   /**
    * Periodic flush setting.  Flushes log to disk every N appends.
    * Defaults to no periodic flush.
    */
-  public int periodicFlush = 0;
+  public int periodicFlush;
 
   /**
    * Start out data file with space for this many bytes.  Note the
@@ -48,7 +49,7 @@ public final class DataLogConfig {
    * Use large (e.g. 64-bit) variable-sized data files when creating a new
    * log.  The default is to use 32-bit sizes for the variable-sized data.
    */
-  public boolean largeData = false;
+  public boolean largeData;
 
   /**
    * Fill data to put in between each record of variable-sized data in data
@@ -81,5 +82,5 @@ public final class DataLogConfig {
   /**
    * Open file in read-only mode.
    */
-  public boolean readOnly = false;
+  public boolean readOnly;
 }
