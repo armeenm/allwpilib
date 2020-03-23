@@ -36,7 +36,10 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_getDataType
  */
 JNIEXPORT jstring JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_getDataLayout
-  (JNIEnv*, jclass, jlong);
+  (JNIEnv*, jclass, jlong)
+{
+  return nullptr;  // TODO
+}
 
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
@@ -45,7 +48,10 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_getDataLayout
  */
 JNIEXPORT jint JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_getRecordSize
-  (JNIEnv*, jclass, jlong);
+  (JNIEnv*, jclass, jlong)
+{
+  return 0;  // TODO
+}
 
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
@@ -54,7 +60,10 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_getRecordSize
  */
 JNIEXPORT jboolean JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_isFixedSize
-  (JNIEnv*, jclass, jlong);
+  (JNIEnv*, jclass, jlong)
+{
+  return JNI_FALSE;  // TODO
+}
 
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
@@ -63,7 +72,10 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_isFixedSize
  */
 JNIEXPORT void JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_flush
-  (JNIEnv*, jclass, jlong);
+  (JNIEnv*, jclass, jlong)
+{
+  // TODO
+}
 
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
@@ -72,7 +84,10 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_flush
  */
 JNIEXPORT jint JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_getSize
-  (JNIEnv*, jclass, jlong);
+  (JNIEnv*, jclass, jlong)
+{
+  return 0;  // TODO
+}
 
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
@@ -81,7 +96,10 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_getSize
  */
 JNIEXPORT jint JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_find__JJI
-  (JNIEnv*, jclass, jlong, jlong, jint);
+  (JNIEnv*, jclass, jlong, jlong, jint)
+{
+  return 0;  // TODO
+}
 
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
@@ -90,7 +108,10 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_find__JJI
  */
 JNIEXPORT jint JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_find__JJII
-  (JNIEnv*, jclass, jlong, jlong, jint, jint);
+  (JNIEnv*, jclass, jlong, jlong, jint, jint)
+{
+  return 0;  // TODO
+}
 
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
@@ -99,7 +120,10 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_find__JJII
  */
 JNIEXPORT jboolean JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_check
-  (JNIEnv*, jclass, jlong, jstring, jint, jboolean, jboolean, jboolean);
+  (JNIEnv*, jclass, jlong, jstring, jint, jboolean, jboolean, jboolean)
+{
+  return JNI_FALSE;  // TODO
+}
 
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
@@ -108,7 +132,10 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_check
  */
 JNIEXPORT void JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_close
-  (JNIEnv*, jclass, jlong);
+  (JNIEnv*, jclass, jlong)
+{
+  // TODO
+}
 
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
@@ -117,7 +144,10 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_close
  */
 JNIEXPORT jlong JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_open
-  (JNIEnv*, jclass, jstring, jstring, jstring, jint, jint, jobject);
+  (JNIEnv*, jclass, jstring, jstring, jstring, jint, jint, jobject)
+{
+  return 0;  // TODO
+}
 
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
@@ -126,7 +156,10 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_open
  */
 JNIEXPORT jlong JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_openRaw
-  (JNIEnv*, jclass, jstring, jobject);
+  (JNIEnv*, jclass, jstring, jobject)
+{
+  return 0; // TODO
+}
 
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
@@ -135,7 +168,10 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_openRaw
  */
 JNIEXPORT jboolean JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendRaw
-  (JNIEnv*, jclass, jlong, jbyteArray);
+  (JNIEnv*, jclass, jlong, jbyteArray)
+{
+  return JNI_FALSE; // TODO
+}
 
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
@@ -144,7 +180,10 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendRaw
  */
 JNIEXPORT jboolean JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendRawTime
-  (JNIEnv*, jclass, jlong, jlong, jbyteArray);
+  (JNIEnv*, jclass, jlong, jlong, jbyteArray)
+{
+  return JNI_FALSE; // TODO
+}
 
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
@@ -153,7 +192,10 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendRawTime
  */
 JNIEXPORT jbyteArray JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_readRaw
-  (JNIEnv*, jclass, jlong, jint);
+  (JNIEnv*, jclass, jlong, jint)
+{
+  return nullptr; // TODO
+}
 
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
@@ -162,7 +204,10 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_readRaw
  */
 JNIEXPORT jlong JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_openBoolean
-  (JNIEnv*, jclass, jstring, jint, jobject);
+  (JNIEnv*, jclass, jstring, jint, jobject)
+{
+  return 0; // TODO
+}
 
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
@@ -171,7 +216,10 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_openBoolean
  */
 JNIEXPORT jboolean JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendBoolean
-  (JNIEnv*, jclass, jlong, jboolean);
+  (JNIEnv*, jclass, jlong, jboolean)
+{
+  return JNI_FALSE; // TODO
+}
 
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
@@ -180,7 +228,10 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendBoolean
  */
 JNIEXPORT jboolean JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendBooleanTime
-  (JNIEnv*, jclass, jlong, jlong, jboolean);
+  (JNIEnv*, jclass, jlong, jlong, jboolean)
+{
+  return JNI_FALSE; // TODO
+}
 
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
@@ -189,7 +240,10 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendBooleanTime
  */
 JNIEXPORT jlong JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_openDouble
-  (JNIEnv*, jclass, jstring, jint, jobject);
+  (JNIEnv*, jclass, jstring, jint, jobject)
+{
+  return 0; // TODO
+}
 
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
@@ -198,7 +252,10 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_openDouble
  */
 JNIEXPORT jboolean JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendDouble
-  (JNIEnv*, jclass, jlong, jdouble);
+  (JNIEnv*, jclass, jlong, jdouble)
+{
+  return JNI_FALSE; // TODO
+}
 
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
@@ -207,7 +264,10 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendDouble
  */
 JNIEXPORT jboolean JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendDoubleTime
-  (JNIEnv*, jclass, jlong, jlong, jdouble);
+  (JNIEnv*, jclass, jlong, jlong, jdouble)
+{
+  return JNI_FALSE; // TODO
+}
 
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
@@ -216,7 +276,10 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendDoubleTime
  */
 JNIEXPORT jlong JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_openString
-  (JNIEnv*, jclass, jstring, jint, jobject);
+  (JNIEnv*, jclass, jstring, jint, jobject)
+{
+  return 0; // TODO
+}
 
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
@@ -225,7 +288,10 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_openString
  */
 JNIEXPORT jboolean JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendString
-  (JNIEnv*, jclass, jlong, jstring);
+  (JNIEnv*, jclass, jlong, jstring)
+{
+  return JNI_FALSE; // TODO
+}
 
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
@@ -234,7 +300,10 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendString
  */
 JNIEXPORT jboolean JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendStringTime
-  (JNIEnv*, jclass, jlong, jlong, jstring);
+  (JNIEnv*, jclass, jlong, jlong, jstring)
+{
+  return JNI_FALSE; // TODO
+}
 
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
@@ -243,7 +312,10 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendStringTime
  */
 JNIEXPORT jlong JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_openBooleanArray
-  (JNIEnv*, jclass, jstring, jint, jobject);
+  (JNIEnv*, jclass, jstring, jint, jobject)
+{
+  return 0; // TODO
+}
 
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
@@ -252,7 +324,10 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_openBooleanArray
  */
 JNIEXPORT jboolean JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendBooleanArray
-  (JNIEnv*, jclass, jlong, jbooleanArray);
+  (JNIEnv*, jclass, jlong, jbooleanArray)
+{
+  return JNI_FALSE; // TODO
+}
 
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
@@ -261,7 +336,10 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendBooleanArray
  */
 JNIEXPORT jboolean JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendBooleanArrayTime
-  (JNIEnv*, jclass, jlong, jlong, jbooleanArray);
+  (JNIEnv*, jclass, jlong, jlong, jbooleanArray)
+{
+  return JNI_FALSE; // TODO
+}
 
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
@@ -270,7 +348,10 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendBooleanArrayTime
  */
 JNIEXPORT jlong JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_openDoubleArray
-  (JNIEnv*, jclass, jstring, jint, jobject);
+  (JNIEnv*, jclass, jstring, jint, jobject)
+{
+  return 0; // TODO
+}
 
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
@@ -279,7 +360,10 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_openDoubleArray
  */
 JNIEXPORT jboolean JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendDoubleArray
-  (JNIEnv*, jclass, jlong, jdoubleArray);
+  (JNIEnv*, jclass, jlong, jdoubleArray)
+{
+  return JNI_FALSE; // TODO
+}
 
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
@@ -288,7 +372,10 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendDoubleArray
  */
 JNIEXPORT jboolean JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendDoubleArrayTime
-  (JNIEnv*, jclass, jlong, jlong, jdoubleArray);
+  (JNIEnv*, jclass, jlong, jlong, jdoubleArray)
+{
+  return JNI_FALSE; // TODO
+}
 
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
@@ -297,7 +384,10 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendDoubleArrayTime
  */
 JNIEXPORT jlong JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_openStringArray
-  (JNIEnv*, jclass, jstring, jint, jobject);
+  (JNIEnv*, jclass, jstring, jint, jobject)
+{
+  return 0; // TODO
+}
 
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
@@ -306,7 +396,10 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_openStringArray
  */
 JNIEXPORT jboolean JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendStringArray
-  (JNIEnv*, jclass, jlong, jobjectArray);
+  (JNIEnv*, jclass, jlong, jobjectArray)
+{
+  return JNI_FALSE; // TODO
+}
 
 /*
  * Class:     edu_wpi_first_wpiutil_datalog_DataLogJNI
@@ -315,6 +408,9 @@ Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendStringArray
  */
 JNIEXPORT jboolean JNICALL
 Java_edu_wpi_first_wpiutil_datalog_DataLogJNI_appendStringArrayTime
-  (JNIEnv*, jclass, jlong, jlong, jobjectArray);
+  (JNIEnv*, jclass, jlong, jlong, jobjectArray)
+{
+  return JNI_FALSE; // TODO
+}
 
 }  // extern "C"
