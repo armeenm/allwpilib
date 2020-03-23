@@ -686,7 +686,7 @@ class DataLogStaticMixin {
     if (wpi::Error e =
             impl->Check(Derived::kDataType, Derived::kDataLayout,
                         Derived::kRecordSize, true, checkLayout, true))
-      return e;
+      return std::move(e);
     return Derived(impl, false);
   }
 
@@ -718,7 +718,7 @@ class DataLogStaticMixin {
     if (wpi::Error e = log.GetImpl()->DoOpen(
             filename, Derived::kDataType, Derived::kDataLayout,
             Derived::kRecordSize, disp, config))
-      return e;
+      return std::move(e);
     return std::move(log);
   }
 };
