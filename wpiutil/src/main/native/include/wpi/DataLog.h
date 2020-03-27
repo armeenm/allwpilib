@@ -683,14 +683,10 @@ class DataLogStaticMixin {
   static wpi::Expected<Derived> Wrap(DataLog& datalog,
                                      bool checkLayout = false) {
     auto impl = datalog.GetImpl();
-    if (wpi::Error e =
+    if (wpi::Expected<Derived> e =
             impl->Check(Derived::kDataType, Derived::kDataLayout,
                         Derived::kRecordSize, true, checkLayout, true))
-#if defined(__clang__) || (defined(__GNUC__) && __GNUC__ < 8)
-      return std::move(e);
-#else
       return e;
-#endif
     return Derived(impl, false);
   }
 
@@ -719,20 +715,12 @@ class DataLogStaticMixin {
                                      CreationDisposition disp,
                                      const DataLogImpl::Config& config = {}) {
     Derived log(new DataLogImpl, true);
-    if (wpi::Error e = log.GetImpl()->DoOpen(
+    if (wpi::Expected<Derived> e = log.GetImpl()->DoOpen(
             filename, Derived::kDataType, Derived::kDataLayout,
             Derived::kRecordSize, disp, config))
-
-#if defined(__clang__)
-      return std::move(e);
-    return log;
-#elif defined(__GNUC__) && __GNUC__ < 8
-      return std::move(e);
-    return std::move(log);
-#else
       return e;
-    return log;
-#endif
+    return wpi::Expected<Derived>{std::move(log)};
+
   }
 };
 
