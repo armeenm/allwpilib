@@ -686,7 +686,7 @@ class DataLogStaticMixin {
     if (wpi::Error e =
             impl->Check(Derived::kDataType, Derived::kDataLayout,
                         Derived::kRecordSize, true, checkLayout, true))
-#if !defined(__clang__) && defined(__GNUC__) && __GNUC__ < 8
+#if defined(__clang__) || defined(__GNUC__) && __GNUC__ < 8
       return std::move(e);
 #else
       return e;
@@ -726,6 +726,9 @@ class DataLogStaticMixin {
 #if !defined(__clang__) && defined(__GNUC__) && __GNUC__ < 8
       return std::move(e);
     return std::move(log);
+#elif defined(__clang__)
+      return std::move(e);
+    return log;
 #else
       return e;
     return log;
