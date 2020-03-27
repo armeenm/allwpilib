@@ -540,9 +540,9 @@ wpi::Expected<DataLog> DataLog::Open(const wpi::Twine& filename,
                                      const Config& config) {
   DataLog log(new DataLogImpl, true);
 
-  if (wpi::Expected<DataLog> e = log.m_impl->DoOpen(filename, dataType, dataLayout,
+  if (wpi::Error e = log.m_impl->DoOpen(filename, dataType, dataLayout,
                                         recordSize, disp, config))
-    return e;
+    return wpi::Expected<DataLog>{std::move(e)};
   return wpi::Expected<DataLog>{std::move(log)};
 }
 

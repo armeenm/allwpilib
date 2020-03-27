@@ -683,10 +683,10 @@ class DataLogStaticMixin {
   static wpi::Expected<Derived> Wrap(DataLog& datalog,
                                      bool checkLayout = false) {
     auto impl = datalog.GetImpl();
-    if (wpi::Expected<Derived> e =
+    if (wpi::Error e =
             impl->Check(Derived::kDataType, Derived::kDataLayout,
                         Derived::kRecordSize, true, checkLayout, true))
-      return e;
+      return wpi::Expected<Derived>{std::move(e)};
     return Derived(impl, false);
   }
 
@@ -715,10 +715,10 @@ class DataLogStaticMixin {
                                      CreationDisposition disp,
                                      const DataLogImpl::Config& config = {}) {
     Derived log(new DataLogImpl, true);
-    if (wpi::Expected<Derived> e = log.GetImpl()->DoOpen(
+    if (wpi::Error e = log.GetImpl()->DoOpen(
             filename, Derived::kDataType, Derived::kDataLayout,
             Derived::kRecordSize, disp, config))
-      return e;
+      return wpi::Expected<Derived>{std::move(e)};
     return wpi::Expected<Derived>{std::move(log)};
 
   }
