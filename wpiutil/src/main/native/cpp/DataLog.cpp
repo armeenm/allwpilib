@@ -552,6 +552,9 @@ wpi::Expected<DataLog> DataLog::Open(const wpi::Twine& filename,
 #if !defined(__clang__) && defined(__GNUC__) && __GNUC__ < 8
     return std::move(e);
   return std::move(log);
+#elif defined(__clang__)
+    return std::move(e);
+  return log;
 #else
     return e;
   return log;
