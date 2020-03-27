@@ -723,12 +723,12 @@ class DataLogStaticMixin {
             filename, Derived::kDataType, Derived::kDataLayout,
             Derived::kRecordSize, disp, config))
 
-#if !defined(__clang__) && defined(__GNUC__) && __GNUC__ < 8
-      return std::move(e);
-    return std::move(log);
-#elif defined(__clang__)
+#if defined(__clang__)
       return std::move(e);
     return log;
+#elif defined(__GNUC__) && __GNUC__ < 8
+      return std::move(e);
+    return std::move(log);
 #else
       return e;
     return log;
